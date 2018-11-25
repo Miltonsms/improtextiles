@@ -1,0 +1,269 @@
+<div class="row">
+  <div class="col-md-6 borderight">
+    <div class="row float-right">
+        <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">Nuevo Usuarios</button>
+    </div>
+    <hr style="margin-top: 50px !important;"/>
+
+    <!-- popup creacion de clientes -->
+    <div class="row">
+        <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Creación de usuarios</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                          <div class="container">
+                              <form style="width: 100%;">
+                                  <h2>Datos del Usuario</h2>
+                                  <p>En la siguiente areá podra colocar la informacion de sus usuarios:</p>   
+                                  <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                      <label for="inputEmail4">Nombre</label>
+                                      <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre" [(ngModel)]="nombreUser" name="nombreUser">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="inputPassword4">Cargo</label>
+                                      <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="cargoUser" name="cargoUser">
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Email</label>
+                                        <input type="email" class="form-control" id="inputEmail5" placeholder="Email" [(ngModel)]="emailUser" name="emailUser">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Contraseña</label>
+                                        <input type="password" class="form-control" id="inputPassword5" placeholder="Contraseña" [(ngModel)]="passwordUser" name="passwordUser">
+                                      </div>
+                                    </div>
+                                      <hr/>
+                                </form>
+                          </div>
+                          <div class="container">
+                              <h2>Permisos de Modulos</h2>
+                              <p>En la siguiente areá podra otorgar permisos a los usuarios:</p>            
+                              <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Permisos</th>
+                                    <th>Ususiros</th>
+                                    <th>Clientes</th>
+                                    <th>Proveedores</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Ver</td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkUser" (chsange)="checkValue(checkUser?0:1)">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkClientes" (chsange)="checkValue(checkClientes?0:1)">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkProveedores" (chsange)="checkValue(checkProveedores?0:1)">
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Editar</td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkUser">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkClientes">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkProveedores">
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Eliminar</td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkUser">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkClientes">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkProveedores">
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary">Guardar Usuario</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <!-- listado de clintes -->
+    <div class="row">
+        <div class="container">
+            <h2>Listado de usuarios</h2>    
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cargo</th>
+                  <th>Correo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let users of user" (click)="MostrarDatos(users)" style="cursor:pointer; cursor: hand">
+                  <td>{{users.Nombre}}</td>
+                  <td>
+                      {{users.correo}}
+                  </td>
+                  <td>
+                      {{users.cargo}}
+                  </td>
+              </tbody>
+            </table>
+          </div>
+    </div>
+  </div>
+  <!-- informacion de clientes  individual -->
+  <div class="col-md-6">
+      <div class="row float-right">
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Editar Usuario</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;">Eliminar Usuario</button>
+      </div>
+      <hr style="margin-top: 50px !important;"/>
+    <div class="row">
+        <div class="container">
+            <h2>Información del Usuario</h2>   
+            <form style="width: 100%;">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Nombre</label>
+                    <input type="text" class="form-control" id="MostrarNombreUser" placeholder="Nombre" [(ngModel)]="MostrarNombreUser" name="nombreUser" [disabled]="editar"> 
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4">Cargo</label>
+                    <input type="text" class="form-control" id="MostrarCargoUser" placeholder="Cargo" [(ngModel)]="MostrarCargoUser" name="cargoUser" [disabled]="editar">
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Email</label>
+                      <input type="email" class="form-control" id="MostrarEmailUser" placeholder="Email" [(ngModel)]="MostrarEmailUser" name="emailUser" [disabled]="editar">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Contraseña</label>
+                      <input type="password" class="form-control" id="MostrarPassword" placeholder="Contraseña" [(ngModel)]="passwordUser" name="passwordUser" [disabled]="editar">
+                    </div>
+                  </div>
+                    <hr/>
+              </form>
+        </div>
+        <div class="container">
+            <h2>Permisos de Modulos</h2>
+            <p>En la siguiente areá podra otorgar permisos a los usuarios:</p>            
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Permisos</th>
+                  <th>Ususiros</th>
+                  <th>Clientes</th>
+                  <th>Proveedores</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ver</td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="userVer" [disabled]="editar">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkClientes" [disabled]="editar">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkProveedores" [disabled]="editar">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Editar</td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="userEditar" [disabled]="editar">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Eliminar</td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="userEliminar" [checked]="userEliminar" [disabled]="editar">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                    </div>
+                  </td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+          
+  </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Guardar</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 20px;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

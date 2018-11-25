@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+hr {
+    display: block;
+    height: 1px;
+    margin-top: 50px !important;
+    border: 0;
+    border-top: 1px solid #ccc !important;
+    margin: 1em 0;
+    padding: 0; 
+}
+
+.borderight{
+    height: -webkit-fill-available;
+    border-right: solid 3px #f2f2f2;
+}
