@@ -1,4 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+export interface Empleado { 
+    nombre: string;
+    emailLaboral: string;  
+}
+
+export interface EmpleadoId extends Empleado { id: string; }
+
+export interface usuarios {
+        nombre: string;
+        correo:string,
+        password:string,
+        ModuloUserRRHH:{
+            ver:boolean,
+            editar:boolean,
+            eleminar:boolean
+        }
+    }
 
 @Component({
   selector: 'app-user',
@@ -6,6 +27,23 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class UserComponent implements OnInit {
+//empledos
+  private empleadoCollection: AngularFirestoreCollection<Empleado>;
+  empleados: Observable<EmpleadoId[]>;
+
+//   nuevo usuario 
+nuevoUsuario: usuarios = {
+    nombre: '',
+    correo:'',
+    password:'',
+    ModuloUserRRHH:{
+        ver: false,
+        editar:false,
+        eleminar:false
+    }
+};
+
+
   public newDato;
   nombreUser: string;
   cargoUser: string;
@@ -22,58 +60,40 @@ MostrarCargoUser: string;
 MostrarEmailUser: string;
 MostrarPasswordUser: string;
 
-  user=[
-        {
-            "Nombre":"milton",
-            "correo":"m@gmail.com",
-            "cargo":"gerente",
-            "ModuloUser":{
-                "ver":true,
-                "editar":true,
-                "eleminar":false
-            }
-        },
-        {
-            "Nombre":"sergio",
-            "correo":"s@gmail.com",
-            "cargo":"supervisor",
-            "ModuloUser":{
-                "ver":true,
-                "editar":true,
-                "eleminar":false
-            }
-        },
-        {
-            "Nombre":"saul",
-            "correo":"s@gmail.com",
-            "cargo":"visitador Medico",
-            "ModuloUser":{
-                "ver":true,
-                "editar":true,
-                "eleminar":false
-            }
-        },
-        {
-            "Nombre":"milton",
-            "correo":"m@gmail.com",
-            "cargo":"gerente",
-            "ModuloUser":{
-                "ver":true,
-                "editar":true,
-                "eleminar":false
-            }
-        }
-    ];
-  constructor() { }
+// ver datos de firebase de empelados
+docEmpleado: AngularFirestoreDocument<Empleado>;
+editEmpleado: Observable<Empleado>;
+
+  constructor(private readonly afs: AngularFirestore) {
+
+    this.empleadoCollection = afs.collection<Empleado>('empleados');
+    this.empleados = this.empleadoCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Empleado;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+
+   }
 
   ngOnInit() {
   }
-  pustDatos(){
-    this.newDato ={
-      "Nombre":''+this.nombreUser+'',
-      "correo":''+this.emailUser+'',
-      "cargo":''+this.cargoUser+''
-      }
+
+
+
+  addUsuarios(empleado: Empleado) {
+    this.empleadoCollection.add(empleado);
+    this.nuevoUsuario = {
+        nombre: '',
+        correo:'',
+        password:'',
+        ModuloUserRRHH:{
+            ver: false,
+            editar:false,
+            eleminar:false
+        }
+    };
   }
 
   MostrarDatos(users){

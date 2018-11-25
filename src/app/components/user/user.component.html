@@ -24,24 +24,16 @@
                                   <p>En la siguiente areá podra colocar la informacion de sus usuarios:</p>   
                                   <div class="form-row">
                                     <div class="form-group col-md-6">
-                                      <label for="inputEmail4">Nombre</label>
-                                      <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre" [(ngModel)]="nombreUser" name="nombreUser">
+                                      <label for="inputEmail4">Seleccione Empleado</label>
+                                      <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="nuevoUsuario.nombre" name="sexoEmpleado">
+                                          <option  *ngFor="let empleado of empleados | async" value="empleado.nombre">{{empleado.nombre}}</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                      <label for="inputPassword4">Cargo</label>
-                                      <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="cargoUser" name="cargoUser">
+                                      <label for="inputPassword4">Contraseña</label>
+                                      <input type="password" class="form-control" id="inputPassword4" placeholder="password" [(ngModel)]="nuevoUsuario.password" name="cargoUser">
                                     </div>
                                   </div>
-                                  <div class="form-row">
-                                      <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Email</label>
-                                        <input type="email" class="form-control" id="inputEmail5" placeholder="Email" [(ngModel)]="emailUser" name="emailUser">
-                                      </div>
-                                      <div class="form-group col-md-6">
-                                        <label for="inputPassword4">Contraseña</label>
-                                        <input type="password" class="form-control" id="inputPassword5" placeholder="Contraseña" [(ngModel)]="passwordUser" name="passwordUser">
-                                      </div>
-                                    </div>
                                       <hr/>
                                 </form>
                           </div>
@@ -62,7 +54,7 @@
                                     <td>Ver</td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkUser" (chsange)="checkValue(checkUser?0:1)">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.ver" (chsange)="checkValue(nuevoUsuario.ModuloUserRRHH.ver?0:1)">
                                       </div>
                                     </td>
                                     <td>
@@ -80,7 +72,7 @@
                                     <td>Editar</td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkUser">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.editar" *ngIf="nuevoUsuario.ModuloUserRRHH.ver">
                                       </div>
                                     </td>
                                     <td>
@@ -98,7 +90,7 @@
                                     <td>Eliminar</td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkUser">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.eliminar" *ngIf="nuevoUsuario.ModuloUserRRHH.ver" >
                                       </div>
                                     </td>
                                     <td>
@@ -140,14 +132,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let users of user" (click)="MostrarDatos(users)" style="cursor:pointer; cursor: hand">
+                <!-- <tr *ngFor="let users of user" (click)="MostrarDatos(users)" style="cursor:pointer; cursor: hand">
                   <td>{{users.Nombre}}</td>
                   <td>
                       {{users.correo}}
                   </td>
                   <td>
                       {{users.cargo}}
-                  </td>
+                  </td> -->
+                  <tr *ngFor="let empleado of empleados | async"  style="cursor:pointer; cursor: hand">
+                      <td>{{empleado.nombre}}</td>
+                      <td>
+                          {{empleado.cargo}}
+                      </td>
+                      <td>
+                          {{empleado.emailLaboral}}
+                      </td>
+                    </tr>
               </tbody>
             </table>
           </div>

@@ -27,10 +27,12 @@ export class RrhhComponent implements OnInit {
     emailLaboral: '',
     cargo: ''
   };
+  editar = true;
   docEmpleado: AngularFirestoreDocument<Empleado>;
   editEmpleado: Observable<Empleado>;
 
   constructor(private readonly afs: AngularFirestore) {
+
     this.empleadoCollection = afs.collection<Empleado>('empleados');
     this.empleados = this.empleadoCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -39,6 +41,8 @@ export class RrhhComponent implements OnInit {
         return { id, ...data };
       }))
     );
+
+    
   }
 
   ngOnInit() {
@@ -70,4 +74,15 @@ export class RrhhComponent implements OnInit {
   setEmpleado(empleado) {
     this.docEmpleado.update(empleado);
   }
+
+  daleteEmpleado(empleado) {
+    this.docEmpleado.delete();
+  }
+  ButtonEditar(){
+    this.editar = false;
+}
+ButtonEditarCancelar(){
+  this.editar = true;
+}
+
 }

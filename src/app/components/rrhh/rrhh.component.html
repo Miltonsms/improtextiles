@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6 borderight">
     <div class="row float-right">
-        <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">Nuevo Empleados</button>
+        <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Nuevo Empleados</button>
     </div>
     <hr style="margin-top: 50px !important;"/>
 
@@ -120,6 +120,7 @@
                   <td>
                       {{empleado.emailLaboral}}
                   </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -129,7 +130,29 @@
   <div class="col-md-6" *ngIf="editEmpleado | async as editEmpleado">
       <div class="row float-right">
           <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Editar Empleado</button>
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;">Eliminar Empleado</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar">Eliminar Empleado</button>
+
+          <!--  modal mensaje para elminar-->
+
+          <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Empleado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      Esta seguro que desea eliminar este empelado.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="daleteEmpleado(editEmpleado)" data-dismiss="modal">SI</button>
+                  </div>
+                </div>
+              </div>
+            </div>
       </div>
       <hr style="margin-top: 50px !important;"/>
     <div class="row">
@@ -152,7 +175,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">Fecha de Nacimiento</label>
-                    <input type="text" class="form-control" id="inputEmail5" placeholder="Fecha de Nacimiento" [(ngModel)]="editEmpleado.fechaNacimiento" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                    <input type="date" class="form-control" id="inputEmail5" placeholder="Fecha de Nacimiento" [(ngModel)]="editEmpleado.fechaNacimiento" name="ferchaNacimientoEmpelado" [disabled]="editar">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputPassword4">No. de DPI</label>
@@ -169,7 +192,7 @@
                       </div>
                     <div class="form-group col-md-6">
                       <label for="inputEmail4">Estado Civil</label>
-                      <input type="text" class="form-control" id="inputEmail5" placeholder="Estado Civil" [(ngModel)]="editEmpleado.EstadoCivil" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                      <input type="text" class="form-control" id="inputEmail5" placeholder="Estado Civil" [(ngModel)]="editEmpleado.EstadoCivil" name="EstadoCivil" [disabled]="editar">
                     </div>
                   </div>
                   <div class="form-row">
@@ -192,11 +215,11 @@
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Fecha de Ingreso Empresa</label>
-                      <input type="date" class="form-control" id="inputPassword5" placeholder="Fecha de Ingreso Empresa" [(ngModel)]="editEmpleado.FechaIngreso" name="emailEmpelado" [disabled]="editar">
+                      <input type="date" class="form-control" id="inputPassword5" placeholder="Fecha de Ingreso Empresa" [(ngModel)]="editEmpleado.FechaIngreso" name="ingresoEmpleado" [disabled]="editar">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputPassword4">Email laboral</label>
-                        <input type="email" class="form-control" id="inputPassword5" placeholder="Email laboral" [(ngModel)]="editEmpleado.emailLaboral" name="emailEmpelado" [disabled]="editar">
+                        <input type="email" class="form-control" id="inputPassword5" placeholder="Email laboral" [(ngModel)]="editEmpleado.emailLaboral" name="emailLaboralEmpelado" [disabled]="editar">
                       </div>
                   </div>
               </form>
@@ -205,7 +228,7 @@
     <div class="row">
       <div class="col-md-12 text-right">
         <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setEmpleado(editEmpleado)">Guardar</button>
-        <button type="button" class="btn btn-danger" style="margin-right: 20px;">Cancelar</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()">Cancelar</button>
       </div>
     </div>
   </div>
