@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+export interface Empleado { nombre: string; cargo: string; }
+export interface EmpleadoId extends Empleado { id: string; }
 
 @Component({
   selector: 'app-rrhh',
@@ -6,10 +12,44 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class RrhhComponent implements OnInit {
+  private empleadoCollection: AngularFirestoreCollection<Empleado>;
+  empleados: Observable<EmpleadoId[]>;
+  nuevoEmpleado: Empleado = {
+    nombre: '',
+    cargo: ''
+  };
+  docEmpleado: AngularFirestoreDocument<Empleado>;
+  editEmpleado: Observable<Empleado>;
 
-  constructor() { }
+  constructor(private readonly afs: AngularFirestore) {
+    this.empleadoCollection = afs.collection<Empleado>('empleados');
+    this.empleados = this.empleadoCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Empleado;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
 
   ngOnInit() {
   }
 
+  verEmpleado(empleado) {
+    this.docEmpleado = this.afs.doc(`empleados/${empleado.id}`);
+    this.editEmpleado = this.docEmpleado.valueChanges();
+    console.log(this.docEmpleado);
+  }
+
+  addEmpleado(empleado: Empleado) {
+    this.empleadoCollection.add(empleado);
+    this.nuevoEmpleado = {
+      nombre: '',
+      cargo: ''
+    };
+  }
+
+  setEmpleado(empleado) {
+    this.docEmpleado.update(empleado);
+  }
 }
