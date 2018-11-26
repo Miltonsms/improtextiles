@@ -26,7 +26,7 @@
                                     <div class="form-group col-md-6">
                                       <label for="inputEmail4">Seleccione Empleado</label>
                                       <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="nuevoUsuario.nombre" name="sexoEmpleado">
-                                          <option  *ngFor="let empleado of empleados | async" value="empleado.nombre">{{empleado.nombre}}</option>
+                                          <option  *ngFor="let empleado of empleados | async" value="{{empleado.nombre}}">{{empleado.nombre}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -34,6 +34,22 @@
                                       <input type="password" class="form-control" id="inputPassword4" placeholder="password" [(ngModel)]="nuevoUsuario.password" name="cargoUser">
                                     </div>
                                   </div>
+                                  <!-- <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                          <label for="inputPassword4">nombre</label>
+                                          <input type="text" class="form-control" id="inputPassword5" placeholder=" " [(ngModel)]="nuevoUsuario.nombre" name="cargoUser" value="{{dataUser.split(',')[0]}}">
+                                        </div>
+                                      <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Email</label>
+                                        <input type="text" class="form-control" id="inputPassword6" placeholder=" " [(ngModel)]="nuevoUsuario.correo" name="cargoUser" value="{{dataUser.split(',')[1]}}">
+                                      </div>
+                                  </div> -->
+                                  <!-- <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Email</label>
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="password" [(ngModel)]="empleados.emailLaboral" name="cargoUser">
+                                      </div>
+                                    </div> -->
                                       <hr/>
                                 </form>
                           </div>
@@ -112,7 +128,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary">Guardar Usuario</button>
+                  <button type="button" class="btn btn-primary" (click)="addUsuarios(nuevoUsuario)" data-dismiss="modal">Guardar Usuario</button>
                 </div>
               </div>
             </div>
@@ -127,8 +143,8 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Cargo</th>
-                  <th>Correo</th>
+                  <!-- <th>Cargo</th>
+                  <th>Correo</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -140,14 +156,14 @@
                   <td>
                       {{users.cargo}}
                   </td> -->
-                  <tr *ngFor="let empleado of empleados | async"  style="cursor:pointer; cursor: hand">
-                      <td>{{empleado.nombre}}</td>
-                      <td>
+                  <tr *ngFor="let empleado of usuarios | async"  style="cursor:pointer; cursor: hand">
+                      <td (click)="verUsuario(empleado)" style="cursor:pointer; cursor: hand">{{empleado.nombre}}</td>
+                      <!-- <td>
                           {{empleado.cargo}}
                       </td>
                       <td>
                           {{empleado.emailLaboral}}
-                      </td>
+                      </td> -->
                     </tr>
               </tbody>
             </table>
@@ -155,10 +171,32 @@
     </div>
   </div>
   <!-- informacion de clientes  individual -->
-  <div class="col-md-6">
+  <div class="col-md-6" *ngIf="editUsuario | async as editUsuario">
       <div class="row float-right">
           <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Editar Usuario</button>
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;">Eliminar Usuario</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar">Eliminar Usuario</button>
+
+          <!--  modal mensaje para elminar-->
+
+          <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      Esta seguro que desea eliminar este Usuario.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="daleteEmpleado(editEmpleado)" data-dismiss="modal">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+          </div>
       </div>
       <hr style="margin-top: 50px !important;"/>
     <div class="row">
@@ -168,14 +206,14 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">Nombre</label>
-                    <input type="text" class="form-control" id="MostrarNombreUser" placeholder="Nombre" [(ngModel)]="MostrarNombreUser" name="nombreUser" [disabled]="editar"> 
+                    <input type="text" class="form-control" id="MostrarNombreUser" placeholder="Nombre" [(ngModel)]="editUsuario.nombre" name="nombreUser" [disabled]="editarUsuario"> 
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputPassword4">Cargo</label>
-                    <input type="text" class="form-control" id="MostrarCargoUser" placeholder="Cargo" [(ngModel)]="MostrarCargoUser" name="cargoUser" [disabled]="editar">
+                    <input type="password" class="form-control" id="MostrarCargoUser" placeholder="Cargo" [(ngModel)]="editUsuario.password" name="cargoUser" [disabled]="editar">
                   </div>
                 </div>
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="inputEmail4">Email</label>
                       <input type="email" class="form-control" id="MostrarEmailUser" placeholder="Email" [(ngModel)]="MostrarEmailUser" name="emailUser" [disabled]="editar">
@@ -184,7 +222,7 @@
                       <label for="inputPassword4">Contraseña</label>
                       <input type="password" class="form-control" id="MostrarPassword" placeholder="Contraseña" [(ngModel)]="passwordUser" name="passwordUser" [disabled]="editar">
                     </div>
-                  </div>
+                  </div> -->
                     <hr/>
               </form>
         </div>
@@ -195,9 +233,9 @@
               <thead>
                 <tr>
                   <th>Permisos</th>
-                  <th>Ususiros</th>
-                  <th>Clientes</th>
-                  <th>Proveedores</th>
+                  <th>RHHH</th>
+                  <!-- <th>Clientes</th>
+                  <th>Proveedores</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -205,10 +243,10 @@
                   <td>Ver</td>
                   <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="userVer" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.ver" [disabled]="editar">
                     </div>
                   </td>
-                  <td>
+                  <!-- <td>
                     <div class="form-check">
                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkClientes" [disabled]="editar">
                     </div>
@@ -217,16 +255,16 @@
                     <div class="form-check">
                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkProveedores" [disabled]="editar">
                     </div>
-                  </td>
+                  </td> -->
                 </tr>
                 <tr>
                   <td>Editar</td>
                   <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="userEditar" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.editar" [disabled]="editar">
                     </div>
                   </td>
-                  <td>
+                  <!-- <td>
                     <div class="form-check">
                          <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
                     </div>
@@ -235,16 +273,16 @@
                     <div class="form-check">
                          <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
                     </div>
-                  </td>
+                  </td> -->
                 </tr>
                 <tr>
                   <td>Eliminar</td>
                   <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="userEliminar" [checked]="userEliminar" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.eliminar" [checked]="userEliminar" [disabled]="editar">
                     </div>
                   </td>
-                  <td>
+                  <!-- <td>
                     <div class="form-check">
                          <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
                     </div>
@@ -253,7 +291,7 @@
                     <div class="form-check">
                          <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
                     </div>
-                  </td>
+                  </td> -->
                 </tr> 
               </tbody>
             </table>
@@ -261,9 +299,9 @@
           
   </div>
     <div class="row">
-      <div class="col-md-12 text-center">
-        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Guardar</button>
-        <button type="button" class="btn btn-danger" style="margin-right: 20px;">Cancelar</button>
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setUsuario(editUsuario)" [disabled]="editar">Guardar</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar">Cancelar</button>
       </div>
     </div>
   </div>

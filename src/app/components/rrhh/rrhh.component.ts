@@ -14,6 +14,7 @@ export interface EmpleadoId extends Empleado { id: string; }
 export class RrhhComponent implements OnInit {
   private empleadoCollection: AngularFirestoreCollection<Empleado>;
   empleados: Observable<EmpleadoId[]>;
+  
   nuevoEmpleado: Empleado = {
     nombre: '',
     apellidos: '',
@@ -73,9 +74,10 @@ export class RrhhComponent implements OnInit {
 
   setEmpleado(empleado) {
     this.docEmpleado.update(empleado);
+    this.editar = true;
   }
 
-  daleteEmpleado(empleado) {
+  daleteEmpleado() {
     this.docEmpleado.delete();
   }
   ButtonEditar(){

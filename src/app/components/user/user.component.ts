@@ -3,24 +3,24 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+// empreados
 export interface Empleado { 
     nombre: string;
     emailLaboral: string;  
 }
-
 export interface EmpleadoId extends Empleado { id: string; }
-
-export interface usuarios {
+// usuarios
+export interface usuario {
         nombre: string;
         correo:string,
         password:string,
         ModuloUserRRHH:{
             ver:boolean,
-            editar:boolean,
-            eleminar:boolean
+            eliminar:boolean,
+            editar:boolean
         }
     }
-
+export interface usuarioId extends usuario { id: string; }
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -31,39 +31,28 @@ export class UserComponent implements OnInit {
   private empleadoCollection: AngularFirestoreCollection<Empleado>;
   empleados: Observable<EmpleadoId[]>;
 
-//   nuevo usuario 
-nuevoUsuario: usuarios = {
-    nombre: '',
-    correo:'',
-    password:'',
-    ModuloUserRRHH:{
-        ver: false,
-        editar:false,
-        eleminar:false
-    }
-};
+//   nuevo usuario agregar
+    private usuarioCollection: AngularFirestoreCollection<usuario>;
+    usuarios: Observable<usuarioId[]>;
+    nuevoUsuario: usuario = {
+        nombre: '',
+        correo:'',
+        password:'',
+        ModuloUserRRHH:{
+            ver: false,
+            eliminar:false,
+            editar:false
+        }
+    };
 
 
-  public newDato;
-  nombreUser: string;
-  cargoUser: string;
-  emailUser: string;
-  passwordUser: string;
-  editar = true;
-  userVer: boolean;
-  userEditar: boolean;
-  userEliminar: boolean;
-//   mostrar datos variables
-
-MostrarNombreUser: string;
-MostrarCargoUser: string;
-MostrarEmailUser: string;
-MostrarPasswordUser: string;
-
-// ver datos de firebase de empelados
-docEmpleado: AngularFirestoreDocument<Empleado>;
-editEmpleado: Observable<Empleado>;
-
+    public newDato;
+    nombraCorreo: string;
+    editar = true;
+    editarUsuario = true;
+    docUsuario: AngularFirestoreDocument<usuario>;
+    editUsuario: Observable<usuario>;
+    
   constructor(private readonly afs: AngularFirestore) {
 
     this.empleadoCollection = afs.collection<Empleado>('empleados');
@@ -75,40 +64,68 @@ editEmpleado: Observable<Empleado>;
       }))
     );
 
+    // usurios
+    this.usuarioCollection = afs.collection<usuario>('usuarios');
+    this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as usuario;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+
    }
 
   ngOnInit() {
   }
 
+  verUsuario(usuario) {
+    this.docUsuario = this.afs.doc(`usuarios/${usuario.id}`);
+    this.editUsuario = this.docUsuario.valueChanges();
+    console.log(this.docUsuario);
+    this.editar = true;
+  }
 
-
-  addUsuarios(empleado: Empleado) {
-    this.empleadoCollection.add(empleado);
+  addUsuarios(usuario: usuario) {
+    // this.nuevoUsuario = {
+    //     nombre: '',
+    //     correo: datos.emailLaboral[id.id],
+    //     password:'',
+    //     ModuloUserRRHH:{
+    //         ver: false,
+    //         eliminar:false,
+    //         editar:false
+    //     }
+    // };
+    // console.log(datos.nombre[id],id);
+    this.usuarioCollection.add(usuario);
     this.nuevoUsuario = {
         nombre: '',
         correo:'',
         password:'',
         ModuloUserRRHH:{
             ver: false,
-            editar:false,
-            eleminar:false
+            eliminar:false,
+            editar:false
         }
     };
   }
 
   MostrarDatos(users){
-    this.MostrarNombreUser = users.Nombre;
-    this.MostrarCargoUser = users.cargo;
-    this.MostrarEmailUser = users.correo;
-    this.userVer=users.ModuloUser.ver;
-    this.userEditar=users.ModuloUser.editar;
-    this.userEliminar=users.ModuloUser.eleminar;
-    console.log(this.MostrarNombreUser,this.MostrarCargoUser,this.MostrarEmailUser);
     this.editar = true;
   }
   ButtonEditar(){
       this.editar = false;
   }
-  
-
+  ButtonEditarCancelar(){
+    this.editar = true;
+  }
+// funcion para guardar datos editados
+  setUsuario(empleado) {
+    this.docUsuario.update(empleado);
+    this.editar = true;
+  }
+  daleteEmpleado() {
+    this.docUsuario.delete();
+  }
 }
