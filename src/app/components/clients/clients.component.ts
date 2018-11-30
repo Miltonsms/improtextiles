@@ -49,6 +49,7 @@ export class ClientsComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   addCliente(cliente: cliente) {

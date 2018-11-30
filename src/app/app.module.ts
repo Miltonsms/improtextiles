@@ -16,6 +16,7 @@ import { ProvidersComponent } from './components/providers/providers.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { RrhhComponent } from './components/rrhh/rrhh.component';
 import { LoginComponent } from './components/login/login.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { LoginComponent } from './components/login/login.component';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
 
   ],
   providers: [],

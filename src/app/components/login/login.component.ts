@@ -15,15 +15,15 @@ export interface usuario {
       editar:boolean
   }
 }
+
 export interface usuarioId extends usuario { id: string; }
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styles: []
 })
+
 export class LoginComponent implements OnInit {
-  @ViewChild('child1') childOne:AppComponent;
-  
   private usuarioCollection: AngularFirestoreCollection<usuario>;
     usuarios: Observable<usuarioId[]>;
     nuevoUsuario: usuario = {
@@ -39,10 +39,9 @@ export class LoginComponent implements OnInit {
 
 
   mensaje: string;
-  nombre: string;
+  nombre: string; 
   password: string;
-
-
+  login = JSON.parse(localStorage.getItem('currentUser'));
   docUsuario: AngularFirestoreDocument<usuario>;
   editUsuario: Observable<usuario>;
   
@@ -59,17 +58,10 @@ export class LoginComponent implements OnInit {
     );
     
   }
-
+  
   ngOnInit() {
-    // this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
-    //   map(actions => actions.map(a => {
-    //     const data = a.payload.doc.data() as usuario;
-    //     const id = a.payload.doc.id;
-    //     console.log(data)
-    //     return { id, ...data };
-    //   }))
-    // );
-
+    console.log(localStorage.getItem('currentUser'),"loging estoy");
+    localStorage.setItem('currentUser', "true");
   }
 
   loginUser(nombre,password){
@@ -83,8 +75,14 @@ export class LoginComponent implements OnInit {
         this.mensaje = "hola."+nombre+password;
         // this.router.navigate(['/rrhh']);
         console.log(data.nombre,this.mensaje);
+        localStorage.setItem('currentUser', "false");
+        console.log(localStorage.getItem('currentUser'),"loging false");
+        if(this.login == true){
+          window.location.reload();
+        }
       }else{
         this.mensaje = "El Nombre de usuario o contraseña no es correcto."+nombre+password;
+        console.log(localStorage.getItem('currentUser'),"loging fallido");
         console.log(data.nombre,this.mensaje);
       }
       return { id, ...data };

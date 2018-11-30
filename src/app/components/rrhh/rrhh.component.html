@@ -102,7 +102,14 @@
     <!-- listado de clintes -->
     <div class="row">
         <div class="container">
-            <h2>Listado de Empleados</h2>    
+            <h2>Listado de Empleados</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <form class="form-group">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
+                </form>
+              </div>
+            </div>
             <table class="table table-striped">
               <thead>
                 <tr>

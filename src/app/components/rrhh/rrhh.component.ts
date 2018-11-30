@@ -29,9 +29,11 @@ export class RrhhComponent implements OnInit {
     cargo: ''
   };
   editar = true;
+  query: string;
+
   docEmpleado: AngularFirestoreDocument<Empleado>;
   editEmpleado: Observable<Empleado>;
-
+  
   constructor(private readonly afs: AngularFirestore) {
 
     this.empleadoCollection = afs.collection<Empleado>('empleados');
@@ -47,6 +49,7 @@ export class RrhhComponent implements OnInit {
   }
 
   ngOnInit() {
+    // window.location.reload();
   }
 
   verEmpleado(empleado) {

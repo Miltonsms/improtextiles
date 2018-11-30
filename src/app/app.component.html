@@ -2,13 +2,13 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" [routerLink]="['home']">Improtextiles</a>
   <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
-  <ul class="navbar-nav px-3">
+  <ul class="navbar-nav px-3" *ngIf="login !=true">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
+      <a class="nav-link"  (click)="SignOut()" style="cursor:pointer; cursor: hand" >Sign out</a>
     </li>
   </ul>
 </nav>
-<div class="container-fluid" style="margin-top: 50px" *ngIf="login2">
+<div class="container-fluid" style="margin-top: 50px" *ngIf="login !=true">
   <div class="row">
       <div class="col-md-2" style="background-color: #f8f9fa;height: -webkit-fill-available;">
         <div class="sidebar-sticky">
