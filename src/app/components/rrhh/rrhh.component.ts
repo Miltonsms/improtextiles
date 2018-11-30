@@ -52,7 +52,8 @@ export class RrhhComponent implements OnInit {
   verEmpleado(empleado) {
     this.docEmpleado = this.afs.doc(`empleados/${empleado.id}`);
     this.editEmpleado = this.docEmpleado.valueChanges();
-    console.log(this.docEmpleado);
+    console.log(this.editEmpleado);
+
   }
 
   addEmpleado(empleado: Empleado) {

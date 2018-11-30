@@ -15,6 +15,7 @@ import { UserComponent } from './components/user/user.component';
 import { ProvidersComponent } from './components/providers/providers.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { RrhhComponent } from './components/rrhh/rrhh.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { RrhhComponent } from './components/rrhh/rrhh.component';
     UserComponent,
     ProvidersComponent,
     ClientsComponent,
-    RrhhComponent
+    RrhhComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

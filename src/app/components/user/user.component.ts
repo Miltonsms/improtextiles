@@ -20,12 +20,15 @@ export interface usuario {
             editar:boolean
         }
     }
+
 export interface usuarioId extends usuario { id: string; }
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styles: []
 })
+
 export class UserComponent implements OnInit {
 //empledos
   private empleadoCollection: AngularFirestoreCollection<Empleado>;
@@ -46,12 +49,13 @@ export class UserComponent implements OnInit {
     };
 
 
-    public newDato;
-    nombraCorreo: string;
-    editar = true;
-    editarUsuario = true;
-    docUsuario: AngularFirestoreDocument<usuario>;
-    editUsuario: Observable<usuario>;
+  public newDato;
+  nombraCorreo: string;
+  editar = true;
+  editarUsuario = true;
+
+  docUsuario: AngularFirestoreDocument<usuario>;
+  editUsuario: Observable<usuario>;
     
   constructor(private readonly afs: AngularFirestore) {
 
@@ -77,6 +81,14 @@ export class UserComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as usuario;
+        const id = a.payload.doc.id;
+        console.log(data)
+        return { id, ...data };
+      }))
+    );
   }
 
   verUsuario(usuario) {

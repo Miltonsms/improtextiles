@@ -60,9 +60,9 @@
                                 <thead>
                                   <tr>
                                     <th>Permisos</th>
-                                    <th>Ususiros</th>
-                                    <th>Clientes</th>
-                                    <th>Proveedores</th>
+                                    <th>RRHH</th>
+                                    <!-- <th>Clientes</th>
+                                    <th>Proveedores</th> -->
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -70,19 +70,19 @@
                                     <td>Ver</td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.ver" (chsange)="checkValue(nuevoUsuario.ModuloUserRRHH.ver?0:1)">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.ver" >
+                                      </div>
+                                    </td>
+                                    <!-- <td>
+                                      <div class="form-check">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkClientes">
                                       </div>
                                     </td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkClientes" (chsange)="checkValue(checkClientes?0:1)">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkProveedores">
                                       </div>
-                                    </td>
-                                    <td>
-                                      <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkProveedores" (chsange)="checkValue(checkProveedores?0:1)">
-                                      </div>
-                                    </td>
+                                    </td> -->
                                   </tr>
                                   <tr>
                                     <td>Editar</td>
@@ -91,7 +91,7 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.editar" *ngIf="nuevoUsuario.ModuloUserRRHH.ver">
                                       </div>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                       <div class="form-check">
                                            <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkClientes">
                                       </div>
@@ -100,7 +100,7 @@
                                       <div class="form-check">
                                            <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkProveedores">
                                       </div>
-                                    </td>
+                                    </td> -->
                                   </tr>
                                   <tr>
                                     <td>Eliminar</td>
@@ -109,7 +109,7 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.eliminar" *ngIf="nuevoUsuario.ModuloUserRRHH.ver" >
                                       </div>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                       <div class="form-check">
                                            <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkClientes">
                                       </div>
@@ -118,7 +118,7 @@
                                       <div class="form-check">
                                            <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkProveedores">
                                       </div>
-                                    </td>
+                                    </td> -->
                                   </tr>
                                 </tbody>
                               </table>
