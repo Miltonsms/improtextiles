@@ -36,6 +36,7 @@ export class ClientsComponent implements OnInit {
   editar = true;
   docCliente: AngularFirestoreDocument<cliente>;
   editCliente: Observable<cliente>;
+  query: string;
 
 
   constructor(private readonly afs: AngularFirestore) { 

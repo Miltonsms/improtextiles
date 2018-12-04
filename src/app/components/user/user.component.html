@@ -138,7 +138,14 @@
     <!-- listado de clintes -->
     <div class="row">
         <div class="container">
-            <h2>Listado de usuarios</h2>    
+            <h2>Listado de usuarios</h2>
+            <div class="row">
+              <div class="col-md-12">
+                <form class="form-group">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
+                </form>
+              </div>
+            </div>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -156,7 +163,7 @@
                   <td>
                       {{users.cargo}}
                   </td> -->
-                  <tr *ngFor="let empleado of usuarios | async"  style="cursor:pointer; cursor: hand">
+                  <tr *ngFor="let empleado of usuarios | async|filter:query"  style="cursor:pointer; cursor: hand">
                       <td (click)="verUsuario(empleado)" style="cursor:pointer; cursor: hand">{{empleado.nombre}}</td>
                       <!-- <td>
                           {{empleado.cargo}}
