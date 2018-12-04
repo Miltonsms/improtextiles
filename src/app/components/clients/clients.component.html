@@ -116,8 +116,8 @@
     <!-- informacion de clientes  individual -->
     <div class="col-md-6" *ngIf="editCliente | async as editCliente">
         <div class="row float-right">
-            <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Editar Cliente</button>
-            <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar">Eliminar Cliente</button>
+            <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserClienteEditar">Editar Cliente</button>
+            <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserClienteEliminar">Eliminar Cliente</button>
   
             <!--  modal mensaje para elminar-->
   
@@ -178,8 +178,8 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-right">
-          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setCliente(editCliente)" [disabled]="editar">Guardar</button>
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar">Cancelar</button>
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setCliente(editCliente)" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Guardar</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Cancelar</button>
         </div>
       </div>
     </div>

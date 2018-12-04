@@ -12,6 +12,8 @@ export interface EmpleadoId extends Empleado { id: string; }
   styles: []
 })
 export class RrhhComponent implements OnInit {
+  ModuloUserRRHHEliminar = JSON.parse(localStorage.getItem('ModuloUserRRHHEliminar'));
+  ModuloUserRRHHEditar = JSON.parse(localStorage.getItem('ModuloUserRRHHEditar',));
   private empleadoCollection: AngularFirestoreCollection<Empleado>;
   empleados: Observable<EmpleadoId[]>;
   
@@ -50,6 +52,10 @@ export class RrhhComponent implements OnInit {
 
   ngOnInit() {
     // window.location.reload();
+    console.log(localStorage.getItem('ModuloUserRRHHVer'),"rrhhver");
+    console.log(localStorage.getItem('ModuloUserRRHHEliminar'),"eliminar");
+
+
   }
 
   verEmpleado(empleado) {

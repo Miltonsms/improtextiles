@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+// import { ConsoleReporter } from 'jasmine';
 
 // empreados
 export interface Empleado { 
@@ -15,10 +16,20 @@ export interface usuario {
         correo:string,
         password:string,
         ModuloUserRRHH:{
-            ver:boolean,
-            eliminar:boolean,
-            editar:boolean
-        }
+            ver:string,
+            eliminar:string,
+            editar:string
+        },
+        ModuloUser:{
+          ver:string,
+          eliminar:string,
+          editar:string
+      },
+      ModuloUserCliente:{
+        ver:string,
+        eliminar:string,
+        editar:string
+    }
     }
 
 export interface usuarioId extends usuario { id: string; }
@@ -30,6 +41,9 @@ export interface usuarioId extends usuario { id: string; }
 })
 
 export class UserComponent implements OnInit {
+
+  ModuloUserEliminar = JSON.parse(localStorage.getItem('ModuloUserEliminar'));
+  ModuloUserEditar = JSON.parse(localStorage.getItem('ModuloUserEditar',));
 //empledos
   private empleadoCollection: AngularFirestoreCollection<Empleado>;
   empleados: Observable<EmpleadoId[]>;
@@ -42,10 +56,20 @@ export class UserComponent implements OnInit {
         correo:'',
         password:'',
         ModuloUserRRHH:{
-            ver: false,
-            eliminar:false,
-            editar:false
-        }
+            ver: " ",
+            eliminar:"false",
+            editar:"false"
+        },
+        ModuloUser:{
+          ver: " ",
+          eliminar:"false",
+          editar:"false"
+      },
+      ModuloUserCliente:{
+        ver: " ",
+        eliminar:"false",
+        editar:"false"
+    }
     };
 
 
@@ -116,10 +140,20 @@ export class UserComponent implements OnInit {
         correo:'',
         password:'',
         ModuloUserRRHH:{
-            ver: false,
-            eliminar:false,
-            editar:false
-        }
+            ver: "false",
+            eliminar:"false",
+            editar:"false"
+        },
+        ModuloUser:{
+          ver: "false",
+          eliminar:"false",
+          editar:"false"
+      },
+      ModuloUserCliente:{
+        ver: "false",
+        eliminar:"false",
+        editar:"false"
+    }
     };
   }
 
@@ -134,8 +168,22 @@ export class UserComponent implements OnInit {
   }
 // funcion para guardar datos editados
   setUsuario(empleado) {
+    localStorage.setItem('ModuloUserRRHHVer', empleado.ModuloUserRRHH.ver);
+    localStorage.setItem('ModuloUserRRHHEditar', empleado.ModuloUserRRHH.editar);
+    localStorage.setItem('ModuloUserRRHHEliminar', empleado.ModuloUserRRHH.eliminar);
+    // usuarios
+    localStorage.setItem('ModuloUserVer', empleado.ModuloUser.ver);
+    localStorage.setItem('ModuloUserEditar', empleado.ModuloUser.editar);
+    localStorage.setItem('ModuloUserEliminar', empleado.ModuloUser.eliminar);
+
+    // Clientes
+    localStorage.setItem('ModuloUserClienteVer', empleado.ModuloUserCliente.ver);
+    localStorage.setItem('ModuloUserClienteEditar', empleado.ModuloUserCliente.editar);
+    localStorage.setItem('ModuloUserClienteEliminar', empleado.ModuloUserCliente.eliminar);
     this.docUsuario.update(empleado);
     this.editar = true;
+    console.log(localStorage.getItem('ModuloUserRRHHEliminar'),"eliminar");
+    window.location.reload();
   }
   daleteEmpleado() {
     this.docUsuario.delete();

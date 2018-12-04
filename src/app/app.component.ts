@@ -11,8 +11,11 @@ export class AppComponent implements OnInit{
   
   // login2 = localStorage.setItem('currentUser', "true");
   login = JSON.parse(localStorage.getItem('currentUser'));
-    //  login = true;
-
+  ModuloUserRRHHVer = JSON.parse(localStorage.getItem('ModuloUserRRHHVer'));
+  ModuloUserVer = JSON.parse(localStorage.getItem('ModuloUserVer'));
+  ModuloUserClienteVer = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
+  // ModuloUserEleminar = JSON.parse(localStorage.getItem('ModuloUserEleminar'));
+  // ModuloUserEditar = JSON.parse(localStorage.getItem('ModuloUserEditar'));
   constructor(public router: Router) {
 
   }

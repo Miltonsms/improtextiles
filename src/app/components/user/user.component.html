@@ -61,8 +61,8 @@
                                   <tr>
                                     <th>Permisos</th>
                                     <th>RRHH</th>
-                                    <!-- <th>Clientes</th>
-                                    <th>Proveedores</th> -->
+                                    <th>Usuarios</th>
+                                    <th>Clientes</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -73,16 +73,16 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.ver" >
                                       </div>
                                     </td>
-                                    <!-- <td>
+                                    <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkClientes">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUser.ver">
                                       </div>
                                     </td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkProveedores">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserCliente.ver">
                                       </div>
-                                    </td> -->
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td>Editar</td>
@@ -91,16 +91,16 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.editar" *ngIf="nuevoUsuario.ModuloUserRRHH.ver">
                                       </div>
                                     </td>
-                                    <!-- <td>
+                                    <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkClientes">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck"  [(ngModel)]="nuevoUsuario.ModuloUser.editar" *ngIf="nuevoUsuario.ModuloUser.ver">
                                       </div>
                                     </td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkProveedores">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserCliente.editar" *ngIf="nuevoUsuario.ModuloUserCliente.ver">
                                       </div>
-                                    </td> -->
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td>Eliminar</td>
@@ -109,16 +109,16 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserRRHH.eliminar" *ngIf="nuevoUsuario.ModuloUserRRHH.ver" >
                                       </div>
                                     </td>
-                                    <!-- <td>
+                                    <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkClientes">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck"  [(ngModel)]="nuevoUsuario.ModuloUser.eliminar" *ngIf="nuevoUsuario.ModuloUser.ver">
                                       </div>
                                     </td>
                                     <td>
                                       <div class="form-check">
-                                           <input class="form-check-input" type="checkbox" id="gridCheck" *ngIf="checkProveedores">
+                                           <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserCliente.eliminar" *ngIf="nuevoUsuario.ModuloUserCliente.ver">
                                       </div>
-                                    </td> -->
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -173,8 +173,8 @@
   <!-- informacion de clientes  individual -->
   <div class="col-md-6" *ngIf="editUsuario | async as editUsuario">
       <div class="row float-right">
-          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Editar Usuario</button>
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar">Eliminar Usuario</button>
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserEditar">Editar Usuario</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserEliminar">Eliminar Usuario</button>
 
           <!--  modal mensaje para elminar-->
 
@@ -234,8 +234,8 @@
                 <tr>
                   <th>Permisos</th>
                   <th>RHHH</th>
-                  <!-- <th>Clientes</th>
-                  <th>Proveedores</th> -->
+                  <th>Usuarios</th>
+                  <th>Clientes</th>
                 </tr>
               </thead>
               <tbody>
@@ -246,16 +246,16 @@
                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.ver" [disabled]="editar">
                     </div>
                   </td>
-                  <!-- <td>
+                  <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkClientes" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.ver" [disabled]="editar">
                     </div>
                   </td>
                   <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="checkProveedores" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.ver" [disabled]="editar">
                     </div>
-                  </td> -->
+                  </td>
                 </tr>
                 <tr>
                   <td>Editar</td>
@@ -264,16 +264,16 @@
                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.editar" [disabled]="editar">
                     </div>
                   </td>
-                  <!-- <td>
+                  <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.editar" [disabled]="editar">
                     </div>
                   </td>
                   <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.editar" [disabled]="editar">
                     </div>
-                  </td> -->
+                  </td>
                 </tr>
                 <tr>
                   <td>Eliminar</td>
@@ -282,16 +282,16 @@
                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.eliminar" [checked]="userEliminar" [disabled]="editar">
                     </div>
                   </td>
-                  <!-- <td>
+                  <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.eliminar" [disabled]="editar">
                     </div>
                   </td>
                   <td>
                     <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [disabled]="editar">
+                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.eliminar" [disabled]="editar">
                     </div>
-                  </td> -->
+                  </td>
                 </tr> 
               </tbody>
             </table>
@@ -300,8 +300,8 @@
   </div>
     <div class="row">
       <div class="col-md-12 text-right">
-        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setUsuario(editUsuario)" [disabled]="editar">Guardar</button>
-        <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar">Cancelar</button>
+        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setUsuario(editUsuario)" [disabled]="editar" *ngIf="ModuloUserEditar">Guardar</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserEditar">Cancelar</button>
       </div>
     </div>
   </div>

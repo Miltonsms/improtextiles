@@ -20,6 +20,8 @@ export interface  clienteId extends cliente { id: string; }
 })
 export class ClientsComponent implements OnInit {
 
+  ModuloUserClienteEliminar = JSON.parse(localStorage.getItem('ModuloUserClienteEliminar'));
+  ModuloUserClienteEditar = JSON.parse(localStorage.getItem('ModuloUserClienteEditar',));
   private clienteCollection: AngularFirestoreCollection<cliente>;
   clientes: Observable<clienteId[]>;
   //arrego para agregar nuevo cliente

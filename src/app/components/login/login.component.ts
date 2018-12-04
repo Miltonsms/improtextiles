@@ -10,10 +10,20 @@ export interface usuario {
   correo:string,
   password:string,
   ModuloUserRRHH:{
-      ver:boolean,
-      eliminar:boolean,
-      editar:boolean
-  }
+      ver:string,
+      eliminar:string,
+      editar:string
+  },
+  ModuloUser:{
+    ver:string,
+    eliminar:string,
+    editar:string
+},
+ModuloUserCliente:{
+  ver:string,
+  eliminar:string,
+  editar:string
+}
 }
 
 export interface usuarioId extends usuario { id: string; }
@@ -31,10 +41,20 @@ export class LoginComponent implements OnInit {
         correo:'',
         password:'',
         ModuloUserRRHH:{
-            ver: false,
-            eliminar:false,
-            editar:false
-        }
+            ver: "false",
+            eliminar:"false",
+            editar:"false"
+        },
+        ModuloUser:{
+          ver: "false",
+          eliminar:"false",
+          editar:"false"
+      },
+      ModuloUserCliente:{
+        ver: "false",
+        eliminar:"false",
+        editar:"false"
+    }
     };
 
 
@@ -58,7 +78,7 @@ export class LoginComponent implements OnInit {
     );
     
   }
-  
+
   ngOnInit() {
     console.log(localStorage.getItem('currentUser'),"loging estoy");
     localStorage.setItem('currentUser', "true");
@@ -75,7 +95,22 @@ export class LoginComponent implements OnInit {
         this.mensaje = "hola."+nombre+password;
         // this.router.navigate(['/rrhh']);
         console.log(data.nombre,this.mensaje);
+        // login
         localStorage.setItem('currentUser', "false");
+        // rrhh
+        localStorage.setItem('ModuloUserRRHHVer', data.ModuloUserRRHH.ver);
+        localStorage.setItem('ModuloUserRRHHEliminar', data.ModuloUserRRHH.eliminar);
+        localStorage.setItem('ModuloUserRRHHEditar', data.ModuloUserRRHH.editar);
+        // usuarios
+        localStorage.setItem('ModuloUserVer', data.ModuloUser.ver);
+        localStorage.setItem('ModuloUserEliminar', data.ModuloUser.eliminar);
+        localStorage.setItem('ModuloUserEditar', data.ModuloUser.editar);
+        // Cliente
+        localStorage.setItem('ModuloUserClienteVer', data.ModuloUserCliente.ver);
+        localStorage.setItem('ModuloUserClienteEliminar', data.ModuloUserCliente.eliminar);
+        localStorage.setItem('ModuloUserClienteEditar', data.ModuloUserCliente.editar);
+
+        console.log(localStorage.getItem('ModuloUserRRHHVer'),"loging false");
         console.log(localStorage.getItem('currentUser'),"loging false");
         if(this.login == true){
           window.location.reload();

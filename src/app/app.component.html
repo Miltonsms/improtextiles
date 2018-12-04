@@ -13,7 +13,7 @@
       <div class="col-md-2" style="background-color: #f8f9fa;height: -webkit-fill-available;">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
-            <li class="nav-item" routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active"  *ngIf="ModuloUserVer">
                 <a class="nav-link " [routerLink]="['user']">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -22,7 +22,7 @@
                   USUARIOS <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"  *ngIf="ModuloUserRRHHVer">
                 <a class="nav-link" [routerLink]="['rrhh']" routerLinkActive="active">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -43,7 +43,7 @@
                   Products
                 </a>
             </li> -->
-            <li class="nav-item" >
+            <li class="nav-item" *ngIf="ModuloUserClienteVer">
                 <a class="nav-link" [routerLink]="['clients']" routerLinkActive="active">
                   <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                       <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>

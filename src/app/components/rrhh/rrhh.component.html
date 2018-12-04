@@ -136,8 +136,8 @@
   <!-- informacion de clientes  individual -->
   <div class="col-md-6" *ngIf="editEmpleado | async as editEmpleado">
       <div class="row float-right">
-          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()">Editar Empleado</button>
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar">Eliminar Empleado</button>
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserRRHHEditar">Editar Empleado </button>   
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserRRHHEliminar">Eliminar Empleado</button>
 
           <!--  modal mensaje para elminar-->
 
@@ -151,7 +151,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                      Esta seguro que desea eliminar este empelado.
+                      Esta seguro que desea eliminar este empelado. {{ModuloUserRRHHEliminar}} 
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -234,8 +234,8 @@
     </div>
     <div class="row">
       <div class="col-md-12 text-right">
-        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setEmpleado(editEmpleado)" [disabled]="editar">Guardar</button>
-        <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar">Cancelar</button>
+        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setEmpleado(editEmpleado)" [disabled]="editar" *ngIf="ModuloUserRRHHEditar">Guardar</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserRRHHEditar">Cancelar</button>
       </div>
     </div>
   </div>
