@@ -32,6 +32,7 @@ export class AppComponent implements OnInit{
 
   SignOut() {
     localStorage.setItem('currentUser', "true");
+    this.router.navigate(['/index.html']);
     window.location.reload();
   }
 

@@ -113,6 +113,7 @@ export class LoginComponent implements OnInit {
         console.log(localStorage.getItem('ModuloUserRRHHVer'),"loging false");
         console.log(localStorage.getItem('currentUser'),"loging false");
         if(this.login == true){
+          this.router.navigate(['/index.html']);
           window.location.reload();
         }
       }else{
