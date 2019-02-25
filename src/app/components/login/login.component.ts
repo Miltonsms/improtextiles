@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   private usuarioCollection: AngularFirestoreCollection<usuario>;
     usuarios: Observable<usuarioId[]>;
     nuevoUsuario: usuario = {
-        nombre: '',
+        nombre: 'User',
         correo:'',
         password:'',
         ModuloUserRRHH:{
@@ -123,16 +123,19 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('ModuloUserProveedoresVer', data.ModuloUserProveedores.ver);
         localStorage.setItem('ModuloUserProveedoresEliminar', data.ModuloUserProveedores.eliminar);
         localStorage.setItem('ModuloUserProveedoresEditar', data.ModuloUserProveedores.editar);
-
-        console.log(localStorage.getItem('ModuloUserRRHHVer'),"loging false");
-        console.log(localStorage.getItem('currentUser'),"loging false");
+        // nombre de usuario
+        localStorage.setItem('NombreUsuario', data.nombre);
+        // console.log(localStorage.getItem('ModuloUserRRHHVer'),"loging false");
+        // console.log(localStorage.getItem('currentUser'),"loging false");
         if(this.login == true){
           this.router.navigate(['/index.html']);
           window.location.reload();
         }
+        window.location.reload();
+
       }else{
         this.mensaje = "El Nombre de usuario o contraseña no es correcto.";
-        console.log(localStorage.getItem('currentUser'),"loging fallido");
+        // console.log(localStorage.getItem('currentUser'),"loging fallido");
         console.log(data.nombre,this.mensaje);
       }
       return { id, ...data };

@@ -15,15 +15,15 @@ export class AppComponent implements OnInit{
   ModuloUserVer = JSON.parse(localStorage.getItem('ModuloUserVer'));
   ModuloUserClienteVer = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
   ModuloUserProveedores = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
-  // ModuloUserEleminar = JSON.parse(localStorage.getItem('ModuloUserEleminar'));
-  // ModuloUserEditar = JSON.parse(localStorage.getItem('ModuloUserEditar'));
+  NombreUsuario = localStorage.getItem('NombreUsuario');
   constructor(public router: Router) {
 
   }
 
   ngOnInit() {
 
-    if(this.login == true ){
+    if(this.login == true ||this.login == null){
+      this.login =true;
       this.router.navigate(['/login']);
       console.log("tienes que logiarse");
     }else{

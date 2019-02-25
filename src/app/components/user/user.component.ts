@@ -133,17 +133,6 @@ export class UserComponent implements OnInit {
   }
 
   addUsuarios(usuario: usuario) {
-    // this.nuevoUsuario = {
-    //     nombre: '',
-    //     correo: datos.emailLaboral[id.id],
-    //     password:'',
-    //     ModuloUserRRHH:{
-    //         ver: false,
-    //         eliminar:false,
-    //         editar:false
-    //     }
-    // };
-    // console.log(datos.nombre[id],id);
     this.usuarioCollection.add(usuario);
     this.nuevoUsuario = {
         nombre: ' ',
