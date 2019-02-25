@@ -10,6 +10,428 @@ hr {
 }
 
 .borderight{
-    height: -webkit-fill-available;
+    /* height: -webkit-fill-available; */
     border-right: solid 3px #f2f2f2;
+}
+/*
+* ==========================================================
+*     LOGIN PAGE
+* ==========================================================
+*/
+.login-page {
+    position: relative;
+  }
+  
+  .login-page::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+    background: url("./assets/imagenes/fondo.jpg");
+    background-size: cover;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  .login-page .container {
+    min-height: 100vh;
+    z-index: 999;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .login-page .form-holder {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 50px;
+  }
+  
+  .login-page .form-holder .info, .login-page .form-holder .form {
+    min-height: 70vh;
+    padding: 40px;
+    height: 100%;
+  }
+  
+  .login-page .form-holder div[class*='col-'] {
+    padding: 0;
+  }
+  
+  .login-page .form-holder .info {
+    background: rgba(51, 179, 90, 0.9);
+    color: #fff;
+  }
+  
+  .login-page .form-holder .info h1 {
+    font-size: 2.5em;
+    font-weight: 600;
+  }
+  
+  .login-page .form-holder .info p {
+    font-weight: 300;
+  }
+  
+  .login-page .form-holder .form .form-group {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  
+  .login-page .form-holder .form .content {
+    width: 100%;
+  }
+  
+  .login-page .form-holder .form form {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-page .form-holder .form #login, .login-page .form-holder .form #register {
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .login-page .form-holder .form a.forgot-pass, .login-page .form-holder .form a.signup {
+    font-size: 0.9em;
+    color: #85b4f2;
+  }
+  
+  .login-page .form-holder .form small {
+    color: #aaa;
+  }
+  
+  .login-page .form-holder .form .terms-conditions label {
+    cursor: pointer;
+    color: #aaa;
+    font-size: 0.9em;
+  }
+  
+  .login-page .copyrights {
+    width: 100%;
+    z-index: 9999;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+  }
+  
+  @media (max-width: 991px) {
+    .login-page .info, .login-page .form {
+      min-height: auto !important;
+    }
+    .login-page .info {
+      padding-top: 100px !important;
+      padding-bottom: 100px !important;
+    }
+  }
+  
+/* pagina central */
+header.page-header {
+    padding: 2px 0;
+}
+.page-header {
+    background: #fff;
+    padding: 20px;
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 8;
+    margin-right: -15px !important;
+    margin-left: -15px !important;
+}
+
+.container-fluid {
+    padding: 0 30px;
+}
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* menu de opciones  */
+.nenu {
+    background: #fff;
+    min-width: 250px;
+    max-width: 250px;
+    color: #686a76;
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    z-index: 9;
+}
+
+
+/*
+* ==========================================================
+*     SIDEBAR
+* ==========================================================
+*/
+nav.side-navbar {
+  background: #fff;
+  min-width: 305px;
+  max-width: 250px;
+  color: #686a76;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  z-index: 9;
+  height: -webkit-fill-available;
+  /*==== Sidebar Header ====*/
+  /*==== Sidebar Menu ====*/
+  /*==== Shrinked Sidebar ====*/
+}
+
+
+
+nav.side-navbar a {
+  color: inherit;
+  position: relative;
+  font-size: 0.9em;
+}
+
+nav.side-navbar a[data-toggle="collapse"]::before {
+  content: '\f104';
+  display: inline-block;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: 50%;
+  right: 20px;
+}
+
+nav.side-navbar a[aria-expanded="true"] {
+  background: #EEF5F9;
+}
+
+nav.side-navbar a[aria-expanded="true"]::before {
+  content: '\f107';
+}
+
+nav.side-navbar a i {
+  font-size: 1.2em;
+  margin-right: 10px;
+  -webkit-transition: none;
+  transition: none;
+}
+
+nav.side-navbar a .badge {
+  vertical-align: middle;
+}
+
+nav.side-navbar .sidebar-header {
+  padding: 30px 15px;
+}
+
+nav.side-navbar .avatar {
+  width: 55px;
+  height: 55px;
+}
+
+nav.side-navbar .title {
+  margin-left: 10px;
+}
+
+nav.side-navbar .title h1 {
+  color: #333;
+}
+
+nav.side-navbar .title p {
+  font-size: 0.9em;
+  font-weight: 200;
+  margin-bottom: 0;
+  color: #aaa;
+}
+
+nav.side-navbar span.heading {
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-left: 20px;
+  color: #ccc;
+  font-size: 0.8em;
+}
+
+nav.side-navbar ul {
+  padding: 15px 0;
+}
+/* 
+nav.side-navbar ul li {
+
+} */
+
+nav.side-navbar ul li a {
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  font-weight: 300;
+  border-left: 4px solid transparent;
+}
+
+nav.side-navbar ul li a:hover {
+  background: #33b35a;
+  border-left: 4px solid #22773c;
+  color: #fff;
+}
+
+nav.side-navbar ul li li a {
+  padding-left: 50px;
+  background: #EEF5F9;
+}
+
+nav.side-navbar ul li.active > a {
+  background: #33b35a;
+  color: #fff;
+  border-left: 4px solid #22773c;
+}
+
+nav.side-navbar ul li.active > a:hover {
+  background: #33b35a;
+}
+
+nav.side-navbar ul li li.active > a {
+  background: #39c764;
+}
+
+nav.side-navbar ul li ul {
+  padding: 0;
+}
+
+nav.side-navbar.shrinked {
+  min-width: 90px;
+  max-width: 90px;
+  text-align: center;
+}
+
+nav.side-navbar.shrinked span.heading {
+  margin: 0;
+}
+
+nav.side-navbar.shrinked ul li a {
+  padding: 15px 2px;
+  border: none;
+  font-size: 0.8em;
+  color: #aaa;
+  -webkit-transition: color 0.3s, background 0.3s;
+  transition: color 0.3s, background 0.3s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+nav.side-navbar.shrinked ul li a[data-toggle="collapse"]::before {
+  content: '\f107';
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
+  position: absolute;
+  top: auto;
+  right: 50%;
+  bottom: 0;
+  left: auto;
+}
+
+nav.side-navbar.shrinked ul li a[data-toggle="collapse"][aria-expanded="true"]::before {
+  content: '\f106';
+}
+
+nav.side-navbar.shrinked ul li a:hover {
+  color: #fff;
+  border: none;
+}
+
+nav.side-navbar.shrinked ul li a:hover i {
+  color: #fff;
+}
+
+nav.side-navbar.shrinked ul li a i {
+  margin-right: 0;
+  margin-bottom: 2px;
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+
+nav.side-navbar.shrinked ul li.active > a {
+  color: #fff;
+}
+
+nav.side-navbar.shrinked ul li.active > a i {
+  color: #fff;
+}
+
+nav.side-navbar.shrinked .sidebar-header .title {
+  display: none;
+}
+
+/* SIDEBAR MEDIAQUERIES ----------------------------------- */
+@media (max-width: 1199px) {
+  nav.side-navbar {
+    margin-left: -90px;
+    min-width: 90px;
+    max-width: 90px;
+    text-align: center;
+    overflow: hidden;
+  }
+  nav.side-navbar span.heading {
+    margin: 0;
+  }
+  nav.side-navbar ul li a {
+    padding: 15px 2px;
+    border: none;
+    font-size: 0.8em;
+    color: #aaa;
+    -webkit-transition: color 0.3s, background 0.3s;
+    transition: color 0.3s, background 0.3s;
+  }
+  nav.side-navbar ul li a[data-toggle="collapse"]::before {
+    content: '\f107';
+    -webkit-transform: translateX(50%);
+    transform: translateX(50%);
+    position: absolute;
+    top: auto;
+    right: 50%;
+    bottom: 0;
+    left: auto;
+  }
+  nav.side-navbar ul li a[data-toggle="collapse"][aria-expanded="true"]::before {
+    content: '\f106';
+  }
+  nav.side-navbar ul li a:hover {
+    color: #fff;
+    border: none;
+  }
+  nav.side-navbar ul li a:hover i {
+    color: #fff;
+  }
+  nav.side-navbar ul li a i {
+    margin-right: 0;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 1.6em;
+    color: #333;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+  }
+  nav.side-navbar ul li.active > a {
+    color: #fff;
+  }
+  nav.side-navbar ul li.active > a i {
+    color: #fff;
+  }
+  nav.side-navbar .sidebar-header .title {
+    display: none;
+  }
+  nav.side-navbar.shrinked {
+    margin-left: 0;
+  }
+  .content-inner {
+    width: 100%;
+  }
+  .content-inner.active {
+    width: calc(100% - 90px);
+  }
 }

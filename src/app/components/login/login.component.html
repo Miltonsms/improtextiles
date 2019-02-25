@@ -1,22 +1,45 @@
-<div class="row text-center">
-  <div class="col-md-4"></div>
-  <div class="col-md-4" style="margin-top: 237px;">
-      <form class="form-signin">
-          <img class="mb-4" src="https://lh3.googleusercontent.com/c4eti_c6-pAStmyHEoXxeVKJkWsOSWwxw9IfqB9Vwipj5h7o1en3_jrmBFIK4rTEXdeYIeU=s170" alt="" style="width: 52%;">
-          <h1 class="h3 mb-3 font-weight-normal">Ingreso</h1>
-          <label for="inputEmail" class="sr-only">Usuario</label>
-          <input type="text" id="inputEmail" class="form-control" placeholder="Email address" [(ngModel)]="nombre" name="first"> 
-          <label for="inputPassword" class="sr-only" >Password</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password"  style="margin-top: 20px;" [(ngModel)]="password" name="password">
-          <!-- <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me"> Remember me
-            </label>
-          </div> -->
-          <button class="btn btn-lg btn-primary btn-block"  style="background-color: #119c00 !important;     margin-top: 20px;"  (click)="loginUser(nombre,password)">Ingresar</button>
-          <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
-        </form>
-
-        <div *ngFor="let item of usuarios | async"></div>
+<div class="container-fluid">
+  <div class="page login-page">
+    <div class="container d-flex align-items-center">
+      <div class="form-holder has-shadow">
+        <div class="row">
+          <!-- Logo & Information Panel-->
+          <div class="col-lg-6">
+            <div class="info d-flex align-items-center">
+              <div class="content">
+                <div class="logo">
+                  <h1>Improtextiles S.A.</h1>
+                </div>
+                <p> Improtextiles más que textiles!</p>
+              </div>
+            </div>
+          </div>
+          <!-- Form Panel    -->
+          <div class="col-lg-6 bg-white">
+            <div class="form d-flex align-items-center">
+              <div class="content">
+                <form method="post" class="form-validate" novalidate="novalidate">
+                  <div class="form-group">
+                    <input type="text" id="inputEmail" class="form-control" placeholder="Nombre de Usuario" [(ngModel)]="nombre" name="first"> 
+                  </div>
+                  <div class="form-group">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña"  style="margin-top: 20px;" [(ngModel)]="password" name="password">
+                    <button class="btn btn-lg btn-primary btn-block"  style="margin-top: 20px;"  (click)="loginUser(nombre,password)">Ingresar</button>
+                    <p style="color:red">{{mensaje}}</p>
+                  </div>
+                  <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyrights text-center">
+      <p>Design by <a href="https://bootstrapious.com/p/admin-template" class="external">Bootstrapious</a>
+        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+      </p>
+    </div>
+    <div *ngFor="let item of usuarios | async"></div>
   </div>
 </div>

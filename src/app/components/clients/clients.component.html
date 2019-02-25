@@ -1,3 +1,9 @@
+<header class="page-header" style="margin-bottom: 13px;">
+    <div class="container-fluid">
+      <h2 class="no-margin-bottom">CLientes</h2>
+    </div>
+</header>
+
 <div class="row">
     <div class="col-md-6 borderight">
       <div class="row float-right">
@@ -46,33 +52,6 @@
                                     <input type="email" class="form-control" id="inputEmail5" placeholder="email" [(ngModel)]="nuevoClienteJuridico.email" name="ferchaNacimientoEmpelado">
                                   </div>
                                 </div>
-                                <!-- <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                      <label for="inputEmail4">Numero de Telefono</label>
-                                      <input type="number" class="form-control" id="inputEmail5" placeholder="Numero de Telefono" [(ngModel)]="nuevoClienteJuridico.Telefono" name="emailempleado">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                      <label for="inputPassword4">Correo electrónico</label>
-                                      <input type="email" class="form-control" id="inputPassword5" placeholder="Correo electrónico" [(ngModel)]="nuevoClienteJuridico.email" name="emailEmpelado">
-                                    </div>
-                                </div>
-                              <hr/>
-                              <h4>Datos Laborales</h4>
-                              <hr style="margin-top: 21px !important;">
-                              <div class="form-row">
-                                  <div class="form-group col-md-4">
-                                  <label for="inputPassword4">Cargo</label>
-                                  <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoClienteJuridico.cargo" name="cargoUser">
-                                  </div>
-                                  <div class="form-group col-md-4">
-                                    <label for="inputPassword4">Fecha de Ingreso Empresa</label>
-                                    <input type="date" class="form-control" id="inputPassword5" placeholder="Fecha de Ingreso Empresa" [(ngModel)]="nuevoClienteJuridico.FechaIngreso" name="emailEmpelado">
-                                  </div>
-                                  <div class="form-group col-md-4">
-                                      <label for="inputPassword4">Email laboral</label>
-                                      <input type="email" class="form-control" id="inputPassword5" placeholder="Email laboral" [(ngModel)]="nuevoClienteJuridico.emailLaboral" name="emailEmpelado">
-                                    </div>
-                              </div> -->
                             </form>
                       </div>
                     </div>
@@ -89,106 +68,128 @@
       <!-- listado de clintes -->
       <div class="row">
           <div class="container">
-              <h2>Listado de Clientes</h2>
-              <div class="row">
-                <div class="col-md-12">
-                  <form class="form-group">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
-                  </form>
-                </div>
-              </div>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Nombre  Comercial</th>
-                    <th>Representante Legal</th>
-                    <th>Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let cliente of clientes | async |filter:query" (click)="verCliente(cliente)" style="cursor:pointer; cursor: hand">
-                    <td>{{cliente.nombre}}</td>
-                    <td>
-                        {{cliente.Representante}}
-                    </td>
-                    <td>
-                        {{cliente.email}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header  container">
+                        <div class="row">
+                          <div class="col-md-4">
+                              <h3 class="h4">Listado de Clientes</h3>
+                          </div>
+                          <div class="col-md-8">
+                              <form class="form-group">
+                                  <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
+                              </form>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Nombre  Comercial</th>
+                                    <th>Representante Legal</th>
+                                    <th>Email</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let cliente of clientes | async |filter:query" (click)="verCliente(cliente)" style="cursor:pointer; cursor: hand">
+                                    <td>{{cliente.nombre}}</td>
+                                    <td>
+                                        {{cliente.Representante}}
+                                    </td>
+                                    <td>
+                                        {{cliente.email}}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+          </div>
       </div>
     </div>
     <!-- informacion de clientes  individual -->
     <div class="col-md-6" *ngIf="editCliente | async as editCliente">
-        <div class="row float-right">
-            <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserClienteEditar">Editar Cliente</button>
-            <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserClienteEliminar">Eliminar Cliente</button>
-  
-            <!--  modal mensaje para elminar-->
-  
-            <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Cliente</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        Esta seguro que desea eliminar este cliente.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-primary" (click)="daleteCliente()" data-dismiss="modal">Eliminar</button>
-                    </div>
+      <div class="row float-right">
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserClienteEditar">Editar Cliente</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserClienteEliminar">Eliminar Cliente</button>
+          <!--  modal mensaje para elminar-->
+          <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      Esta seguro que desea eliminar este cliente.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="daleteCliente()" data-dismiss="modal">Eliminar</button>
                   </div>
                 </div>
-            </div>
-        </div>
-        <hr style="margin-top: 50px !important;"/>
-      <div class="row">
-          <div class="container">
-              <h2>Información del Cliente</h2>   
-              <form style="width: 100%;">
-                  <hr style="margin-top: 21px !important;">
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Nombre  Comercial:</label>
-                      <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre  Comercial" [(ngModel)]="editCliente.nombre" name="nombreEmpleado" [disabled]="editar">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Representante Legal:</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="Representante Legal" [(ngModel)]="editCliente.Representante" name="Representante" [disabled]="editar">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Identificacion Rep Legal</label>
-                      <input type="text" class="form-control" id="inputEmail5" placeholder="Identificacion Rep Legal" [(ngModel)]="editCliente.IdentificacionRep" name="Identificacion" [disabled]="editar">
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputPassword4">NIT</label>
-                      <input type="text" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="editCliente.nit" name="dpiEmpelado" [disabled]="editar">
-                    </div>
-                  </div>
-                  <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control" id="inputEmail5" placeholder="email" [(ngModel)]="editCliente.email" name="ferchaNacimientoEmpelado" [disabled]="editar">
-                      </div>
-                    </div>
-                </form>
+              </div>
           </div>
       </div>
+      <hr style="margin-top: 50px !important;"/>
       <div class="row">
-        <div class="col-md-12 text-right">
-          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setCliente(editCliente)" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Guardar</button>
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Cancelar</button>
-        </div>
+          <div class="container">
+              <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header  container">
+                        <div class="row">
+                          <div class="col-md-12">
+                              <h3 class="h4">Información del Cliente</h3>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <form style="width: 100%;">
+                            <hr style="margin-top: 21px !important;">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Nombre  Comercial:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre  Comercial" [(ngModel)]="editCliente.nombre" name="nombreEmpleado" [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Representante Legal:</label>
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Representante Legal" [(ngModel)]="editCliente.Representante" name="Representante" [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Identificacion Rep Legal</label>
+                                <input type="text" class="form-control" id="inputEmail5" placeholder="Identificacion Rep Legal" [(ngModel)]="editCliente.IdentificacionRep" name="Identificacion" [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputPassword4">NIT</label>
+                                <input type="text" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="editCliente.nit" name="dpiEmpelado" [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Email</label>
+                                  <input type="email" class="form-control" id="inputEmail5" placeholder="email" [(ngModel)]="editCliente.email" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                                </div>
+                              </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                              <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setCliente(editCliente)" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Guardar</button>
+                              <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Cancelar</button>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+          </div>
       </div>
     </div>
-  </div>
+</div>
 

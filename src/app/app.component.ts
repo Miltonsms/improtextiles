@@ -14,6 +14,7 @@ export class AppComponent implements OnInit{
   ModuloUserRRHHVer = JSON.parse(localStorage.getItem('ModuloUserRRHHVer'));
   ModuloUserVer = JSON.parse(localStorage.getItem('ModuloUserVer'));
   ModuloUserClienteVer = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
+  ModuloUserProveedores = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
   // ModuloUserEleminar = JSON.parse(localStorage.getItem('ModuloUserEleminar'));
   // ModuloUserEditar = JSON.parse(localStorage.getItem('ModuloUserEditar'));
   constructor(public router: Router) {
@@ -26,7 +27,7 @@ export class AppComponent implements OnInit{
       this.router.navigate(['/login']);
       console.log("tienes que logiarse");
     }else{
-      this.router.navigate(['/rrhh']);
+      this.router.navigate(['/home']);
     }
   }
 

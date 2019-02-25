@@ -23,6 +23,11 @@ ModuloUserCliente:{
   ver:string,
   eliminar:string,
   editar:string
+},
+ModuloUserProveedores:{
+  ver:string,
+  eliminar:string,
+  editar:string
 }
 }
 
@@ -41,20 +46,25 @@ export class LoginComponent implements OnInit {
         correo:'',
         password:'',
         ModuloUserRRHH:{
-            ver: "false",
-            eliminar:"false",
-            editar:"false"
+            ver: "true",
+            eliminar:"true",
+            editar:"true"
         },
         ModuloUser:{
-          ver: "false",
-          eliminar:"false",
-          editar:"false"
+          ver: "true",
+          eliminar:"true",
+          editar:"true"
       },
       ModuloUserCliente:{
-        ver: "false",
-        eliminar:"false",
-        editar:"false"
-    }
+        ver: "true",
+        eliminar:"true",
+        editar:"true"
+    },
+    ModuloUserProveedores:{
+      ver: "true",
+      eliminar:"true",
+      editar:"true"
+  }
     };
 
 
@@ -109,6 +119,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('ModuloUserClienteVer', data.ModuloUserCliente.ver);
         localStorage.setItem('ModuloUserClienteEliminar', data.ModuloUserCliente.eliminar);
         localStorage.setItem('ModuloUserClienteEditar', data.ModuloUserCliente.editar);
+        // Cliente
+        localStorage.setItem('ModuloUserProveedoresVer', data.ModuloUserProveedores.ver);
+        localStorage.setItem('ModuloUserProveedoresEliminar', data.ModuloUserProveedores.eliminar);
+        localStorage.setItem('ModuloUserProveedoresEditar', data.ModuloUserProveedores.editar);
 
         console.log(localStorage.getItem('ModuloUserRRHHVer'),"loging false");
         console.log(localStorage.getItem('currentUser'),"loging false");
@@ -117,7 +131,7 @@ export class LoginComponent implements OnInit {
           window.location.reload();
         }
       }else{
-        this.mensaje = "El Nombre de usuario o contraseña no es correcto."+nombre+password;
+        this.mensaje = "El Nombre de usuario o contraseña no es correcto.";
         console.log(localStorage.getItem('currentUser'),"loging fallido");
         console.log(data.nombre,this.mensaje);
       }

@@ -29,7 +29,12 @@ export interface usuario {
         ver:string,
         eliminar:string,
         editar:string
-    }
+    },
+    ModuloUserProveedores:{
+      ver:string,
+      eliminar:string,
+      editar:string
+  }
     }
 
 export interface usuarioId extends usuario { id: string; }
@@ -52,24 +57,29 @@ export class UserComponent implements OnInit {
     private usuarioCollection: AngularFirestoreCollection<usuario>;
     usuarios: Observable<usuarioId[]>;
     nuevoUsuario: usuario = {
-        nombre: '',
-        correo:'',
-        password:'',
+        nombre: ' ',
+        correo:' ',
+        password:' ',
         ModuloUserRRHH:{
-            ver: " ",
-            eliminar:"false",
-            editar:"false"
+            ver: "true",
+            eliminar:"true",
+            editar:"true"
         },
         ModuloUser:{
-          ver: " ",
-          eliminar:"false",
-          editar:"false"
+          ver: "true",
+          eliminar:"true",
+          editar:"true"
       },
       ModuloUserCliente:{
-        ver: " ",
-        eliminar:"false",
-        editar:"false"
-    }
+        ver: "true",
+        eliminar:"true",
+        editar:"true"
+    },
+    ModuloUserProveedores:{
+      ver: "true",
+      eliminar:"true",
+      editar:"true"
+  }
     };
 
 
@@ -136,23 +146,28 @@ export class UserComponent implements OnInit {
     // console.log(datos.nombre[id],id);
     this.usuarioCollection.add(usuario);
     this.nuevoUsuario = {
-        nombre: '',
-        correo:'',
-        password:'',
+        nombre: ' ',
+        correo:' ',
+        password:' ',
         ModuloUserRRHH:{
-            ver: "false",
-            eliminar:"false",
-            editar:"false"
+            ver: "true",
+            eliminar:"true",
+            editar:"true"
         },
         ModuloUser:{
-          ver: "false",
-          eliminar:"false",
-          editar:"false"
+          ver: "true",
+          eliminar:"true",
+          editar:"true"
       },
       ModuloUserCliente:{
-        ver: "false",
-        eliminar:"false",
-        editar:"false"
+        ver: "true",
+        eliminar:"true",
+        editar:"true"
+    },
+      ModuloUserProveedores:{
+        ver: "true",
+        eliminar:"true",
+        editar:"true"
     }
     };
   }
@@ -168,6 +183,7 @@ export class UserComponent implements OnInit {
   }
 // funcion para guardar datos editados
   setUsuario(empleado) {
+    // RRHH
     localStorage.setItem('ModuloUserRRHHVer', empleado.ModuloUserRRHH.ver);
     localStorage.setItem('ModuloUserRRHHEditar', empleado.ModuloUserRRHH.editar);
     localStorage.setItem('ModuloUserRRHHEliminar', empleado.ModuloUserRRHH.eliminar);
@@ -180,6 +196,11 @@ export class UserComponent implements OnInit {
     localStorage.setItem('ModuloUserClienteVer', empleado.ModuloUserCliente.ver);
     localStorage.setItem('ModuloUserClienteEditar', empleado.ModuloUserCliente.editar);
     localStorage.setItem('ModuloUserClienteEliminar', empleado.ModuloUserCliente.eliminar);
+    
+    // Clientes
+    localStorage.setItem('ModuloUserProveedoresVer', empleado.ModuloUserProveedores.ver);
+    localStorage.setItem('ModuloUserProveedoresEditar', empleado.ModuloUserProveedores.editar);
+    localStorage.setItem('ModuloUserProveedoresEliminar', empleado.ModuloUserProveedores.eliminar);
     this.docUsuario.update(empleado);
     this.editar = true;
     console.log(localStorage.getItem('ModuloUserRRHHEliminar'),"eliminar");

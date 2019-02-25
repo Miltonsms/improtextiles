@@ -1,3 +1,9 @@
+<header class="page-header" style="margin-bottom: 13px;">
+    <div class="container-fluid">
+      <h2 class="no-margin-bottom">Usuarios</h2>
+    </div>
+</header>
+
 <div class="row">
   <div class="col-md-6 borderight">
     <div class="row float-right">
@@ -63,9 +69,11 @@
                                     <th>RRHH</th>
                                     <th>Usuarios</th>
                                     <th>Clientes</th>
+                                    <th>Proveedores</th>
                                   </tr>
                                 </thead>
                                 <tbody>
+                                  <!-- Ver -->
                                   <tr>
                                     <td>Ver</td>
                                     <td>
@@ -83,7 +91,13 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserCliente.ver">
                                       </div>
                                     </td>
+                                    <td>
+                                        <div class="form-check">
+                                             <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserProveedores.ver">
+                                        </div>
+                                    </td>
                                   </tr>
+                                  <!-- editar -->
                                   <tr>
                                     <td>Editar</td>
                                     <td>
@@ -101,7 +115,13 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserCliente.editar" *ngIf="nuevoUsuario.ModuloUserCliente.ver">
                                       </div>
                                     </td>
+                                    <td>
+                                        <div class="form-check">
+                                             <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserProveedores.editar" *ngIf="nuevoUsuario.ModuloUserProveedores.ver">
+                                        </div>
+                                    </td>
                                   </tr>
+                                  <!-- Eliminar -->
                                   <tr>
                                     <td>Eliminar</td>
                                     <td>
@@ -119,6 +139,11 @@
                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserCliente.eliminar" *ngIf="nuevoUsuario.ModuloUserCliente.ver">
                                       </div>
                                     </td>
+                                    <td>
+                                        <div class="form-check">
+                                             <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="nuevoUsuario.ModuloUserProveedores.eliminar" *ngIf="nuevoUsuario.ModuloUserProveedores.ver">
+                                        </div>
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -134,49 +159,44 @@
             </div>
           </div>
     </div>
-
     <!-- listado de clintes -->
     <div class="row">
         <div class="container">
-            <h2>Listado de usuarios</h2>
-            <div class="row">
-              <div class="col-md-12">
-                <form class="form-group">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
-                </form>
-              </div>
-            </div>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <!-- <th>Cargo</th>
-                  <th>Correo</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <tr *ngFor="let users of user" (click)="MostrarDatos(users)" style="cursor:pointer; cursor: hand">
-                  <td>{{users.Nombre}}</td>
-                  <td>
-                      {{users.correo}}
-                  </td>
-                  <td>
-                      {{users.cargo}}
-                  </td> -->
-                  <tr *ngFor="let empleado of usuarios | async|filter:query"  style="cursor:pointer; cursor: hand">
-                      <td (click)="verUsuario(empleado)" style="cursor:pointer; cursor: hand">{{empleado.nombre}}</td>
-                      <!-- <td>
-                          {{empleado.cargo}}
-                      </td>
-                      <td>
-                          {{empleado.emailLaboral}}
-                      </td> -->
-                    </tr>
-              </tbody>
-            </table>
-          </div>
+            <div class="col-md-12">
+                <div class="card">
+                   <div class="card-header  container">
+                      <div class="row">
+                        <div class="col-md-4">
+                            <h3 class="h4">Listado de usuarios</h3>
+                        </div>
+                        <div class="col-md-8">
+                            <form class="form-group">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
+                              </form>
+                        </div>
+                      </div>
+                   </div>
+                   <div class="card-body">
+                      <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Nombre</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let empleado of usuarios | async|filter:query"  style="cursor:pointer; cursor: hand">
+                                <td (click)="verUsuario(empleado)" style="cursor:pointer; cursor: hand">{{empleado.nombre}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                   </div>
+                </div>
+             </div>
+        </div>
     </div>
   </div>
+
+
   <!-- informacion de clientes  individual -->
   <div class="col-md-6" *ngIf="editUsuario | async as editUsuario">
       <div class="row float-right">
@@ -206,110 +226,133 @@
           </div>
       </div>
       <hr style="margin-top: 50px !important;"/>
-    <div class="row">
-        <div class="container">
-            <h2>Información del Usuario</h2>   
-            <form style="width: 100%;">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">Nombre</label>
-                    <input type="text" class="form-control" id="MostrarNombreUser" placeholder="Nombre" [(ngModel)]="editUsuario.nombre" name="nombreUser" [disabled]="editarUsuario"> 
+      <div class="row">
+          <div class="container">
+              <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header  container">
+                        <div class="row">
+                          <div class="col-md-12">
+                              <h3 class="h4">Información del Usuario</h3>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="container">
+                            <h2>Información del Usuario</h2>   
+                            <form style="width: 100%;">
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Nombre</label>
+                                    <input type="text" class="form-control" id="MostrarNombreUser" placeholder="Nombre" [(ngModel)]="editUsuario.nombre" name="nombreUser" [disabled]="editarUsuario"> 
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Cargo</label>
+                                    <input type="password" class="form-control" id="MostrarCargoUser" placeholder="Cargo" [(ngModel)]="editUsuario.password" name="cargoUser" [disabled]="editar">
+                                  </div>
+                                </div>
+                                <hr/>
+                            </form>
+                          </div>
+                          <div class="container">
+                              <h2>Permisos de Modulos</h2>
+                              <p>En la siguiente areá podra otorgar permisos a los usuarios:</p>            
+                              <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Permisos</th>
+                                    <th>RHHH</th>
+                                    <th>Usuarios</th>
+                                    <th>Clientes</th>
+                                    <th>Proveedores</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <!-- ver -->
+                                  <tr>
+                                    <td>Ver</td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.ver" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.ver" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.ver" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserProveedores.ver" [disabled]="editar">
+                                        </div>
+                                      </td>
+                                  </tr>
+                                  <!-- Editar -->
+                                  <tr>
+                                    <td>Editar</td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.editar" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.editar" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.editar" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserProveedores.editar" [disabled]="editar">
+                                        </div>
+                                      </td>
+                                  </tr>
+                                  <!-- Eliminar -->
+                                  <tr>
+                                    <td>Eliminar</td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.eliminar" [checked]="userEliminar" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.eliminar" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.eliminar" [disabled]="editar">
+                                      </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserProveedores.eliminar" [disabled]="editar">
+                                        </div>
+                                      </td>
+                                  </tr> 
+                                </tbody>
+                              </table>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12 text-right">
+                                <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setUsuario(editUsuario)" [disabled]="editar" *ngIf="ModuloUserEditar">Guardar</button>
+                                <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserEditar">Cancelar</button>
+                              </div>
+                            </div>
+                     </div>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPassword4">Cargo</label>
-                    <input type="password" class="form-control" id="MostrarCargoUser" placeholder="Cargo" [(ngModel)]="editUsuario.password" name="cargoUser" [disabled]="editar">
-                  </div>
-                </div>
-                <!-- <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Email</label>
-                      <input type="email" class="form-control" id="MostrarEmailUser" placeholder="Email" [(ngModel)]="MostrarEmailUser" name="emailUser" [disabled]="editar">
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputPassword4">Contraseña</label>
-                      <input type="password" class="form-control" id="MostrarPassword" placeholder="Contraseña" [(ngModel)]="passwordUser" name="passwordUser" [disabled]="editar">
-                    </div>
-                  </div> -->
-                    <hr/>
-              </form>
-        </div>
-        <div class="container">
-            <h2>Permisos de Modulos</h2>
-            <p>En la siguiente areá podra otorgar permisos a los usuarios:</p>            
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Permisos</th>
-                  <th>RHHH</th>
-                  <th>Usuarios</th>
-                  <th>Clientes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Ver</td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.ver" [disabled]="editar">
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.ver" [disabled]="editar">
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.ver" [disabled]="editar">
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Editar</td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.editar" [disabled]="editar">
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.editar" [disabled]="editar">
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.editar" [disabled]="editar">
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Eliminar</td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserRRHH.eliminar" [checked]="userEliminar" [disabled]="editar">
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUser.eliminar" [disabled]="editar">
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check">
-                         <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="editUsuario.ModuloUserCliente.eliminar" [disabled]="editar">
-                    </div>
-                  </td>
-                </tr> 
-              </tbody>
-            </table>
+               </div>
           </div>
-          
-  </div>
-    <div class="row">
-      <div class="col-md-12 text-right">
-        <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setUsuario(editUsuario)" [disabled]="editar" *ngIf="ModuloUserEditar">Guardar</button>
-        <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserEditar">Cancelar</button>
       </div>
-    </div>
   </div>
 </div>
