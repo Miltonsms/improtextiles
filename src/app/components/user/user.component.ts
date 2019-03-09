@@ -186,14 +186,15 @@ export class UserComponent implements OnInit {
     localStorage.setItem('ModuloUserClienteEditar', empleado.ModuloUserCliente.editar);
     localStorage.setItem('ModuloUserClienteEliminar', empleado.ModuloUserCliente.eliminar);
     
-    // Clientes
+    // proveedores
+
     localStorage.setItem('ModuloUserProveedoresVer', empleado.ModuloUserProveedores.ver);
     localStorage.setItem('ModuloUserProveedoresEditar', empleado.ModuloUserProveedores.editar);
     localStorage.setItem('ModuloUserProveedoresEliminar', empleado.ModuloUserProveedores.eliminar);
     this.docUsuario.update(empleado);
     this.editar = true;
     console.log(localStorage.getItem('ModuloUserRRHHEliminar'),"eliminar");
-    window.location.reload();
+    // window.location.reload();
   }
   daleteEmpleado() {
     this.docUsuario.delete();

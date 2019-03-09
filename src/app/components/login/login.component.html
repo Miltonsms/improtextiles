@@ -18,6 +18,11 @@
           <div class="col-lg-6 bg-white">
             <div class="form d-flex align-items-center">
               <div class="content">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img src="../assets/imagenes/logo_alta_resolucion.png" style="width: 50%; margin-bottom: 45px;" alt="">
+                    </div>
+                  </div>
                 <form method="post" class="form-validate" novalidate="novalidate">
                   <div class="form-group">
                     <input type="text" id="inputEmail" class="form-control" placeholder="Nombre de Usuario" [(ngModel)]="nombre" name="first"> 
@@ -35,11 +40,10 @@
         </div>
       </div>
     </div>
-    <div class="copyrights text-center">
-      <p>Design by <a href="https://bootstrapious.com/p/admin-template" class="external">Bootstrapious</a>
-        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+    <!-- <div class="copyrights text-center">
+      <p>Design by <a href="https://bootstrapious.com/p/admin-template" class="external"></a>
       </p>
-    </div>
+    </div> -->
     <div *ngFor="let item of usuarios | async"></div>
   </div>
 </div>

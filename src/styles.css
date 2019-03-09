@@ -179,7 +179,7 @@ nav.side-navbar {
   color: #686a76;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   z-index: 9;
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
   /*==== Sidebar Header ====*/
   /*==== Sidebar Menu ====*/
   /*==== Shrinked Sidebar ====*/
@@ -434,4 +434,11 @@ nav.side-navbar.shrinked .sidebar-header .title {
   .content-inner.active {
     width: calc(100% - 90px);
   }
+}
+
+.content-inner2 {
+  position: relative;
+  width: calc(100% - 250px);
+  min-height: calc(100vh - 70px);
+  padding-bottom: 60px;
 }

@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export interface Empleado { nombre: string; apellidos: string; fechaNacimiento: Date; dpi: number; sexo: string; EstadoCivil: string; Telefono: number; email: string;  FechaIngreso: Date;  emailLaboral: string;  cargo: string;}
+export interface Empleado { nombre: string; apellidos: string; fechaNacimiento: Date; dpi: number; sexo: string; EstadoCivil: string; Telefono: number; email: string;  FechaIngreso: Date;  emailLaboral: string;  cargo: string; jefeinmediato: string; departamento: string;}
 export interface EmpleadoId extends Empleado { id: string; }
 
 @Component({
@@ -28,7 +28,9 @@ export class RrhhComponent implements OnInit {
     email: '',
     FechaIngreso: null,
     emailLaboral: '',
-    cargo: ''
+    cargo: '',
+    jefeinmediato: '',
+    departamento:''
   };
   editar = true;
   query: string;
@@ -78,7 +80,9 @@ export class RrhhComponent implements OnInit {
       email: '',
       FechaIngreso: null,
       emailLaboral: '',
-      cargo: ''
+      cargo: '',
+      jefeinmediato: '',
+      departamento:''
     };
   }
 
