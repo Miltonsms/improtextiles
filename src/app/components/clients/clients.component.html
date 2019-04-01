@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-6 borderight">
       <div class="row float-right">
-          <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Nuevo Cliente</button>
+          <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" style="margin-right: 10px;">Cliente Individual</button>
       </div>
       <hr style="margin-top: 50px !important;"/>
       <!-- popup creacion de clientes -->
@@ -16,7 +16,7 @@
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Creación de Cliente Juridico</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Creación de Cliente Individual</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -28,37 +28,91 @@
                               <hr style="margin-top: 21px !important;">
                               <div class="form-row">
                                 <div class="form-group col-md-6">
-                                  <label for="inputEmail4">Nombre  Comercial:</label>
-                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre  Comercial" [(ngModel)]="nuevoClienteJuridico.nombre" name="nombreEmpleado">
+                                  <label for="inputEmail4">Nombres:</label>
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nombres" [(ngModel)]="nuevoClienteIndividual.nombres" name="nombreEmpleado">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Representante Legal:</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Representante Legal" [(ngModel)]="nuevoClienteJuridico.Representante" name="nombreEmpleado">
+                                    <label for="inputEmail4"> Apellidos:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder=" Apellidos" [(ngModel)]="nuevoClienteIndividual.apellidos" name="nombreEmpleado">
                                 </div>
                               </div>
                               <div class="form-row">
                                 <div class="form-group col-md-6">
-                                  <label for="inputEmail4">Identificacion Rep Legal</label>
-                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Identificacion Rep Legal" [(ngModel)]="nuevoClienteJuridico.IdentificacionRep" name="ferchaNacimientoEmpelado">
+                                  <label for="inputEmail4">Email</label>
+                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Email" [(ngModel)]="nuevoClienteIndividual.email" name="ferchaNacimientoEmpelado">
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="inputPassword4">NIT</label>
-                                  <input type="text" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="nuevoClienteJuridico.nit" name="dpiEmpelado">
+                                  <input type="text" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="nuevoClienteIndividual.nit" name="dpiEmpelado">
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Direccion de Domicilio</label>
+                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Direccion de Domicilio" [(ngModel)]="nuevoClienteIndividual.direccionDomicilio" name="ferchaNacimientoEmpelado">
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputPassword4">Estado Civil</label>
+                                  <input type="text" class="form-control" id="inputPassword5" placeholder="Estado Civil" [(ngModel)]="nuevoClienteIndividual.estadocivil" name="dpiEmpelado">
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">No Telefono de Casa:</label>
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="No Telefono de Casa" [(ngModel)]="nuevoClienteIndividual.telefonocasa" name="nombreEmpleado">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> No Movil:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="No Movil" [(ngModel)]="nuevoClienteIndividual.movil" name="nombreEmpleado">
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Fecha de Nacimiento:</label>
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Fecha de Nacimiento" [(ngModel)]="nuevoClienteIndividual.fechanacimiento" name="nombreEmpleado">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">DPI:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="DPI" [(ngModel)]="nuevoClienteIndividual.dpi" name="nombreEmpleado">
+                                </div>
+                              </div> 
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Direccion de trabajo</label>
+                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Direccion de trabajo" [(ngModel)]="nuevoClienteIndividual.direcciontrabajo" name="ferchaNacimientoEmpelado">
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputPassword4">PBX y extension</label>
+                                  <input type="text" class="form-control" id="inputPassword5" placeholder="PBX y extension" [(ngModel)]="nuevoClienteIndividual.pbx" name="dpiEmpelado">
                                 </div>
                               </div>
                               <div class="form-row">
                                   <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail5" placeholder="email" [(ngModel)]="nuevoClienteJuridico.email" name="ferchaNacimientoEmpelado">
+                                    <label for="inputEmail4">Correo Electronico Empresarial:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Correo Electronico Empresarial" [(ngModel)]="nuevoClienteIndividual.emailempresarial" name="nombreEmpleado">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                      <label for="inputEmail4">Cargo de la empresa:</label>
+                                      <input type="text" class="form-control" id="inputEmail4" placeholder="No Movil" [(ngModel)]="nuevoClienteIndividual.cargoempresa" name="nombreEmpleado">
                                   </div>
                                 </div>
-                            </form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                      <label for="inputEmail4">Observaciones:</label>
+                                      <input type="text" class="form-control" id="inputEmail4" placeholder="Observaciones" [(ngModel)]="nuevoClienteIndividual.observaciones" name="nombreEmpleado">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Fecha de Inicio de Relacion:</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="Fecha de Inicio de Relacion" [(ngModel)]="nuevoClienteIndividual.fechainiciorelacion" name="nombreEmpleado">
+                                    </div>
+                                  </div>                   
+                          </form>
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" (click)="addCliente(nuevoClienteJuridico)" data-dismiss="modal">Guardar Cliente</button>
+                    <button type="button" class="btn btn-primary" (click)="addCliente(nuevoClienteIndividual)" data-dismiss="modal">Guardar Cliente</button>
                   </div>
                 </div>
               </div>
@@ -87,19 +141,19 @@
                             <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th>Nombre  Comercial</th>
-                                    <th>Representante Legal</th>
-                                    <th>Email</th>
+                                    <th>Nombre</th>
+                                    <th>No Telefono de Casa</th>
+                                    <th> No Movil</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr *ngFor="let cliente of clientes | async |filter:query" (click)="verCliente(cliente)" style="cursor:pointer; cursor: hand">
-                                    <td>{{cliente.nombre}}</td>
+                                    <td>{{cliente.nombres}} {{cliente.apellidos}}</td>
                                     <td>
-                                        {{cliente.Representante}}
+                                        {{cliente.telefonocasa}}
                                     </td>
                                     <td>
-                                        {{cliente.email}}
+                                        {{cliente.movil}}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -153,31 +207,85 @@
                         <form style="width: 100%;">
                             <hr style="margin-top: 21px !important;">
                             <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmai20">Nombres:</label>
+                                    <input type="text" class="form-control" id="inputEmai20" placeholder="Nombres" [(ngModel)]="editCliente.nombres" name="nombreEmpleado" [disabled]="editar">
+                                </div>
                               <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nombre  Comercial:</label>
-                                <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre  Comercial" [(ngModel)]="editCliente.nombre" name="nombreEmpleado" [disabled]="editar">
-                              </div>
-                              <div class="form-group col-md-6">
-                                  <label for="inputEmail4">Representante Legal:</label>
-                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Representante Legal" [(ngModel)]="editCliente.Representante" name="Representante" [disabled]="editar">
+                                  <label for="inputEmai21"> Apellidos:</label>
+                                  <input type="text" class="form-control" id="inputEmai21" placeholder=" Apellidos" [(ngModel)]="editCliente.apellidos" name="nombreEmpleado" [disabled]="editar">
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
-                                <label for="inputEmail4">Identificacion Rep Legal</label>
-                                <input type="text" class="form-control" id="inputEmail5" placeholder="Identificacion Rep Legal" [(ngModel)]="editCliente.IdentificacionRep" name="Identificacion" [disabled]="editar">
+                                <label for="inputEmai22">Email</label>
+                                <input type="text" class="form-control" id="inputEmai22" placeholder="Email" [(ngModel)]="editCliente.email" name="ferchaNacimientoEmpelado" [disabled]="editar">
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="inputPassword4">NIT</label>
-                                <input type="text" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="editCliente.nit" name="dpiEmpelado" [disabled]="editar">
+                                <label for="inputEmai23">NIT</label>
+                                <input type="text" class="form-control" id="inputEmai23" placeholder="NIT" [(ngModel)]="editCliente.nit" name="dpiEmpelado" [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai24">Direccion de Domicilio</label>
+                                <input type="text" class="form-control" id="inputEmai24" placeholder="Direccion de Domicilio" [(ngModel)]="editCliente.direccionDomicilio" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai25">Estado Civil</label>
+                                <input type="text" class="form-control" id="inputEmai25" placeholder="Estado Civil" [(ngModel)]="editCliente.estadocivil" name="dpiEmpelado" [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai26">No Telefono de Casa:</label>
+                                <input type="text" class="form-control" id="inputEmai26" placeholder="No Telefono de Casa" [(ngModel)]="editCliente.telefonocasa" name="nombreEmpleado" [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="inputEmai27"> No Movil:</label>
+                                  <input type="text" class="form-control" id="inputEmai27" placeholder="No Movil" [(ngModel)]="editCliente.movil" name="nombreEmpleado" [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai28">Fecha de Nacimiento:</label>
+                                <input type="text" class="form-control" id="inputEmai28" placeholder="Fecha de Nacimiento" [(ngModel)]="editCliente.fechanacimiento" name="nombreEmpleado" [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="inputEmai29">DPI:</label>
+                                  <input type="text" class="form-control" id="inputEmai29" placeholder="DPI" [(ngModel)]="editCliente.dpi" name="nombreEmpleado" [disabled]="editar">
+                              </div>
+                            </div> 
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai30">Direccion de trabajo</label>
+                                <input type="text" class="form-control" id="inputEmai30" placeholder="Direccion de trabajo" [(ngModel)]="editCliente.direcciontrabajo" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai31">PBX y extension</label>
+                                <input type="text" class="form-control" id="inputEmai31" placeholder="PBX y extension" [(ngModel)]="editCliente.pbx" name="dpiEmpelado" [disabled]="editar">
                               </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                  <label for="inputEmail4">Email</label>
-                                  <input type="email" class="form-control" id="inputEmail5" placeholder="email" [(ngModel)]="editCliente.email" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                                  <label for="inputEmai32">Correo Electronico Empresarial:</label>
+                                  <input type="text" class="form-control" id="inputEmai32" placeholder="Correo Electronico Empresarial" [(ngModel)]="editCliente.emailempresarial" name="nombreEmpleado" [disabled]="editar">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmai33">Cargo de la empresa:</label>
+                                    <input type="text" class="form-control" id="inputEmai33" placeholder="No Movil" [(ngModel)]="editCliente.cargoempresa" name="nombreEmpleado" [disabled]="editar">
                                 </div>
                               </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="inputEmai34">Observaciones:</label>
+                                    <input type="text" class="form-control" id="inputEmai34" placeholder="Observaciones" [(ngModel)]="editCliente.observaciones" name="nombreEmpleado" [disabled]="editar">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                      <label for="inputEmai35">Fecha de Inicio de Relacion:</label>
+                                      <input type="text" class="form-control" id="inputEmai35" placeholder="Fecha de Inicio de Relacion" [(ngModel)]="editCliente.fechainiciorelacion" name="nombreEmpleado" [disabled]="editar">
+                                  </div>
+                                </div>                   
                         </form>
                         <div class="row">
                             <div class="col-md-12 text-right">

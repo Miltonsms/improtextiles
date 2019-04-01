@@ -3,14 +3,25 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // clientes
-export interface cliente {
-  nombre: string;
-  Representante:string,
-  IdentificacionRep:string,
+export interface ClienteIndividual {
+  nombres: string;
+  apellidos:string,
+  email:string,
   nit:string,
-  email:string
+  direccionDomicilio:string,
+  estadocivil: string,
+  telefonocasa:string,
+  movil:string,
+  fechanacimiento:string,
+  dpi:string,
+  direcciontrabajo:string,
+  pbx: string;
+  emailempresarial:string,
+  cargoempresa:string,
+  observaciones:string,
+  fechainiciorelacion:string
 }
-export interface  clienteId extends cliente { id: string; }
+export interface  ClienteIndividualId extends ClienteIndividual { id: string; }
 
 
 @Component({
@@ -20,31 +31,44 @@ export interface  clienteId extends cliente { id: string; }
 })
 export class ClientsComponent implements OnInit {
 
+  //variables para permisos 
   ModuloUserClienteEliminar = JSON.parse(localStorage.getItem('ModuloUserClienteEliminar'));
   ModuloUserClienteEditar = JSON.parse(localStorage.getItem('ModuloUserClienteEditar',));
-  private clienteCollection: AngularFirestoreCollection<cliente>;
-  clientes: Observable<clienteId[]>;
+
+  private clienteCollection: AngularFirestoreCollection<ClienteIndividual>;
+  clientes: Observable<ClienteIndividualId[]>;
   //arrego para agregar nuevo cliente
-  nuevoClienteJuridico: cliente = {
-    nombre: '',
-    Representante:'',
-    IdentificacionRep:'',
-    nit:'',
-    email:''
+  nuevoClienteIndividual: ClienteIndividual = {
+    nombres: " ",
+    apellidos:" ",
+    email:" ",
+    nit:" ",
+    direccionDomicilio:" ",
+    estadocivil: " ",
+    telefonocasa:" ",
+    movil:" ",
+    fechanacimiento:" ",
+    dpi:" ",
+    direcciontrabajo:" ",
+    pbx: " ",
+    emailempresarial:" ",
+    cargoempresa:" ",
+    observaciones:" ",
+    fechainiciorelacion:" "
   };
 
   editar = true;
-  docCliente: AngularFirestoreDocument<cliente>;
-  editCliente: Observable<cliente>;
+  docCliente: AngularFirestoreDocument<ClienteIndividual>;
+  editCliente: Observable<ClienteIndividual>;
   query: string;
 
 
-  constructor(private readonly afs: AngularFirestore) { 
+  constructor(private readonly afs: AngularFirestore) {
         // cliente
-        this.clienteCollection = afs.collection<cliente>('cliente');
+        this.clienteCollection = afs.collection<ClienteIndividual>('cliente');
         this.clientes = this.clienteCollection.snapshotChanges().pipe(
           map(actions => actions.map(a => {
-            const data = a.payload.doc.data() as cliente;
+            const data = a.payload.doc.data() as ClienteIndividual;
             const id = a.payload.doc.id;
             return { id, ...data };
           }))
@@ -55,22 +79,37 @@ export class ClientsComponent implements OnInit {
 
   }
 
-  addCliente(cliente: cliente) {
+  addCliente(cliente: ClienteIndividual) {
     this.clienteCollection.add(cliente);
-    this.nuevoClienteJuridico = {
-      nombre: '',
-      Representante:'',
-      IdentificacionRep:'',
-      nit:'',
-      email:''
+    this.nuevoClienteIndividual = {
+      nombres: " ",
+      apellidos:" ",
+      email:" ",
+      nit:" ",
+      direccionDomicilio:" ",
+      estadocivil: " ",
+      telefonocasa:" ",
+      movil:" ",
+      fechanacimiento:" ",
+      dpi:" ",
+      direcciontrabajo:" ",
+      pbx: " ",
+      emailempresarial:" ",
+      cargoempresa:" ",
+      observaciones:" ",
+      fechainiciorelacion:" "
     };
   }
+
   verCliente(cliente) {
+    // console.log(cliente);
     this.docCliente = this.afs.doc(`cliente/${cliente.id}`);
+    console.log(this.docCliente,"docliente");
     this.editCliente = this.docCliente.valueChanges();
-    console.log(this.docCliente);
+    console.log(this.editCliente,"editcliente");
     this.editar = true;
   }
+  
   ButtonEditar(){
     this.editar = false;
 }

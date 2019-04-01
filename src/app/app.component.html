@@ -24,16 +24,15 @@
               <ul class="list-unstyled">
                 <li routerLinkActive="active"  *ngIf="ModuloUserVer"><a [routerLink]="['user']"> <i class="icon-home"></i>USUARIOS </a></li>
                 <li routerLinkActive="active"  *ngIf="ModuloUserRRHHVer" ><a [routerLink]="['rrhh']" > <i class="icon-grid"></i>RRHH </a></li>
-                <li routerLinkActive="active"  *ngIf="ModuloUserClienteVer" ><a [routerLink]="['clients']" > <i class="icon-grid"></i>CLIENTES </a></li>
+                <!-- <li routerLinkActive="active"  *ngIf="ModuloUserClienteVer" ><a [routerLink]="['clients']" > <i class="icon-grid"></i>CLIENTES </a></li> -->
                 <li routerLinkActive="active"  *ngIf="ModuloUserProveedores" ><a [routerLink]="['providers']" > <i class="icon-grid"></i>PROVEEDORES </a></li>
-                <!-- <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li> -->
-                <!-- <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
-                  <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Page</a></li>
+                <li routerLinkActive="active">
+                  <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>CLIENTES</a>
+                  <ul id="exampledropdownDropdown" class="list-unstyled collapse show">
+                     <li routerLinkActive="active"><a [routerLink]="['clients']" > <i class="icon-grid"></i>Cliente Individual</a></li>
+                     <li routerLinkActive="active"><a > <i class="icon-grid"></i>Cliente Institucional</a></li>
                   </ul>
-                </li> -->
+               </li>
               </ul>
               <!-- <span class="heading">Extras</span> -->
               <!-- <ul class="list-unstyled">
