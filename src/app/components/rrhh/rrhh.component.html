@@ -112,6 +112,107 @@
             </div>
           </div>
     </div>
+    <!-- popup descuento de dias -->
+    <div class="row">
+        <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Descontar Días de vacaciones</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                      <div class="container">
+                        <form style="width: 100%;">
+                            <!-- <h2>Datos del Empleados</h2>
+                            <p>En la siguiente areá podra colocar la informacion de Empleado:</p> -->
+                            <h4>Datos personales</h4>
+                            <hr style="margin-top: 21px !important;">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Nombres:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Nombres" [(ngModel)]="nuevoEmpleado.nombre" name="nombreEmpleado">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Apellidos:</label>
+                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Apellidos" [(ngModel)]="nuevoEmpleado.apellidos" name="nombreEmpleado">
+                                <!-- <label for="inputPassword4">Cargo</label>
+                                <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoEmpleado.cargo" name="cargoUser"> -->
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="inputEmail5" placeholder="Fecha de Nacimiento" [(ngModel)]="nuevoEmpleado.fechaNacimiento" name="ferchaNacimientoEmpelado">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputPassword4">No. de DPI</label>
+                                <input type="number" class="form-control" id="inputPassword5" placeholder="No. de DPI" [(ngModel)]="nuevoEmpleado.dpi" name="dpiEmpelado">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Sexo</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="nuevoEmpleado.sexo" name="sexoEmpleado">
+                                        <option>Masculino</option>
+                                        <option>Femenino</option>
+                                      </select>
+                                  </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Estado Civil</label>
+                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Estado Civil" [(ngModel)]="nuevoEmpleado.EstadoCivil" name="ferchaNacimientoEmpelado">
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Numero de Telefono</label>
+                                    <input type="number" class="form-control" id="inputEmail5" placeholder="Numero de Telefono" [(ngModel)]="nuevoEmpleado.Telefono" name="emailempleado">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Correo electrónico</label>
+                                    <input type="email" class="form-control" id="inputPassword5" placeholder="Correo electrónico" [(ngModel)]="nuevoEmpleado.email" name="emailEmpelado">
+                                  </div>
+                                </div>
+                            <hr/>
+                            <h4>Datos Laborales</h4>
+                            <hr style="margin-top: 21px !important;">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                <label for="inputPassword4">Cargo</label>
+                                <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoEmpleado.cargo" name="cargoUser">
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label for="inputPassword4">Fecha de Ingreso Empresa</label>
+                                  <input type="date" class="form-control" id="inputPassword5" placeholder="Fecha de Ingreso Empresa" [(ngModel)]="nuevoEmpleado.FechaIngreso" name="emailEmpelado">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputPassword4">Email laboral</label>
+                                    <input type="email" class="form-control" id="inputPassword5" placeholder="Email laboral" [(ngModel)]="nuevoEmpleado.emailLaboral" name="emailEmpelado">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label for="inputPassword4">Jefe inmediato</label>
+                                    <input type="text" class="form-control" id="inputPassword5" placeholder="Jefe inmediato" [(ngModel)]="nuevoEmpleado.jefeinmediato" name="jefeinmediato">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label for="inputPassword4">Departamento</label>
+                                    <input type="text" class="form-control" id="inputPassword5" placeholder="Departamento" [(ngModel)]="nuevoEmpleado.departamento" name="departamento">
+                                  </div>
+                              </div>
+                          </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" (click)="addEmpleado(nuevoEmpleado)" data-dismiss="modal">Guardar Usuario</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
     <!-- listado de Empleados -->
     <div class="row">
         <div class="container">
@@ -193,9 +294,30 @@
                   <div class="card">
                      <div class="card-header  container">
                         <div class="row">
-                          <div class="col-md-12">
-                              <h3 class="h4">Información del Cliente</h3>
+                          <div class="col-md-6">
+                              <h3 class="h4">Información del Empleado</h3>
                           </div>
+                          <div class="col-md-6">
+                            <button *ngIf="!vacationVar" type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setVacations(editEmpleado)" >Calcular de vacaciones</button>
+                            <button *ngIf="vacationVar" type="button" class="btn btn-danger " style="margin-right: 20px;" (click)="setVacations(editEmpleado)" >Cerrar calculo</button>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="vacationVar" >
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Días disponibles:</label>
+                                <input type="text" class="form-control"  [(ngModel)]="totalDays" [disabled]="true">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Días utilizados:</label>
+                                  <input type="text" class="form-control"   [(ngModel)]="editEmpleado.daysUsed"  [disabled]="false">
+                              </div>
+                        </div>
+                        <div class="row" *ngIf="vacationVar" >
+                            <div class="form-group col-md-6">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setUsedDays(editEmpleado)" >Descontar días</button>
+                              </div>
                         </div>
                      </div>
                      <div class="card-body">
