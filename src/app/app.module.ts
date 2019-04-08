@@ -18,6 +18,7 @@ import { RrhhComponent } from './components/rrhh/rrhh.component';
 import { LoginComponent } from './components/login/login.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchPipe } from './search.pipe';
+import { ClienteIndustrialComponent } from './components/cliente-industrial/cliente-industrial.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SearchPipe } from './search.pipe';
     ClientsComponent,
     RrhhComponent,
     LoginComponent,
-    SearchPipe
+    SearchPipe,
+    ClienteIndustrialComponent
   ],
   imports: [
     BrowserModule,

@@ -27,10 +27,10 @@
                 <!-- <li routerLinkActive="active"  *ngIf="ModuloUserClienteVer" ><a [routerLink]="['clients']" > <i class="icon-grid"></i>CLIENTES </a></li> -->
                 <li routerLinkActive="active"  *ngIf="ModuloUserProveedores" ><a [routerLink]="['providers']" > <i class="icon-grid"></i>PROVEEDORES </a></li>
                 <li routerLinkActive="active">
-                  <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>CLIENTES</a>
-                  <ul id="exampledropdownDropdown" class="list-unstyled collapse show">
+                <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" *ngIf="ModuloUserClienteVer"> <i class="icon-interface-windows"></i>CLIENTES</a>
+                  <ul id="exampledropdownDropdown" class="list-unstyled collapse show" *ngIf="ModuloUserClienteVer">
                      <li routerLinkActive="active"><a [routerLink]="['clients']" > <i class="icon-grid"></i>Cliente Individual</a></li>
-                     <li routerLinkActive="active"><a > <i class="icon-grid"></i>Cliente Institucional</a></li>
+                     <li routerLinkActive="active"><a [routerLink]="['cleinteindustrial']" > <i class="icon-grid"></i>Cliente Institucional</a></li>
                   </ul>
                </li>
               </ul>
