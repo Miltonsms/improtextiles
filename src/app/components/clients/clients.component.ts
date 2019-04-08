@@ -37,6 +37,7 @@ export class ClientsComponent implements OnInit {
 
   private clienteCollection: AngularFirestoreCollection<ClienteIndividual>;
   clientes: Observable<ClienteIndividualId[]>;
+  
   //arrego para agregar nuevo cliente
   nuevoClienteIndividual: ClienteIndividual = {
     nombres: " ",
@@ -105,13 +106,13 @@ export class ClientsComponent implements OnInit {
     // console.log(cliente);
     this.docCliente = this.afs.doc(`cliente/${cliente.id}`);
     console.log(this.docCliente,"docliente");
-    this.editCliente = this.docCliente.valueChanges();
-    console.log(this.editCliente,"editcliente");
+    this.editCliente=this.docCliente.valueChanges()
+    console.log("edit cliente",this.editCliente);
     this.editar = true;
   }
   
   ButtonEditar(){
-    this.editar = false;
+    this.editar = false
 }
   ButtonEditarCancelar(){
   this.editar = true;

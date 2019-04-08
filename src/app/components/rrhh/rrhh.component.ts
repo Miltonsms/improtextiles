@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as firebase from 'firebase/app'
 
-export interface Empleado { nombre: string; apellidos: string; fechaNacimiento: Date; dpi: number; sexo: string; EstadoCivil: string; Telefono: number; email: string;  FechaIngreso: Date;  emailLaboral: string;  cargo: string; jefeinmediato: string; departamento: string;daysUsed:number}
+export interface Empleado { nombre: string; apellidos: string; fechaNacimiento: Date; dpi: number; sexo: string; EstadoCivil: string; Telefono: number; email: string;  FechaIngreso: Date;  emailLaboral: string;  cargo: string; jefeinmediato: string; departamento: string;daysUsed:number;historyDays:any}
 export interface EmpleadoId extends Empleado { id: string; }
 import * as moment from 'moment';
 import { detectChanges } from '@angular/core/src/render3';
-
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-rrhh',
   templateUrl: './rrhh.component.html',
@@ -32,7 +33,8 @@ export class RrhhComponent implements OnInit {
     cargo: '',
     jefeinmediato: '',
     departamento:'',
-    daysUsed:null
+    daysUsed:null,
+    historyDays:null
   };
   editar = true;
   query: string;  
@@ -42,6 +44,11 @@ export class RrhhComponent implements OnInit {
   vacationVar=false
   totalDays
   selectedEmployee
+  numberDiscountDays
+  reasonDiscountDays
+  yearsWorked
+  monthsWorked
+  historyEmployee=[]
   constructor(private readonly afs: AngularFirestore) {
 
     this.empleadoCollection = afs.collection<Empleado>('empleados');
@@ -68,6 +75,12 @@ export class RrhhComponent implements OnInit {
     this.selectedEmployee=empleado
     this.docEmpleado = this.afs.doc(`empleados/${empleado.id}`);
     this.editEmpleado = this.docEmpleado.valueChanges();
+    this.afs.doc(`empleados/${empleado.id}`).collection("historyDays").valueChanges().subscribe(snapshot=>{
+      this.historyEmployee=[]
+      snapshot.forEach(item=>{
+        this.historyEmployee.push(item)
+      })   
+    })
     console.log(this.editEmpleado);
 
   }
@@ -88,7 +101,8 @@ export class RrhhComponent implements OnInit {
       cargo: '',
       jefeinmediato: '',
       departamento:'',
-      daysUsed:null
+      daysUsed:null,
+      historyDays:null
     };
   }
 
@@ -107,6 +121,8 @@ ButtonEditarCancelar(){
   this.editar = true;
 }
 setVacations(empleado){
+  this.yearsWorked=null
+  this.monthsWorked=null
   if(this.vacationVar==false){
     this.vacationVar=true
     if(empleado.daysUsed==null){
@@ -119,21 +135,63 @@ setVacations(empleado){
       })
       let dateCreated=moment(empleado.FechaIngreso)
       let dateNow=moment()
-      let yearsWorked=dateNow.diff(dateCreated,"years",true)
-      this.totalDays=yearsWorked*15
-      this.totalDays=this.totalDays.toFixed(2)
+      this.yearsWorked=dateNow.diff(dateCreated,"years",true)
+      let auxsplit=this.yearsWorked.toFixed(2)
+      let splitYears=auxsplit.split('.')
+      if(splitYears[1]!=null){
+        let auxMonth=Number(splitYears[1])
+        this.monthsWorked=12*(auxMonth/100)
+        this.monthsWorked=this.monthsWorked.toFixed(0)
+      }
+      this.totalDays=this.yearsWorked*15
+      this.totalDays=this.totalDays.toFixed(0)
+      this.yearsWorked=auxsplit[0]
       }
     else{
-       let dateCreated=moment(empleado.FechaIngreso)
+      let dateCreated=moment(empleado.FechaIngreso)
       let dateNow=moment()
-      let yearsWorked=dateNow.diff(dateCreated,"years",true)
-      this.totalDays=yearsWorked*15
-      this.totalDays=this.totalDays.toFixed(2)
-  
+      this.yearsWorked=dateNow.diff(dateCreated,"years",true)
+      let auxsplit=this.yearsWorked.toFixed(2)
+      let splitYears=auxsplit.split('.')
+      if(splitYears[1]!=null){
+        let auxMonth=Number(splitYears[1])
+        this.monthsWorked=12*(auxMonth/100)
+        this.monthsWorked=this.monthsWorked.toFixed(0)
+      }
+      this.totalDays=this.yearsWorked*15-empleado.daysUsed
+      this.totalDays=this.totalDays.toFixed(0)
+      this.yearsWorked=auxsplit[0]
     }
   }
   else{
     this.vacationVar=false
   }
+  
+}
+discountDays(){
+  this.afs.doc(`empleados/${this.selectedEmployee.id}`).valueChanges().pipe(take(1)).subscribe(snapshot=>{
+    let aux:any
+    aux=snapshot
+    console.log("snap",aux.daysUsed)
+    this.afs.doc(`empleados/${this.selectedEmployee.id}`).update({
+      daysUsed: aux.daysUsed+this.numberDiscountDays
+    }).then(_=>{
+      this.totalDays=this.totalDays-this.numberDiscountDays
+      this.numberDiscountDays=0
+      this.reasonDiscountDays=''
+      console.log("update ok")
+    }).catch(error=>{
+      console.log("error:",error)
+    })
+  })
+  this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).add({
+    days:this.numberDiscountDays,
+    reason:this.reasonDiscountDays,
+    date: new Date(Date.now()).toLocaleString()
+  }).then(_=>{
+    this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).valueChanges().subscribe(snapshot=>{
+      console.log("historial",snapshot)
+    })
+  })
 }
 }

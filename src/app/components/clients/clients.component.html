@@ -29,81 +29,81 @@
                               <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label for="inputEmail4">Nombres:</label>
-                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nombres" [(ngModel)]="nuevoClienteIndividual.nombres" name="nombreEmpleado">
+                                  <input type="text" name="newClientName"class="form-control" id="inputEmail4" placeholder="Nombres" [(ngModel)]="nuevoClienteIndividual.nombres" >
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4"> Apellidos:</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder=" Apellidos" [(ngModel)]="nuevoClienteIndividual.apellidos" name="nombreEmpleado">
+                                    <input type="text" name="newClientLastname" class="form-control" id="inputEmail4" placeholder=" Apellidos" [(ngModel)]="nuevoClienteIndividual.apellidos" >
                                 </div>
                               </div>
                               <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label for="inputEmail4">Email</label>
-                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Email" [(ngModel)]="nuevoClienteIndividual.email" name="ferchaNacimientoEmpelado">
+                                  <input type="text" name="newClientEmail"class="form-control" id="inputEmail5" placeholder="Email" [(ngModel)]="nuevoClienteIndividual.email" >
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="inputPassword4">NIT</label>
-                                  <input type="text" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="nuevoClienteIndividual.nit" name="dpiEmpelado">
+                                  <input type="text" name="newClientNit" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="nuevoClienteIndividual.nit" >
                                 </div>
                               </div>
                               <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label for="inputEmail4">Direccion de Domicilio</label>
-                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Direccion de Domicilio" [(ngModel)]="nuevoClienteIndividual.direccionDomicilio" name="ferchaNacimientoEmpelado">
+                                  <input type="text" name="newClientAddress" class="form-control" id="inputEmail5" placeholder="Direccion de Domicilio" [(ngModel)]="nuevoClienteIndividual.direccionDomicilio" >
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="inputPassword4">Estado Civil</label>
-                                  <input type="text" class="form-control" id="inputPassword5" placeholder="Estado Civil" [(ngModel)]="nuevoClienteIndividual.estadocivil" name="dpiEmpelado">
+                                  <input type="text"name="newClientCivilStatus" class="form-control" id="inputPassword5" placeholder="Estado Civil" [(ngModel)]="nuevoClienteIndividual.estadocivil" >
                                 </div>
                               </div>
                               <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label for="inputEmail4">No Telefono de Casa:</label>
-                                  <input type="text" class="form-control" id="inputEmail4" placeholder="No Telefono de Casa" [(ngModel)]="nuevoClienteIndividual.telefonocasa" name="nombreEmpleado">
+                                  <input type="text" name="newClientHomePhone" class="form-control" id="inputEmail4" placeholder="No Telefono de Casa" [(ngModel)]="nuevoClienteIndividual.telefonocasa" >
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4"> No Movil:</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="No Movil" [(ngModel)]="nuevoClienteIndividual.movil" name="nombreEmpleado">
+                                    <input type="text" name="newClientCellphone"class="form-control" id="inputEmail4" placeholder="No Movil" [(ngModel)]="nuevoClienteIndividual.movil" >
                                 </div>
                               </div>
                               <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label for="inputEmail4">Fecha de Nacimiento:</label>
-                                  <input type="text" class="form-control" id="inputEmail4" placeholder="Fecha de Nacimiento" [(ngModel)]="nuevoClienteIndividual.fechanacimiento" name="nombreEmpleado">
+                                  <input type="text" name="newClientBirthdate"class="form-control" id="inputEmail4" placeholder="Fecha de Nacimiento" [(ngModel)]="nuevoClienteIndividual.fechanacimiento" >
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">DPI:</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="DPI" [(ngModel)]="nuevoClienteIndividual.dpi" name="nombreEmpleado">
+                                    <input type="text" name="newClientDpi"class="form-control" id="inputEmail4" placeholder="DPI" [(ngModel)]="nuevoClienteIndividual.dpi" >
                                 </div>
                               </div> 
                               <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label for="inputEmail4">Direccion de trabajo</label>
-                                  <input type="text" class="form-control" id="inputEmail5" placeholder="Direccion de trabajo" [(ngModel)]="nuevoClienteIndividual.direcciontrabajo" name="ferchaNacimientoEmpelado">
+                                  <input type="text" name="newClientWorkAddress" class="form-control" id="inputEmail5" placeholder="Direccion de trabajo" [(ngModel)]="nuevoClienteIndividual.direcciontrabajo">
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="inputPassword4">PBX y extension</label>
-                                  <input type="text" class="form-control" id="inputPassword5" placeholder="PBX y extension" [(ngModel)]="nuevoClienteIndividual.pbx" name="dpiEmpelado">
+                                  <input type="text" name="newClientPbx" class="form-control" id="inputPassword5" placeholder="PBX y extension" [(ngModel)]="nuevoClienteIndividual.pbx" >
                                 </div>
                               </div>
                               <div class="form-row">
                                   <div class="form-group col-md-6">
                                     <label for="inputEmail4">Correo Electronico Empresarial:</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Correo Electronico Empresarial" [(ngModel)]="nuevoClienteIndividual.emailempresarial" name="nombreEmpleado">
+                                    <input type="text" name="newClientWorkEmail" class="form-control" id="inputEmail4" placeholder="Correo Electronico Empresarial" [(ngModel)]="nuevoClienteIndividual.emailempresarial" >
                                   </div>
                                   <div class="form-group col-md-6">
                                       <label for="inputEmail4">Cargo de la empresa:</label>
-                                      <input type="text" class="form-control" id="inputEmail4" placeholder="No Movil" [(ngModel)]="nuevoClienteIndividual.cargoempresa" name="nombreEmpleado">
+                                      <input type="text" name="newClientCompanyCharge" class="form-control" id="inputEmail4" placeholder="No Movil" [(ngModel)]="nuevoClienteIndividual.cargoempresa" >
                                   </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                       <label for="inputEmail4">Observaciones:</label>
-                                      <input type="text" class="form-control" id="inputEmail4" placeholder="Observaciones" [(ngModel)]="nuevoClienteIndividual.observaciones" name="nombreEmpleado">
+                                      <input type="text" name="newClientObservations" class="form-control" id="inputEmail4" placeholder="Observaciones" [(ngModel)]="nuevoClienteIndividual.observaciones" >
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Fecha de Inicio de Relacion:</label>
-                                        <input type="text" class="form-control" id="inputEmail4" placeholder="Fecha de Inicio de Relacion" [(ngModel)]="nuevoClienteIndividual.fechainiciorelacion" name="nombreEmpleado">
+                                        <input type="text" name="newClientStartDate" class="form-control" id="inputEmail4" placeholder="Fecha de Inicio de Relacion" [(ngModel)]="nuevoClienteIndividual.fechainiciorelacion" >
                                     </div>
                                   </div>                   
                           </form>
@@ -208,82 +208,82 @@
                             <hr style="margin-top: 21px !important;">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputEmai20">Nombres:</label>
-                                    <input type="text" class="form-control" id="inputEmai20" placeholder="Nombres" [(ngModel)]="editCliente.nombres" name="nombreEmpleado" [disabled]="editar">
+                                    <label >Nombres:</label>
+                                    <input type="text" name="name" class="form-control"  placeholder="Nombres" [(ngModel)]="editCliente.nombres"  [disabled]="editar">
                                 </div>
                               <div class="form-group col-md-6">
                                   <label for="inputEmai21"> Apellidos:</label>
-                                  <input type="text" class="form-control" id="inputEmai21" placeholder=" Apellidos" [(ngModel)]="editCliente.apellidos" name="nombreEmpleado" [disabled]="editar">
+                                  <input type="text"  name="lastname" class="form-control"  placeholder=" Apellidos" [(ngModel)]="editCliente.apellidos"  [disabled]="editar">
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmai22">Email</label>
-                                <input type="text" class="form-control" id="inputEmai22" placeholder="Email" [(ngModel)]="editCliente.email" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                                <input type="text"  name="email" class="form-control"  placeholder="Email" [(ngModel)]="editCliente.email"  [disabled]="editar">
                               </div>
                               <div class="form-group col-md-6">
                                 <label for="inputEmai23">NIT</label>
-                                <input type="text" class="form-control" id="inputEmai23" placeholder="NIT" [(ngModel)]="editCliente.nit" name="dpiEmpelado" [disabled]="editar">
+                                <input type="text"  name="nit" class="form-control"  placeholder="NIT" [(ngModel)]="editCliente.nit"  [disabled]="editar">
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmai24">Direccion de Domicilio</label>
-                                <input type="text" class="form-control" id="inputEmai24" placeholder="Direccion de Domicilio" [(ngModel)]="editCliente.direccionDomicilio" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                                <input type="text"  name="address" class="form-control"  placeholder="Direccion de Domicilio" [(ngModel)]="editCliente.direccionDomicilio"  [disabled]="editar">
                               </div>
                               <div class="form-group col-md-6">
                                 <label for="inputEmai25">Estado Civil</label>
-                                <input type="text" class="form-control" id="inputEmai25" placeholder="Estado Civil" [(ngModel)]="editCliente.estadocivil" name="dpiEmpelado" [disabled]="editar">
+                                <input type="text" name="civilStatus" class="form-control"  placeholder="Estado Civil" [(ngModel)]="editCliente.estadocivil"  [disabled]="editar">
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmai26">No Telefono de Casa:</label>
-                                <input type="text" class="form-control" id="inputEmai26" placeholder="No Telefono de Casa" [(ngModel)]="editCliente.telefonocasa" name="nombreEmpleado" [disabled]="editar">
+                                <input type="text" name="homePhome" class="form-control"  placeholder="No Telefono de Casa" [(ngModel)]="editCliente.telefonocasa"  [disabled]="editar">
                               </div>
                               <div class="form-group col-md-6">
                                   <label for="inputEmai27"> No Movil:</label>
-                                  <input type="text" class="form-control" id="inputEmai27" placeholder="No Movil" [(ngModel)]="editCliente.movil" name="nombreEmpleado" [disabled]="editar">
+                                  <input type="text" name="cellphone" class="form-control"  placeholder="No Movil" [(ngModel)]="editCliente.movil"  [disabled]="editar">
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmai28">Fecha de Nacimiento:</label>
-                                <input type="text" class="form-control" id="inputEmai28" placeholder="Fecha de Nacimiento" [(ngModel)]="editCliente.fechanacimiento" name="nombreEmpleado" [disabled]="editar">
+                                <input type="text" name="birthdate" class="form-control"  placeholder="Fecha de Nacimiento" [(ngModel)]="editCliente.fechanacimiento"  [disabled]="editar">
                               </div>
                               <div class="form-group col-md-6">
                                   <label for="inputEmai29">DPI:</label>
-                                  <input type="text" class="form-control" id="inputEmai29" placeholder="DPI" [(ngModel)]="editCliente.dpi" name="nombreEmpleado" [disabled]="editar">
+                                  <input type="text" name="dpi" class="form-control"  placeholder="DPI" [(ngModel)]="editCliente.dpi"  [disabled]="editar">
                               </div>
                             </div> 
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmai30">Direccion de trabajo</label>
-                                <input type="text" class="form-control" id="inputEmai30" placeholder="Direccion de trabajo" [(ngModel)]="editCliente.direcciontrabajo" name="ferchaNacimientoEmpelado" [disabled]="editar">
+                                <input type="text" name="workAdress" class="form-control"  placeholder="Direccion de trabajo" [(ngModel)]="editCliente.direcciontrabajo"  [disabled]="editar">
                               </div>
                               <div class="form-group col-md-6">
                                 <label for="inputEmai31">PBX y extension</label>
-                                <input type="text" class="form-control" id="inputEmai31" placeholder="PBX y extension" [(ngModel)]="editCliente.pbx" name="dpiEmpelado" [disabled]="editar">
+                                <input type="text" name="pbx" class="form-control"  placeholder="PBX y extension" [(ngModel)]="editCliente.pbx"  [disabled]="editar">
                               </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label for="inputEmai32">Correo Electronico Empresarial:</label>
-                                  <input type="text" class="form-control" id="inputEmai32" placeholder="Correo Electronico Empresarial" [(ngModel)]="editCliente.emailempresarial" name="nombreEmpleado" [disabled]="editar">
+                                  <input type="text" name="workEmail" class="form-control" id="inputEmai32" placeholder="Correo Electronico Empresarial" [(ngModel)]="editCliente.emailempresarial"  [disabled]="editar">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputEmai33">Cargo de la empresa:</label>
-                                    <input type="text" class="form-control" id="inputEmai33" placeholder="No Movil" [(ngModel)]="editCliente.cargoempresa" name="nombreEmpleado" [disabled]="editar">
+                                    <input type="text" name="companyCharge" class="form-control" id="inputEmai33" placeholder="No Movil" [(ngModel)]="editCliente.cargoempresa"  [disabled]="editar">
                                 </div>
                               </div>
                               <div class="form-row">
                                   <div class="form-group col-md-6">
                                     <label for="inputEmai34">Observaciones:</label>
-                                    <input type="text" class="form-control" id="inputEmai34" placeholder="Observaciones" [(ngModel)]="editCliente.observaciones" name="nombreEmpleado" [disabled]="editar">
+                                    <input type="text" name="observations" class="form-control" id="inputEmai34" placeholder="Observaciones" [(ngModel)]="editCliente.observaciones"  [disabled]="editar">
                                   </div>
                                   <div class="form-group col-md-6">
                                       <label for="inputEmai35">Fecha de Inicio de Relacion:</label>
-                                      <input type="text" class="form-control" id="inputEmai35" placeholder="Fecha de Inicio de Relacion" [(ngModel)]="editCliente.fechainiciorelacion" name="nombreEmpleado" [disabled]="editar">
+                                      <input type="text" name="startDate" class="form-control" id="inputEmai35" placeholder="Fecha de Inicio de Relacion" [(ngModel)]="editCliente.fechainiciorelacion"  [disabled]="editar">
                                   </div>
                                 </div>                   
                         </form>
