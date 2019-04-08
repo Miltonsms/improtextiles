@@ -123,10 +123,13 @@ ButtonEditarCancelar(){
   this.editar = true;
 }
 setVacations(empleado){
-  this.yearsWorked=null
-  this.monthsWorked=null
-  if(this.vacationVar==false){
-    this.vacationVar=true
+  this.vacationVar=true;
+  console.log(this.vacationVar,"validacion");
+  this.yearsWorked=null;
+  this.monthsWorked=null;
+
+
+
     if(empleado.daysUsed==null){
       this.afs.doc(`empleados/${this.selectedEmployee.id}`).set({
         daysUsed:0
@@ -164,36 +167,48 @@ setVacations(empleado){
       this.totalDays=this.totalDays.toFixed(0)
       this.yearsWorked=auxsplit[0]
     }
-  }
-  else{
-    this.vacationVar=false
-  }
-  
 }
 discountDays(){
-  this.afs.doc(`empleados/${this.selectedEmployee.id}`).valueChanges().pipe(take(1)).subscribe(snapshot=>{
-    let aux:any
-    aux=snapshot
-    console.log("snap",aux.daysUsed)
-    this.afs.doc(`empleados/${this.selectedEmployee.id}`).update({
-      daysUsed: aux.daysUsed+this.numberDiscountDays
-    }).then(_=>{
-      this.totalDays=this.totalDays-this.numberDiscountDays
-      this.numberDiscountDays=0
-      this.reasonDiscountDays=''
-      console.log("update ok")
-    }).catch(error=>{
-      console.log("error:",error)
-    })
-  })
-  this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).add({
-    days:this.numberDiscountDays,
-    reason:this.reasonDiscountDays,
-    date: new Date(Date.now()).toLocaleString()
-  }).then(_=>{
-    this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).valueChanges().subscribe(snapshot=>{
-      console.log("historial",snapshot)
-    })
-  })
+
+    if(this.numberDiscountDays == 0  ||  this.reasonDiscountDays == null || this.numberDiscountDays == null){
+      console.log("Los campos no pueden estar vacios");
+    }else{
+
+      if(this.numberDiscountDays <= this.totalDays){
+        this.afs.doc(`empleados/${this.selectedEmployee.id}`).valueChanges().pipe(take(1)).subscribe(snapshot=>{
+          let aux:any
+          aux=snapshot
+          console.log("snap",aux.daysUsed)
+          this.afs.doc(`empleados/${this.selectedEmployee.id}`).update({
+            daysUsed: aux.daysUsed+this.numberDiscountDays
+          }).then(_=>{
+            this.totalDays=this.totalDays-this.numberDiscountDays
+            this.numberDiscountDays=0
+            this.reasonDiscountDays=''
+            console.log("update ok")
+          }).catch(error=>{
+            console.log("error:",error)
+          })
+        })
+        this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).add({
+          days:this.numberDiscountDays,
+          reason:this.reasonDiscountDays,
+          date: new Date(Date.now()).toLocaleString()
+        }).then(_=>{
+          this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).valueChanges().subscribe(snapshot=>{
+            console.log("historial",snapshot)
+          })
+        })
+      }else{
+        this.numberDiscountDays=0
+        this.reasonDiscountDays=''
+        console.log("Los dias a descontacar no puden ser mayores a los diponibles");
+      }
+
+    }
+
+}
+OcultarButtonDescuentodevacaciones(){
+  this.vacationVar=false;
 }
 }
