@@ -73,6 +73,8 @@ export class RrhhComponent implements OnInit {
 
   verEmpleado(empleado) {
     this.selectedEmployee=empleado
+    this.vacationVar=false
+    console.log("empleado",this.selectedEmployee)
     this.docEmpleado = this.afs.doc(`empleados/${empleado.id}`);
     this.editEmpleado = this.docEmpleado.valueChanges();
     this.afs.doc(`empleados/${empleado.id}`).collection("historyDays").valueChanges().subscribe(snapshot=>{
