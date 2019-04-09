@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-6 borderight">
       <div class="row float-right">
-          <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" style="margin-right: 10px;">Cliente Individual</button>
+          <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" style="margin-right: 10px;">Nuevo Proveedor</button>
       </div>
       <hr style="margin-top: 50px !important;"/>
       <!-- popup creacion de clientes -->
@@ -134,20 +134,20 @@
     <!-- informacion de clientes  individual -->
     <div class="col-md-6" *ngIf="editCliente | async as editCliente">
       <div class="row float-right">
-          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserClienteEditar">Editar Cliente</button>
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserClienteEliminar">Eliminar Cliente</button>
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserClienteEditar">Editar Proveedor</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserClienteEliminar">Eliminar Proveedor</button>
           <!--  modal mensaje para elminar-->
           <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Cliente</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Proveedor</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                      Esta seguro que desea eliminar este cliente.
+                      Esta seguro que desea eliminar este Proveedor.
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -165,7 +165,7 @@
                      <div class="card-header  container">
                         <div class="row">
                           <div class="col-md-12">
-                              <h3 class="h4">Información del Cliente</h3>
+                              <h3 class="h4">Información del Proveedor</h3>
                           </div>
                         </div>
                      </div>
