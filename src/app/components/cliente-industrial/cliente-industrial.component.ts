@@ -24,6 +24,10 @@ export interface  ClienteIndustrialId extends ClienteIndustrial { id: string; }
 })
 export class ClienteIndustrialComponent implements OnInit {
 
+  //variables para permisos 
+  ModuloUserClienteEliminar = JSON.parse(localStorage.getItem('ModuloUserClienteEliminar'));
+  ModuloUserClienteEditar = JSON.parse(localStorage.getItem('ModuloUserClienteEditar',));
+  
   private clienteindustrialCollection: AngularFirestoreCollection<ClienteIndustrial>;
   clientes: Observable<ClienteIndustrialId[]>;
   

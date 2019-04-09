@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
   ModuloUserRRHHVer = JSON.parse(localStorage.getItem('ModuloUserRRHHVer'));
   ModuloUserVer = JSON.parse(localStorage.getItem('ModuloUserVer'));
   ModuloUserClienteVer = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
-  ModuloUserProveedores = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
+  ModuloUserProveedoresVer = JSON.parse(localStorage.getItem('ModuloUserProveedoresVer'));
   NombreUsuario = localStorage.getItem('NombreUsuario');
   constructor(public router: Router) {
 

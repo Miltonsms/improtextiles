@@ -1,5 +1,234 @@
 <header class="page-header" style="margin-bottom: 13px;">
     <div class="container-fluid">
-      <h2 class="no-margin-bottom">Proveedores</h2>
+      <h2 class="no-margin-bottom">PROVEEDORES</h2>
     </div>
 </header>
+
+<div class="row">
+    <div class="col-md-6 borderight">
+      <div class="row float-right">
+          <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" style="margin-right: 10px;">Cliente Individual</button>
+      </div>
+      <hr style="margin-top: 50px !important;"/>
+      <!-- popup creacion de clientes -->
+      <div class="row">
+          <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Creación de Cliente Individual</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="container">
+                          <form style="width: 100%;">
+                              <hr style="margin-top: 21px !important;">
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Nombre de la Entidad:</label>
+                                  <input type="text" name="newClientName"class="form-control" id="inputEmail4" placeholder="Entidad" [(ngModel)]="nuevoProeveedor.Entidad" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Nit:</label>
+                                    <input type="text" name="newClientLastname" class="form-control" id="inputEmail4" placeholder=" Nit" [(ngModel)]="nuevoProeveedor.Nit" >
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Nombre del Contacto:</label>
+                                  <input type="text" name="newClientEmail"class="form-control" id="inputEmail5" placeholder="Nombre del Contacto" [(ngModel)]="nuevoProeveedor.nombre" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputPassword4">Numero movil:</label>
+                                  <input type="text" name="newClientNit" class="form-control" id="inputPassword5" placeholder="NIT" [(ngModel)]="nuevoProeveedor.movil" >
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Correo Electronico:</label>
+                                  <input type="text" name="newClientAddress" class="form-control" id="inputEmail5" placeholder="Correo electronico" [(ngModel)]="nuevoProeveedor.email" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputPassword4">PBX:</label>
+                                  <input type="text"name="newClientCivilStatus" class="form-control" id="inputPassword5" placeholder="PBX" [(ngModel)]="nuevoProeveedor.pbx" >
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Extension:</label>
+                                  <input type="text" name="newClientHomePhone" class="form-control" id="inputEmail4" placeholder="Extension" [(ngModel)]="nuevoProeveedor.Extension" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Direccion:</label>
+                                    <input type="text" name="newClientCellphone"class="form-control" id="inputEmail4" placeholder="Direccion:" [(ngModel)]="nuevoProeveedor.Direccion" >
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-12">
+                                  <label for="exampleFormControlTextarea1">Observaciones</label>
+                                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="nuevoProeveedor.Observaciones"></textarea>
+                                </div>
+                              </div>                 
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" (click)="addCliente(nuevoProeveedor)" data-dismiss="modal">Guardar Cliente</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+  
+      <!-- listado de clintes -->
+      <div class="row">
+          <div class="container">
+              <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header  container">
+                        <div class="row">
+                          <div class="col-md-4">
+                              <h3 class="h4">Listado de proveedores</h3>
+                          </div>
+                          <div class="col-md-8">
+                              <form class="form-group">
+                                  <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
+                              </form>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Entidad</th>
+                                    <th>Nombre</th>
+                                    <th>Movil</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let cliente of proveedores | async |filter:query" (click)="verCliente(cliente)" style="cursor:pointer; cursor: hand">
+                                    <td>{{cliente.Entidad}}</td>
+                                    <td>
+                                        {{cliente.nombre}}
+                                    </td>
+                                    <td>
+                                        {{cliente.movil}}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+          </div>
+      </div>
+    </div>
+    <!-- informacion de clientes  individual -->
+    <div class="col-md-6" *ngIf="editCliente | async as editCliente">
+      <div class="row float-right">
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserClienteEditar">Editar Cliente</button>
+          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserClienteEliminar">Eliminar Cliente</button>
+          <!--  modal mensaje para elminar-->
+          <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      Esta seguro que desea eliminar este cliente.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="daleteCliente()" data-dismiss="modal">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+      <hr style="margin-top: 50px !important;"/>
+      <div class="row">
+          <div class="container">
+              <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header  container">
+                        <div class="row">
+                          <div class="col-md-12">
+                              <h3 class="h4">Información del Cliente</h3>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <form style="width: 100%;">
+                            <hr style="margin-top: 21px !important;">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label >Nombre de la Entidad::</label>
+                                    <input type="text" name="name" class="form-control"   [(ngModel)]="editCliente.Entidad"  [disabled]="editar">
+                                </div>
+                              <div class="form-group col-md-6">
+                                  <label for="inputEmai21"> Nit:</label>
+                                  <input type="text"  name="lastname" class="form-control"  [(ngModel)]="editCliente.Nit"  [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai22">Nombre del Contacto</label>
+                                <input type="text"  name="email" class="form-control"   [(ngModel)]="editCliente.nombre"  [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai23">Numero movil:</label>
+                                <input type="text"  name="nit" class="form-control"   [(ngModel)]="editCliente.movil"  [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai24">Correo electronico:</label>
+                                <input type="text"  name="address" class="form-control"  [(ngModel)]="editCliente.email"  [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai25">PBX:</label>
+                                <input type="text" name="civilStatus" class="form-control"  [(ngModel)]="editCliente.pbx"  [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai26">Extension:</label>
+                                <input type="text" name="homePhome" class="form-control"   [(ngModel)]="editCliente.Extension"  [disabled]="editar">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="inputEmai27">Direccion:</label>
+                                  <input type="text" name="cellphone" class="form-control"  [(ngModel)]="editCliente.Extension"  [disabled]="editar">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmai28">Observaciones:</label>
+                                <input type="text" name="birthdate" class="form-control" [(ngModel)]="editCliente.Observaciones"  [disabled]="editar">
+                              </div>
+                            </div>                 
+                        </form>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                              <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="setCliente(editCliente)" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Guardar</button>
+                              <button type="button" class="btn btn-danger" style="margin-right: 20px;" (click)="ButtonEditarCancelar()" [disabled]="editar" *ngIf="ModuloUserClienteEditar">Cancelar</button>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+          </div>
+      </div>
+    </div>
+</div>
