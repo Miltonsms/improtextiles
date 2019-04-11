@@ -46,8 +46,10 @@ export class RrhhComponent implements OnInit {
   selectedEmployee
   numberDiscountDays
   reasonDiscountDays
+  Autorizado
   yearsWorked
   monthsWorked
+  mesestrabajados
   historyEmployee=[]
   constructor(private readonly afs: AngularFirestore) {
 
@@ -128,53 +130,82 @@ setVacations(empleado){
   this.yearsWorked=null;
   this.monthsWorked=null;
 
+  if(empleado.daysUsed==null){
+    this.afs.doc(`empleados/${this.selectedEmployee.id}`).set({
+      daysUsed:0
+    },{merge:true}).then(_=>{
+      console.log("update ok")
+    }).catch(error=>{
+      console.log("error:",error)
+    })
+    let dateCreated=moment(empleado.FechaIngreso)
+    let dateNow=moment()
+    this.yearsWorked=dateNow.diff(dateCreated,"years",true)
+    let auxsplit=this.yearsWorked.toFixed(2)
+    let splitYears=auxsplit.split('.')
 
-
-    if(empleado.daysUsed==null){
-      this.afs.doc(`empleados/${this.selectedEmployee.id}`).set({
-        daysUsed:0
-      },{merge:true}).then(_=>{
-        console.log("update ok")
-      }).catch(error=>{
-        console.log("error:",error)
-      })
-      let dateCreated=moment(empleado.FechaIngreso)
-      let dateNow=moment()
-      this.yearsWorked=dateNow.diff(dateCreated,"years",true)
-      let auxsplit=this.yearsWorked.toFixed(2)
-      let splitYears=auxsplit.split('.')
-      if(splitYears[1]!=null){
-        let auxMonth=Number(splitYears[1])
-        this.monthsWorked=12*(auxMonth/100)
-        this.monthsWorked=this.monthsWorked.toFixed(0)
-      }
-      this.totalDays=this.yearsWorked*15
-      this.totalDays=this.totalDays.toFixed(0)
-      this.yearsWorked=auxsplit[0]
-      }
-    else{
-      let dateCreated=moment(empleado.FechaIngreso)
-      let dateNow=moment()
-      this.yearsWorked=dateNow.diff(dateCreated,"years",true)
-      let auxsplit=this.yearsWorked.toFixed(2)
-      let splitYears=auxsplit.split('.')
-      if(splitYears[1]!=null){
-        let auxMonth=Number(splitYears[1])
-        this.monthsWorked=12*(auxMonth/100)
-        this.monthsWorked=this.monthsWorked.toFixed(0)
-      }
-      this.totalDays=this.yearsWorked*15-empleado.daysUsed
-      this.totalDays=this.totalDays.toFixed(0)
-      this.yearsWorked=auxsplit[0]
+    if(splitYears[1]!=null){
+      let auxMonth=Number(splitYears[1])
+      this.monthsWorked=12*(auxMonth/100)
+      this.monthsWorked=this.monthsWorked.toFixed(0)
     }
+    this.totalDays=this.yearsWorked*15
+    this.totalDays=this.totalDays.toFixed(0)
+    this.yearsWorked=auxsplit[0]
+    if(this.totalDays > 45){
+      this.totalDays =45;
+    }
+    /**validacion de tres años de vacaciones aculados */
+    if(this.totalDays > 45){
+      this.totalDays =45;
+    }
+    /**meses trabajados */
+        Math.round(dateNow.diff(dateCreated,"months",true))
+        if(Math.round(dateNow.diff(dateCreated,"months",true)) >= 2){
+          this.mesestrabajados = true
+        }else{
+          this.mesestrabajados = false
+        }
+        console.log(this.mesestrabajados);
+    }
+  else{
+    let dateCreated=moment(empleado.FechaIngreso)
+    let dateNow=moment()
+    this.yearsWorked=dateNow.diff(dateCreated,"years",true)
+    let auxsplit=this.yearsWorked.toFixed(2)
+    let splitYears=auxsplit.split('.')
+    if(splitYears[1]!=null){
+      let auxMonth=Number(splitYears[1])
+      this.monthsWorked=12*(auxMonth/100)
+      this.monthsWorked=this.monthsWorked.toFixed(0)
+    }
+
+    this.totalDays=this.yearsWorked*15-empleado.daysUsed
+    this.totalDays=this.totalDays.toFixed(0)
+    this.yearsWorked=auxsplit[0]
+    /**validacion de tres años de vacaciones aculados */
+    if(this.totalDays > 45){
+      this.totalDays =45;
+    }
+    /**meses trabajados */
+    Math.round(dateNow.diff(dateCreated,"months",true))
+    if(Math.round(dateNow.diff(dateCreated,"months",true)) >= 2){
+      this.mesestrabajados = true
+    }else{
+      this.mesestrabajados = false
+    }
+    console.log(this.mesestrabajados);
+  }
+
+
 }
 discountDays(){
 
-    if(this.numberDiscountDays == 0  ||  this.reasonDiscountDays == null || this.numberDiscountDays == null){
+    if(this.numberDiscountDays == 0  ||  this.reasonDiscountDays == null || this.numberDiscountDays == null || this.Autorizado == null){
       console.log("Los campos no pueden estar vacios");
     }else{
 
-      if(this.numberDiscountDays <= this.totalDays){
+      if(this.numberDiscountDays <= this.totalDays  || this.numberDiscountDays < 0){
         this.afs.doc(`empleados/${this.selectedEmployee.id}`).valueChanges().pipe(take(1)).subscribe(snapshot=>{
           let aux:any
           aux=snapshot
@@ -185,6 +216,7 @@ discountDays(){
             this.totalDays=this.totalDays-this.numberDiscountDays
             this.numberDiscountDays=0
             this.reasonDiscountDays=''
+            this.Autorizado=''
             console.log("update ok")
           }).catch(error=>{
             console.log("error:",error)
@@ -193,6 +225,7 @@ discountDays(){
         this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).add({
           days:this.numberDiscountDays,
           reason:this.reasonDiscountDays,
+          Autorizado:this.Autorizado,
           date: new Date(Date.now()).toLocaleString()
         }).then(_=>{
           this.afs.collection(`empleados/${this.selectedEmployee.id}/historyDays`).valueChanges().subscribe(snapshot=>{
@@ -200,9 +233,10 @@ discountDays(){
           })
         })
       }else{
-        this.numberDiscountDays=0
+        this.numberDiscountDays=0 
         this.reasonDiscountDays=''
-        console.log("Los dias a descontacar no puden ser mayores a los diponibles");
+        this.reasonDiscountDays=''
+        console.log("Los dias a descontacar no puden ser mayores a los diponibles o no puede ser un numero negativo");
       }
 
     }

@@ -77,9 +77,9 @@
                                 </div>
                               </div> 
                               <div class="form-row">
-                                <div class="form-group col-md-12">
-                                  <label for="exampleFormControlTextarea1">Observaciones</label>
-                                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="nuevoClienteIndustrial.Observaciones"></textarea>
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Observaciones:</label>
+                                  <input type="text" name="newClientObservations" class="form-control" id="inputEmail4" placeholder="Observaciones" [(ngModel)]="nuevoClienteIndustrial.Observaciones" >
                                 </div>
                               </div>                 
                           </form>
@@ -236,7 +236,7 @@
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmai30">Observaciones</label>
-                                <input type="text" name="workAdress" class="form-control"  placeholder="Direccion de trabajo" [(ngModel)]="editCliente.Observaciones"  [disabled]="editar">
+                                <input type="text" name="workAdress" class="form-control"  [(ngModel)]="editCliente.Observaciones"  [disabled]="editar">
                               </div>
                             </div>                 
                         </form>
