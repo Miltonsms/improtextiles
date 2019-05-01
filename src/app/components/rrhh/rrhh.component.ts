@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase/app'
 
-export interface Empleado { nombre: string; apellidos: string; fechaNacimiento: Date; dpi: number; sexo: string; EstadoCivil: string; Telefono: number; email: string;  FechaIngreso: Date;  emailLaboral: string;  cargo: string; jefeinmediato: string; departamento: string;daysUsed:number;historyDays:any}
+export interface Empleado { nombre: string; apellidos: string; fechaNacimiento: Date; dpi: number; sexo: string; EstadoCivil: string; Telefono: number; email: string;  FechaIngreso: Date;  emailLaboral: string;  cargo: string; jefeinmediato: string; departamento: string;daysUsed:number;historyDays:any,status:boolean}
 export interface EmpleadoId extends Empleado { id: string; }
 import * as moment from 'moment';
 import { detectChanges } from '@angular/core/src/render3';
@@ -34,8 +34,10 @@ export class RrhhComponent implements OnInit {
     jefeinmediato: '',
     departamento:'',
     daysUsed:null,
-    historyDays:null
+    historyDays:null,
+    status: true
   };
+  
   editar = true;
   query: string;  
   docEmpleado: AngularFirestoreDocument<Empleado>;
@@ -50,75 +52,76 @@ export class RrhhComponent implements OnInit {
   yearsWorked
   monthsWorked
   mesestrabajados
+  motivoBaja
+  fechaBaja
+  showactivo
   historyEmployee=[]
-  constructor(private readonly afs: AngularFirestore) {
 
-    this.empleadoCollection = afs.collection<Empleado>('empleados');
-    this.empleados = this.empleadoCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Empleado;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
-
+constructor(private readonly afs: AngularFirestore) {
+  this.empleadoCollection = afs.collection<Empleado>('empleados');
+  this.empleados = this.empleadoCollection.snapshotChanges().pipe(
+    map(actions => actions.map(a => {
+      const data = a.payload.doc.data() as Empleado;
+      const id = a.payload.doc.id;
+      return { id, ...data };
+    }))
+  );
     
-  }
+}
 
-  ngOnInit() {
-    // window.location.reload();
-    console.log(localStorage.getItem('ModuloUserRRHHVer'),"rrhhver");
-    console.log(localStorage.getItem('ModuloUserRRHHEliminar'),"eliminar");
+ngOnInit() {
+  // window.location.reload();
+  console.log(localStorage.getItem('ModuloUserRRHHVer'),"rrhhver");
+  console.log(localStorage.getItem('ModuloUserRRHHEliminar'),"eliminar");
+  this.showactivo = true;
+}
 
-
-  }
-
-  verEmpleado(empleado) {
-    this.selectedEmployee=empleado
-    this.vacationVar=false
-    console.log("empleado",this.selectedEmployee)
-    this.docEmpleado = this.afs.doc(`empleados/${empleado.id}`);
-    this.editEmpleado = this.docEmpleado.valueChanges();
-    this.afs.doc(`empleados/${empleado.id}`).collection("historyDays").valueChanges().subscribe(snapshot=>{
-      this.historyEmployee=[]
-      snapshot.forEach(item=>{
-        this.historyEmployee.push(item)
-      })   
+verEmpleado(empleado){
+  this.selectedEmployee=empleado;
+  this.vacationVar=false
+  // this.showactivo = empleado.status;
+  console.log("empleado",this.selectedEmployee, this.showactivo)
+  this.docEmpleado = this.afs.doc(`empleados/${empleado.id}`);
+  this.editEmpleado = this.docEmpleado.valueChanges();
+  this.afs.doc(`empleados/${empleado.id}`).collection("historyDays").valueChanges().subscribe(snapshot=>{
+    this.historyEmployee=[]
+    snapshot.forEach(item=>{
+      this.historyEmployee.push(item)
     })
-    console.log(this.editEmpleado);
+  })
+}
 
-  }
+addEmpleado(empleado: Empleado) {
+  this.empleadoCollection.add(empleado);
+  this.nuevoEmpleado = {
+    nombre: '',
+    apellidos: '',
+    fechaNacimiento: null,
+    dpi: null,
+    sexo: '',
+    EstadoCivil: '',
+    Telefono: null,
+    email: '',
+    FechaIngreso: null,
+    emailLaboral: '',
+    cargo: '',
+    jefeinmediato: '',
+    departamento:'',
+    daysUsed:null,
+    historyDays:null,
+    status:true
+  };
+}
 
-  addEmpleado(empleado: Empleado) {
-    this.empleadoCollection.add(empleado);
-    this.nuevoEmpleado = {
-      nombre: '',
-      apellidos: '',
-      fechaNacimiento: null,
-      dpi: null,
-      sexo: '',
-      EstadoCivil: '',
-      Telefono: null,
-      email: '',
-      FechaIngreso: null,
-      emailLaboral: '',
-      cargo: '',
-      jefeinmediato: '',
-      departamento:'',
-      daysUsed:null,
-      historyDays:null
-    };
-  }
+setEmpleado(empleado) {
+  this.docEmpleado.update(empleado);
+  this.editar = true;
+}
 
-  setEmpleado(empleado) {
-    this.docEmpleado.update(empleado);
-    this.editar = true;
-  }
-
-  daleteEmpleado() {
-    this.docEmpleado.delete();
-  }
-  ButtonEditar(){
+daleteEmpleado() {
+  this.docEmpleado.delete();
+}
+ButtonEditar(){
     this.editar = false;
 }
 ButtonEditarCancelar(){
@@ -126,7 +129,6 @@ ButtonEditarCancelar(){
 }
 setVacations(empleado){
   this.vacationVar=true;
-  console.log(this.vacationVar,"validacion");
   this.yearsWorked=null;
   this.monthsWorked=null;
 
@@ -197,8 +199,9 @@ setVacations(empleado){
     console.log(this.mesestrabajados);
   }
 
-
+  this.selectedEmployee.historyDays = this.historyEmployee;
 }
+
 discountDays(){
 
     if(this.numberDiscountDays == 0  ||  this.reasonDiscountDays == null || this.numberDiscountDays == null || this.Autorizado == null){
@@ -245,4 +248,63 @@ discountDays(){
 OcultarButtonDescuentodevacaciones(){
   this.vacationVar=false;
 }
+empladoBaja(motivoBaja,fechaBaja){
+  this.setVacations(this.selectedEmployee);
+  this.selectedEmployee.motivoBaja = motivoBaja;
+  this.selectedEmployee.fechaBaja = fechaBaja;
+  this.selectedEmployee.status = false;
+  this.docEmpleado.update(this.selectedEmployee);
+  console.log(this.selectedEmployee,"arreglo empleado",this.historyEmployee,motivoBaja,fechaBaja);
+}
+empleadoactivo(){
+  this.nuevoEmpleado = {
+    nombre: this.selectedEmployee.nombre,
+    apellidos: this.selectedEmployee.apellidos,
+    fechaNacimiento: this.selectedEmployee.fechaNacimiento,
+    dpi: this.selectedEmployee.dpi,
+    sexo: this.selectedEmployee.sexo,
+    EstadoCivil: this.selectedEmployee.EstadoCivil,
+    Telefono: this.selectedEmployee.Telefono,
+    email: this.selectedEmployee.email,
+    FechaIngreso: null,
+    emailLaboral: '',
+    cargo: '',
+    jefeinmediato: '',
+    departamento:'',
+    daysUsed:null,
+    historyDays:null,
+    status:true
+  };
+  this.empleadoCollection.add(this.nuevoEmpleado);
+  this.nuevoEmpleado = {
+    nombre: '',
+    apellidos: '',
+    fechaNacimiento: null,
+    dpi: null,
+    sexo: '',
+    EstadoCivil: '',
+    Telefono: null,
+    email: '',
+    FechaIngreso: null,
+    emailLaboral: '',
+    cargo: '',
+    jefeinmediato: '',
+    departamento:'',
+    daysUsed:null,
+    historyDays:null,
+    status:true
+  };
+}
+showinactivo(){
+  this.ModuloUserRRHHEliminar = false;
+  this.ModuloUserRRHHEditar = false;
+  this.showactivo = false;
+}
+showinactivo2(){
+  this.ModuloUserRRHHEliminar = true;
+  this.ModuloUserRRHHEditar = true;
+  this.showactivo = true;
+}
+
+
 }

@@ -174,10 +174,10 @@
                 <div class="card">
                    <div class="card-header  container">
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <h3 class="h4">Listado de Empleados</h3>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <form class="form-group">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
                               </form>
@@ -185,29 +185,71 @@
                       </div>
                    </div>
                    <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Nombre</th>
-                                  <th>Cargo</th>
-                                  <th>Correo</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let empleado of empleados | async |filter:query" (click)="verEmpleado(empleado)" style="cursor:pointer; cursor: hand">
-                                  <td>{{empleado.nombre}}</td>
-                                  <td>
-                                      {{empleado.cargo}}
-                                  </td>
-                                  <td>
-                                      {{empleado.emailLaboral}}
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
+                     <!-- tab de navegacion -->
+                     <div class="container" style="margin-top: 29px;">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                              <a class="nav-link active" data-toggle="tab" href="#Activos" (click)="showinactivo2()">Empleados activos</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#inactivos" (click)="showinactivo()">Empleados Inactivos</a>
+                            </li>
+                          </ul>
+                     </div>
+                     <!-- estructura del tab -->
+                     <div class="tab-content">
+                        <!-- informacion personarl empleado -->
+                         <div class="tab-pane container active" id="Activos">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th>Nombre</th>
+                                        <th>Cargo</th>
+                                        <th>Correo</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let empleado of empleados | async | filter:query | filter:'true' " (click)="verEmpleado(empleado)" style="cursor:pointer; cursor: hand">
+                                        <td >{{empleado.nombre}}</td>
+                                        <td >
+                                            {{empleado.cargo}}
+                                        </td>
+                                        <td >
+                                            {{empleado.emailLaboral}}
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane container" id="inactivos">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th>Nombre</th>
+                                        <th>Cargo</th>
+                                        <th>Correo</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let empleado of empleados | async |filter:query  | filter:'false'" (click)="verEmpleado(empleado)" style="cursor:pointer; cursor: hand">
+                                        <td >{{empleado.nombre}}</td>
+                                        <td>
+                                            {{empleado.cargo}}
+                                        </td>
+                                        <td>
+                                            {{empleado.emailLaboral}}
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
                       </div>
                    </div>
+
                 </div>
              </div>
         </div>
@@ -216,8 +258,12 @@
   <!-- informacion de Empleados  individual -->
   <div class="col-md-6" *ngIf="editEmpleado | async as editEmpleado">
       <div class="row float-right">
-          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserRRHHEditar">Editar Empleado </button>   
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" *ngIf="ModuloUserRRHHEditar" >Editar Empleado </button>
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;"   data-toggle="modal"  data-target="#dardebaja" *ngIf="showactivo">Dar de baja</button>
+          <button type="button" class="btn btn-primary " style="margin-right: 20px;"  (click)="empleadoactivo()" *ngIf="!showactivo">Dar de alta</button>
           <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" *ngIf="ModuloUserRRHHEliminar">Eliminar Empleado</button>
+
+
 
           <!--  modal mensaje para elminar-->
 
@@ -240,6 +286,40 @@
                 </div>
               </div>
           </div>
+          <!--  modal mensaje para baja de empleado-->
+          <div class="modal fade" id="dardebaja" tabindex="-1" role="dialog" aria-labelledby="dardebaja" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Baja de Empleado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                      <form class="form-inline">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                              <label for="formGroupExampleInput2">Motivo de baja</label>
+                              <input type="text" class="form-control" [(ngModel)]="motivoBaja" placeholder="Motivo" name="motivoBaja">
+                            </div>
+                            <div class="col-md-6">
+                              <label for="formGroupExampleInput2">Fecha de baja</label>
+                              <input type="date" [(ngModel)]="fechaBaja" class="form-control" name="fechaBaja">
+                            </div>
+                          </div>
+                      </form>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="empladoBaja(motivoBaja,fechaBaja)" data-dismiss="modal">Confirmar</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+          
       </div>
       <hr style="margin-top: 50px !important;"/>
       <div class="row">
@@ -248,7 +328,7 @@
                   <div class="card">
                      <div class="card-header  container">
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-8">
                               <h3 class="h4">Información del Empleado</h3>
                           </div>
                         </div>

@@ -175,10 +175,8 @@ header.page-header {
 */
 nav.side-navbar {
   background: #fff;
-  min-width: 305px;
-  max-width: 250px;
   color: #686a76;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); */
   z-index: 9;
   /* height: -webkit-fill-available; */
   /*==== Sidebar Header ====*/

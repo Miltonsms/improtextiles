@@ -10,8 +10,8 @@
 </nav>
 <div class="container-fluid" style="margin-top: 50px" *ngIf="login !=true">
   <div class="row">
-      <div class="col-md-2 nenu" style="height: -webkit-fill-available;">
-          <nav class="side-navbar elem">
+      <nav class="col-md-2 nenu side-navbar" style="height: -webkit-fill-available;">
+          <!-- < class="side-navbar "> -->
               <!-- Sidebar Header-->
               <div class="sidebar-header d-flex align-items-center">
                 <!-- <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div> -->
@@ -27,7 +27,7 @@
                 <!-- <li routerLinkActive="active"  *ngIf="ModuloUserClienteVer" ><a [routerLink]="['clients']" > <i class="icon-grid"></i>CLIENTES </a></li> -->
                 <li routerLinkActive="active"  *ngIf="ModuloUserProveedoresVer" ><a [routerLink]="['providers']" > <i class="icon-grid"></i>PROVEEDORES </a></li>
                 <li routerLinkActive="active">
-                <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" *ngIf="ModuloUserClienteVer"> <i class="icon-interface-windows"></i>CLIENTES</a>
+                <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" *ngIf="ModuloUserClienteVer" > <i class="icon-interface-windows"></i>CLIENTES</a>
                   <ul id="exampledropdownDropdown" class="list-unstyled collapse show" *ngIf="ModuloUserClienteVer">
                      <li routerLinkActive="active"><a [routerLink]="['clients']" > <i class="icon-grid"></i>Cliente Individual</a></li>
                      <li routerLinkActive="active"><a [routerLink]="['cleinteindustrial']" > <i class="icon-grid"></i>Cliente Institucional</a></li>
@@ -42,7 +42,7 @@
                 <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
               </ul> -->
             </nav>
-      </div>
+      <!-- </div> -->
     <div class="col-md-10 content-inner2" style="background: #eef5f9;"><router-outlet></router-outlet></div>
   </div>
 </div>
