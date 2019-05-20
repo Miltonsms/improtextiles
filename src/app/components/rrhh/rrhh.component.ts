@@ -258,24 +258,6 @@ empladoBaja(motivoBaja,fechaBaja){
 }
 empleadoactivo(empleados: Empleado){
   console.log("miltonsss",empleados);
-  // empleados = {
-  //   nombre: this.selectedEmployee.nombre,
-  //   apellidos: this.selectedEmployee.apellidos,
-  //   fechaNacimiento: this.selectedEmployee.fechaNacimiento,
-  //   dpi: this.selectedEmployee.dpi,
-  //   sexo: this.selectedEmployee.sexo,
-  //   EstadoCivil: this.selectedEmployee.EstadoCivil,
-  //   Telefono: this.selectedEmployee.Telefono,
-  //   email: this.selectedEmployee.email,
-  //   FechaIngreso: this.selectedEmployee.FechaIngreso,
-  //   emailLaboral: this.selectedEmployee.emailLaboral,
-  //   cargo: this.selectedEmployee.cargo,
-  //   jefeinmediato: this.selectedEmployee.jefeinmediato,
-  //   departamento:this.selectedEmployee.departamento,
-  //   daysUsed:null,
-  //   historyDays:null,
-  //   status:true
-  // };
   this.empleadoCollection.add(empleados);
   this.nuevoEmpleado = {
     nombre: '',

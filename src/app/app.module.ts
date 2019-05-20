@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchPipe } from './search.pipe';
 import { ClienteIndustrialComponent } from './components/cliente-industrial/cliente-industrial.component';
+import { FacturacionComponent } from './components/facturacion/facturacion.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ClienteIndustrialComponent } from './components/cliente-industrial/clie
     RrhhComponent,
     LoginComponent,
     SearchPipe,
-    ClienteIndustrialComponent
+    ClienteIndustrialComponent,
+    FacturacionComponent
   ],
   imports: [
     BrowserModule,

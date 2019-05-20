@@ -7,6 +7,8 @@ import { ClientsComponent } from './components/clients/clients.component';
 import { RrhhComponent } from './components/rrhh/rrhh.component';
 import { LoginComponent} from './components/login/login.component';
 import { ClienteIndustrialComponent} from './components/cliente-industrial/cliente-industrial.component';
+import { FacturacionComponent} from './components/facturacion/facturacion.component';
+
 const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "home", component: HomeComponent},
@@ -15,6 +17,7 @@ const routes: Routes = [
   {path: "clients", component: ClientsComponent},
   {path: "rrhh", component: RrhhComponent},
   {path: "cleinteindustrial", component: ClienteIndustrialComponent},
+  {path: "facturacion", component: FacturacionComponent},
   { path: '**', redirectTo: 'login' }
 ];
 
