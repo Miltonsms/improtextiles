@@ -441,3 +441,11 @@ nav.side-navbar.shrinked .sidebar-header .title {
   min-height: calc(100vh - 70px);
   padding-bottom: 60px;
 }
+
+.circulo {
+  width: 30px;
+  height: 30px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}

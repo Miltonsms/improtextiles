@@ -1,20 +1,24 @@
 <header class="page-header" style="margin-bottom: 13px;">
   <div class="container-fluid">
-    <h2 class="no-margin-bottom">Facturación</h2>
+    <div class="row">
+        <h2 class="no-margin-bottom col-md-3">Facturación</h2>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary col" (click)="vistaFactura()">Agregar Facturas</button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary col" (click)="vistaHistorial()">Historial</button>
+        </div>
+    </div>
   </div>
 </header>
-  <div class="row">
-    <div class="col-md-12 borderight">
-      <div class="row float-right">
-          <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Nuevo Empleado</button>
-      </div>
-      <hr style="margin-top: 50px !important;"/>
+<div class="row">
+  <div class="col-md-12 borderight" *ngIf="facturavista">
     <!-- Modulo de facturacion -->
     <div class="row">
       <div class="container-fluid ">
           <div class="col-md-12">
               <div class="card">
-                 <div class="card-header  ">
+                 <div class="card-header">
                     <div class="row">
                         <h3 class="h4 text-center">Factura</h3>
                     </div>
@@ -22,81 +26,256 @@
                  <div class="card-body">
                   <div class="row">
                       <div class="form-group col-md-3">
-                        <label for="uname">Nomero de factura:</label>
-                        <input type="number" class="form-control" id="numero" name="numero" required>
+                        <label for="uname">Numero de factura:</label>
+                        <input type="number" class="form-control" id="numero" name="nuevoFactura.numeroF" [(ngModel)]="nuevoFactura.numeroF" required>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="uname">Fecha:</label>
-                          <input type="Date" class="form-control" id="date" name="date" required>
+                          <input type="Date" class="form-control" id="date" name="nuevoFactura.dateRegistro" [(ngModel)]="nuevoFactura.dateRegistro" required>
+                      </div>
+                      <div class="form-group col-md-3">
+                          <label for="uname">Termino:</label>
+                          <select class="form-control" id="termino"  [(ngModel)]="nuevoFactura.tipoPago" name="termino">
+                              <option value="Contado">Contado</option>
+                              <option value="Credito">Credito</option>
+                          </select>  
+                      </div>                        
+                      <div class="col-md-3">
+                          <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button>
                       </div>
                   </div>
                   <hr style="margin-top: 0px !important;"/>
                   <div class="row">
-                        <div class="form-group col-md-3">
-                          <label for="uname">Nombre:</label>
-                          <input type="text" class="form-control" id="nombrec" name="nombrec" required>
+                      <div class="form-group col-md-3">
+                          <label for="inputEmail4">Seleccione cliente</label>
+                          <select class="form-control" id="exampleFormControlSelect1"  [(ngModel)]="nombreC" (ngModelChange)="DatosClientes($event)"name="sexoEmpleado">
+                              <option  *ngFor="let empleado of clientes | async, index as id" value="{{empleado.nombres}},{{empleado.nit}},{{empleado.direccionDomicilio}},{{empleado.movil}}">{{empleado.nombres}}</option>
+                            </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="uname">NIT:</label>
-                            <input type="text" class="form-control" id="nit" name="nit" required>
+                            <input type="text" class="form-control" [(ngModel)]="nuevoFactura.NitC" id="nit" name="nitC" >
                         </div>
                         <div class="form-group col-md-3">
                             <label for="uname">Dirección:</label>
-                            <input type="text" class="form-control" id="direccion" name="direccion" required>
+                            <input type="text" class="form-control" [(ngModel)]="nuevoFactura.DireccionC" id="direccion" name="direccion" >
                           </div>
                           <div class="form-group col-md-3">
                               <label for="uname">Telefono:</label>
-                              <input type="text" class="form-control" id="telefono" name="uname" required>
+                              <input type="text" class="form-control" [(ngModel)]="nuevoFactura.TelenfoC" id="telefono" name="uname" >
                           </div>
                   </div>
                   <hr style="margin-top: 0px !important;"/>
                   <div class="row">
                       <div class="form-group col-md-3">
                         <label for="uname">Nombre del articulo:</label>
-                        <input type="text" class="form-control" id="nombreA" name="nombreA" required>
+                        <input type="text" class="form-control" id="nombreA" name="nombreA" [(ngModel)]="nombreA" required>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="uname">Cantidad:</label>
-                          <input type="text" class="form-control" id="Cantidad" name="Cantidad" required>
+                          <input type="text" class="form-control" id="Cantidad" name="Cantidad" [(ngModel)]="Cantidad" required>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="uname">Precio:</label>
-                          <input type="text" class="form-control" id="Precio" name="Precio" required>
+                          <input type="text" class="form-control" id="Precio" name="Precio" [(ngModel)]="Precio" required>
                       </div>
                       <div class="form-group col-md-3">
-                          <button type="button" class="btn btn-primary" style=" margin-top: 31px;">Agregar Producto</button>
+                          <button type="button" class="btn btn-primary" style=" margin-top: 31px;" (click)="agregaroProducto(nombreA,Cantidad,Precio)">Agregar Producto</button>
                       </div>
-                </div>
-
-                <div class="row">
-                    <div class="table-responsive">
-                        <table class="table">
-                           <thead>
-                              <tr>
-                                 <th>#</th>
-                                 <th>Articulo</th>
-                                 <th>Cantidad</th>
-                                 <th>Precio</th>
-                                 <th>Sub Total</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>1</td>
-                                 <td>Celda de tabla</td>
-                                 <td>Celda de tabla</td>
-                                 <td>Celda de tabla</td>
-                                 <td>Celda de tabla</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Articulo</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Sub Total</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let Producto of Productos, index as id">
+                                    <td>{{id+1}}</td>
+                                    <td>{{Producto.Articulo}}</td>
+                                    <td>{{Producto.Cantidad}}</td>
+                                    <td>{{Producto.Precio | currency}}</td>
+                                    <td>{{Producto.SubTotal | currency}}</td>
+  
+                                  </tr>
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-9"></div>
+                      <div class="col-md-2">
+                         <b> Total {{ total | currency:'Q' }} </b>
+                      </div>
+                  </div>
                  </div>
               </div>
            </div>
       </div>
     </div>
-
+  </div>
+  <div class="col-md-12" *ngIf="historialvista">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+              <div class="card-header  ">
+                <div class="row">
+                    <div class="col-nd-4">
+                        <h3 class="h4 text-center">Historial Factura</h3>
+                    </div>
+                    <div class="col-md-4">
+                        <form class="form-group">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" [(ngModel)]="query" name="query">
+                        </form>
+                    </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>No.</th>
+                            <th>Nombre</th>
+                            <th>Producto</th>
+                            <th>Totanl</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let facturas of facturas | async | filter: query" (click)="verFactura(facturas)" style="cursor:pointer; cursor: hand" >
+                            <th>{{facturas.numeroF}}</th>
+                            <td>{{facturas.nombreC}}</td>
+                            <td>
+                                {{facturas.TelenfoC}}
+                            </td>
+                            <td>
+                                {{facturas.total}}
+                            </td>
+                            <td > <div class="circulo" [ngStyle]="{'background-color':facturas.Pagofinalizado === true ? '#a8d8a8' : '#ffa6a6' }"></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="editFactura | async as editFactura">
+            <div class="card">
+                <div class="card-header  container">
+                   <div class="row">
+                     <div class="col-md-8">
+                         <h3 class="h4">Información de la factura</h3>
+                     </div>
+                   </div>
+                </div>
+                <!-- tab de navegacion -->
+                <div class="container" style="margin-top: 29px;">
+                   <ul class="nav nav-tabs">
+                       <li class="nav-item">
+                         <a class="nav-link active" data-toggle="tab" href="#home" >Datos de la factura</a>
+                       </li>
+                       <li class="nav-item">
+                         <a class="nav-link" data-toggle="tab" href="#menu1" >productos de la factura</a>
+                       </li>
+                     </ul>
+                </div>
+                <!-- estructura del tab -->
+                <div class="tab-content">
+                  <!-- informacion personarl empleado -->
+                   <div class="tab-pane container active" id="home">
+                       <div class="card-body">
+                           <form style="width: 100%;">
+                               <h4>Datos personales</h4>
+                               <hr style="margin-top: 21px !important;">
+                               <div class="form-row">
+                                 <div class="form-group col-md-6">
+                                   <label >Numero de Factura:</label>
+                                   <input type="text" class="form-control" id="inputEmail"  [(ngModel)]="editFactura.numeroF" name="numerof" [disabled]="editar">
+                                 </div>
+                                 <div class="form-group col-md-6">
+                                     <label >Fecha de registro:</label>
+                                     <input type="text" class="form-control" id="inputEma2" [(ngModel)]="editFactura.dateRegistro" name="fechaF" [disabled]="editar">
+                                 </div>
+                               </div>
+                               <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label >Nombre:</label>
+                                    <input type="text" class="form-control" id="inputEmai3"  [(ngModel)]="editFactura.nombreC" name="nombrec" [disabled]="editar">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                      <label >NIT:</label>
+                                      <input type="text" class="form-control" id="inputEmai4"  [(ngModel)]="editFactura.NitC" name="nitc" [disabled]="editar">
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                      <label >Direccion:</label>
+                                      <input type="text" class="form-control" id="inputEmai5"  [(ngModel)]="editFactura.DireccionC" name="direccionc" [disabled]="editar">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label >Telefono:</label>
+                                        <input type="text" class="form-control" id="inputEmai6"  [(ngModel)]="editFactura.TelenfoC" name="TelenfoC" [disabled]="editar">
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label >Tipo de pago:</label>
+                                        <input type="text" class="form-control" id="inputEmai7"  [(ngModel)]="editFactura.tipoPago" name="tipoPago" [disabled]="editar">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                          <label >Total:</label>
+                                          <input type="text" class="form-control" id="inputEmai8"  [(ngModel)]="editFactura.total" name="total" [disabled]="editar">
+                                      </div>
+                                    </div>
+                           </form>
+                        </div>
+                   </div>
+                   <!-- informacion laboral -->
+                   <div class="tab-pane container fade" id="menu1">
+                       <div class="card-body">
+                          <h4>Productos</h4>
+                          <hr style="margin-top: 21px !important;">
+                          <div class="table-responsive">
+                              <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Articulo</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Sub Total</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let Producto  of editFactura.Productos, index as id">
+                                        <td>{{id+1}}</td>
+                                        <td>{{Producto.Articulo}}</td>
+                                        <td>{{Producto.Cantidad}}</td>
+                                        <td>{{Producto.Precio | currency}}</td>
+                                        <td>{{Producto.SubTotal | currency}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-9"></div>
+                                    <div class="col-md-3">
+                                       <b > Total {{ editFactura.total | currency:'Q' }} </b>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>
+                   </div>
+                 </div>
+             </div>
+        </div>
+      </div>
   </div>
 </div>
