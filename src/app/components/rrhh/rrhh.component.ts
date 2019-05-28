@@ -9,6 +9,9 @@ export interface EmpleadoId extends Empleado { id: string; }
 import * as moment from 'moment';
 import { detectChanges } from '@angular/core/src/render3';
 import { take } from 'rxjs/operators';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-rrhh',
   templateUrl: './rrhh.component.html',
@@ -19,6 +22,8 @@ export class RrhhComponent implements OnInit {
   ModuloUserRRHHEditar = JSON.parse(localStorage.getItem('ModuloUserRRHHEditar',));
   private empleadoCollection: AngularFirestoreCollection<Empleado>;
   empleados: Observable<EmpleadoId[]>;
+  fileList=[]
+
   nuevoEmpleado: Empleado = {
     nombre: '',
     apellidos: '',
@@ -57,7 +62,11 @@ export class RrhhComponent implements OnInit {
   showactivo
   historyEmployee=[]
 
-constructor(private readonly afs: AngularFirestore) {
+constructor(private readonly afs: AngularFirestore,    
+  private afStorage: AngularFireStorage,
+  private spinner: NgxSpinnerService
+
+ ) {
   this.empleadoCollection = afs.collection<Empleado>('empleados');
   this.empleados = this.empleadoCollection.snapshotChanges().pipe(
     map(actions => actions.map(a => {
@@ -308,6 +317,27 @@ showinactivo2(){
   this.ModuloUserRRHHEditar = true;
   this.showactivo = true;
 }
-
+fileSelect(evt) {
+  console.log("carga de archivo")
+  var files = evt.target.files
+  const filePath = 'documents/'+new Date().getTime()+files[0].name
+  var file = files[0]
+  if (file != null) { 
+      if (this.fileList.length < 3) {
+          this.spinner.show();
+          this.afStorage.upload(filePath, file).then(snap=>{
+              snap.ref.getDownloadURL().then(snapshot=>{
+                  let newFile={
+                      name: file.name,
+                      url: snapshot
+                  }
+                  this.fileList.push(newFile)
+                  this.spinner.hide()
+              })
+          })            
+          console.log("files", this.fileList)
+      }
+  }
+}
 
 }
