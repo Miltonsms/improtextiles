@@ -39,19 +39,37 @@
                               <option value="Contado">Contado</option>
                               <option value="Credito">Credito</option>
                           </select>  
-                      </div>                        
-                      <div class="col-md-3">
-                          <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button>
-                      </div>
+                      </div>       
+                      <div class="form-group col-md-3">
+                        <label for="uname">Vendedor:</label>
+                        <input type="text" class="form-control" id="date" name="nuevoFactura.Vendedor" [(ngModel)]="nuevoFactura.Vendedor" required>
+                    </div>                 
                   </div>
                   <hr style="margin-top: 0px !important;"/>
                   <div class="row">
-                      <div class="form-group col-md-3">
+                      <div class="col-md-12">
+                        <form>
+                          <label style="margin-right: 10px;">Tipo de cliente:</label>
+                            <label class="radio-inline" style="margin-right: 7px;">
+                                <b> Industrial </b><input type="radio" name="optradio" checked [value]="true" [(ngModel)]="tipoCliente">
+                              </label>
+                              <label class="radio-inline">
+                                <b>Individual </b><input type="radio" name="optradio"  [(ngModel)]="tipoCliente">
+                              </label>
+                        </form>
+                      </div>
+                      <div class="form-group col-md-3" *ngIf="!tipoCliente">
                           <label for="inputEmail4">Seleccione cliente</label>
                           <select class="form-control" id="exampleFormControlSelect1"  [(ngModel)]="nombreC" (ngModelChange)="DatosClientes($event)"name="sexoEmpleado">
                               <option  *ngFor="let empleado of clientes | async, index as id" value="{{empleado.nombres}},{{empleado.nit}},{{empleado.direccionDomicilio}},{{empleado.movil}}">{{empleado.nombres}}</option>
                             </select>
-                        </div>
+                      </div>
+                      <div class="form-group col-md-3" *ngIf="tipoCliente">
+                          <label for="inputEmail4">Seleccione cliente</label>
+                          <select class="form-control" id="exampleFormControlSelect1"  [(ngModel)]="nombreC" (ngModelChange)="DatosClientes($event)"name="sexoEmpleado">
+                              <option  *ngFor="let empleado of clientesindustrial | async, index as id" value="{{empleado.Entidad}},{{empleado.nit}},{{empleado.Direccion}},{{empleado.movil}}">{{empleado.Entidad}}</option>
+                            </select>
+                      </div>
                         <div class="form-group col-md-3">
                             <label for="uname">NIT:</label>
                             <input type="text" class="form-control" [(ngModel)]="nuevoFactura.NitC" id="nit" name="nitC" >
@@ -73,15 +91,19 @@
                       </div>
                       <div class="form-group col-md-3">
                           <label for="uname">Cantidad:</label>
-                          <input type="text" class="form-control" id="Cantidad" name="Cantidad" [(ngModel)]="Cantidad" required>
+                          <input type="number" min="1" ng-pattern="/^-?[0-9]\d*(\.\d+)?$/"  class="form-control" id="Cantidad" name="Cantidad" [(ngModel)]="Cantidad" required>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="uname">Precio:</label>
-                          <input type="text" class="form-control" id="Precio" name="Precio" [(ngModel)]="Precio" required>
+                          <input type="number" class="form-control" id="Precio" name="Precio" [(ngModel)]="Precio" required>
                       </div>
                       <div class="form-group col-md-3">
-                          <button type="button" class="btn btn-primary" style=" margin-top: 31px;" (click)="agregaroProducto(nombreA,Cantidad,Precio)">Agregar Producto</button>
+                          <button type="button" class="btn btn-primary" style=" margin-top: 31px;margin-right: 15px;" (click)="agregaroProducto(nombreA,Cantidad,Precio)">Agregar Producto</button>
+                          <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button>
                       </div>
+                      <!-- <div class="col-md-3">
+                          <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button>
+                      </div> -->
                   </div>
                   <div class="row">
                     <div class="col-md-12">
@@ -101,9 +123,9 @@
                                     <td>{{id+1}}</td>
                                     <td>{{Producto.Articulo}}</td>
                                     <td>{{Producto.Cantidad}}</td>
-                                    <td>{{Producto.Precio | currency}}</td>
-                                    <td>{{Producto.SubTotal | currency}}</td>
-  
+                                    <td>{{Producto.Precio | currency:'Q ' }}</td>
+                                    <td>{{Producto.SubTotal | currency:'Q ' }}</td>
+                                    <td><button type="button" class="btn btn-danger" (click)="DeleteProduct(id)">Eliminar</button></td>
                                   </tr>
                               </tbody>
                             </table>
@@ -113,7 +135,7 @@
                   <div class="row">
                       <div class="col-md-9"></div>
                       <div class="col-md-2">
-                         <b> Total {{ total | currency:'Q' }} </b>
+                         <b> Total {{ total | currency:'Q ' }} </b>
                       </div>
                   </div>
                  </div>
@@ -146,7 +168,7 @@
                             <th>No.</th>
                             <th>Nombre</th>
                             <th>Producto</th>
-                            <th>Totanl</th>
+                            <th>Total</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -157,7 +179,7 @@
                                 {{facturas.TelenfoC}}
                             </td>
                             <td>
-                                {{facturas.total}}
+                                {{facturas.total | currency:'Q '}}
                             </td>
                             <td > <div class="circulo" [ngStyle]="{'background-color':facturas.Pagofinalizado === true ? '#a8d8a8' : '#ffa6a6' }"></div></td>
                           </tr>
@@ -185,6 +207,9 @@
                        <li class="nav-item">
                          <a class="nav-link" data-toggle="tab" href="#menu1" >productos de la factura</a>
                        </li>
+                       <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu2" >Registro de pago</a>
+                      </li>
                      </ul>
                 </div>
                 <!-- estructura del tab -->
@@ -193,8 +218,15 @@
                    <div class="tab-pane container active" id="home">
                        <div class="card-body">
                            <form style="width: 100%;">
-                               <h4>Datos personales</h4>
-                               <hr style="margin-top: 21px !important;">
+                               <div class="row">
+                                 <div class="col-md-4">
+                                  <h4>Datos personales</h4>
+                                  <hr style="margin-top: 21px !important;">
+                                 </div>
+                                 <div class="col-md-4">
+                                   <b>Vendedor: </b> <b>{{editFactura.Vendedor}}</b>
+                                 </div>
+                               </div>
                                <div class="form-row">
                                  <div class="form-group col-md-6">
                                    <label >Numero de Factura:</label>
@@ -259,19 +291,118 @@
                                         <td>{{id+1}}</td>
                                         <td>{{Producto.Articulo}}</td>
                                         <td>{{Producto.Cantidad}}</td>
-                                        <td>{{Producto.Precio | currency}}</td>
-                                        <td>{{Producto.SubTotal | currency}}</td>
+                                        <td>{{Producto.Precio | currency:'Q '}}</td>
+                                        <td>{{Producto.SubTotal | currency:'Q '}}</td>
                                     </tr>
                                   </tbody>
                                 </table>
                                 <div class="row">
                                     <div class="col-md-9"></div>
                                     <div class="col-md-3">
-                                       <b > Total {{ editFactura.total | currency:'Q' }} </b>
+                                       <b > Total {{ editFactura.total | currency:'Q ' }} </b>
                                     </div>
                                 </div>
                           </div>
                         </div>
+                   </div>
+                   <div class="tab-pane container fade" id="menu2">
+                      <br>
+                     <div class="row">
+                      <div class="col-md-4"> <b>Total a Pagar:</b></div>
+                      <div class="col-md-4"><b>Pago al Dia:</b></div>
+                      <div class="col-md-4"><b>Pago Pendiente:</b></div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>No.</th>
+                                    <th>Fecha</th>
+                                    <th>Monto</th>
+                                    <th>Usuario</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let facturas of facturas | async | filter: query" (click)="verFactura(facturas)" style="cursor:pointer; cursor: hand" >
+                                    <th>{{facturas.numeroF}}</th>
+                                    <td>{{facturas.nombreC}}</td>
+                                    <td>
+                                        {{facturas.TelenfoC}}
+                                    </td>
+                                    <td>
+                                        {{facturas.total | currency:'Q '}}
+                                    </td>
+                                    <td > <div class="circulo" [ngStyle]="{'background-color':facturas.Pagofinalizado === true ? '#a8d8a8' : '#ffa6a6' }"></div></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                    <div class="container" style="margin-bottom: 25px;">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <button type="button" class="btn btn-primary " style="margin-right: 20px;" data-toggle="modal" data-target="#vactionsModal" data-dismiss="modal">Registrar pago</button>
+                          </div>
+                              <!-- popup Pagos de factura -->
+                          <div class="row">
+                              <div class="modal fade bd-example-modal-lg" id="vactionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Pago de Factura</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="row">
+                                            <div class="container">
+                                              <form style="width: 100%;">
+                                                  <!-- <h2>Datos del Empleados</h2>
+                                                  <p>En la siguiente areá podra colocar la informacion de Empleado:</p> -->
+                                                  <hr style="margin-top: 21px !important;">
+                                                  <div class="form-row">
+                                                    <div class="form-group col-md-4">
+                                                      <label for="inputEmail4">Días a descontar:</label>
+                                                      <input type="number" class="form-control" min="1" pattern="^[0-9]+" [(ngModel)]="numberDiscountDays" name="days">
+                                                      <div class="container" *ngIf="numberDiscountDays > totalDays" style="color:red;">
+                                                        *Los dias a descontar no puede ser mayor a los dias disponibles o no pueden ser menores a 0
+                                                      </div>
+                                                      <div class="container" *ngIf="numberDiscountDays == null || numberDiscountDays == 0 || reasonDiscountDays == null ||  reasonDiscountDays == '' || Autorizado ==''" style="color:red;">
+                                                          *Los campos no pueden estar vacios
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputEmail4">Motivo:</label>
+                                                        <input type="text" class="form-control"  [(ngModel)]="reasonDiscountDays" name="reason">
+                                                      <!-- <label for="inputPassword4">Cargo</label>
+                                                      <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoEmpleado.cargo" name="cargoUser"> -->
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                      <label for="inputEmail4">Autorizado Por:</label>
+                                                      <input type="text" class="form-control"  [(ngModel)]="Autorizado" name="Autorizado">
+                                                    <!-- <label for="inputPassword4">Cargo</label>
+                                                    <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoEmpleado.cargo" name="cargoUser"> -->
+                                                  </div>
+                                                  </div>
+                                                
+                                                </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" (click)="discountDays()" data-dismiss="modal">Guardar</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                      </div>
+                    </div>
                    </div>
                  </div>
              </div>

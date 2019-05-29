@@ -5,6 +5,10 @@ import { map } from 'rxjs/operators';
 // clientes
 export interface ClienteIndividual { nombres: string;}
 export interface  ClienteIndividualId extends ClienteIndividual { id: string; }
+//cleinte indistrial
+export interface ClienteIndustrial { nombre:string }
+export interface  ClienteIndustrialId extends ClienteIndustrial { id: string; }
+
 //factura
 export interface Factura {
   numeroF: string;
@@ -16,7 +20,8 @@ export interface Factura {
   Productos:any,
   Pagofinalizado: boolean,
   tipoPago:string,
-  total:number
+  total:number,
+  Vendedor:string
 }
 export interface  FacturaId extends Factura { id: string; }
 @Component({
@@ -25,12 +30,16 @@ export interface  FacturaId extends Factura { id: string; }
   styles: []
 })
 export class FacturacionComponent implements OnInit {
+NombreUsuario = localStorage.getItem('NombreUsuario');
 filtroPago = true;
 facturavista = true;
 historialvista= false;
 //cliente
 private clienteCollection: AngularFirestoreCollection<ClienteIndividual>;
 clientes: Observable<ClienteIndividualId[]>;
+//cliente industrial
+private clienteindustrialCollection: AngularFirestoreCollection<ClienteIndustrial>;
+clientesindustrial: Observable<ClienteIndustrialId[]>;
 //variables para prductos
   Productos=[];
   nombreA = "";
@@ -51,7 +60,8 @@ clientes: Observable<ClienteIndividualId[]>;
     Productos: null,
     Pagofinalizado: null,
     tipoPago: "",
-    total:0
+    total:0,
+    Vendedor: ""
   };
 
   editar = true;
@@ -71,6 +81,15 @@ clientes: Observable<ClienteIndividualId[]>;
         return { id, ...data };
       }))
     );
+    //cliente industrial
+    this.clienteindustrialCollection = afs.collection<ClienteIndustrial>('clienteindus');
+    this.clientesindustrial = this.clienteindustrialCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as ClienteIndustrial;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
     // facturas
     this.facturaCollection = afs.collection<Factura>('factura');
     this.facturas = this.facturaCollection.snapshotChanges().pipe(
@@ -80,10 +99,13 @@ clientes: Observable<ClienteIndividualId[]>;
         return { id, ...data };
       }))
     );
+    
    }
 
   ngOnInit() {
     this.totalFactura();
+    this.nuevoFactura.Vendedor = this.NombreUsuario; 
+
   }
   agregaroProducto(nombreA,Cantidad,Precio){
     var sub = Precio*Cantidad;
@@ -144,7 +166,8 @@ clientes: Observable<ClienteIndividualId[]>;
       Productos: null,
       Pagofinalizado: null,
       tipoPago: "",
-      total:0
+      total:0,
+      Vendedor: ""
     };
     this.Productos=[];
     this.total = 0;
@@ -168,5 +191,9 @@ clientes: Observable<ClienteIndividualId[]>;
     this.editFactura=this.docFactura.valueChanges()
     console.log("edit cliente",this.editFactura);
     this.editar = true;
+  }
+  DeleteProduct(id){
+    this.Productos.splice(id, 1);
+    this.totalFactura();
   }
 }
