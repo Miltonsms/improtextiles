@@ -154,11 +154,12 @@
                               <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoEmpleado.cargo" name="cargoUser"> -->
                             </div>
                             </div>
-                            <div class="row" (change)="fileSelect($event)">
+                            <!-- cargar de arachios -->
+                            <!-- <div class="row" (change)="fileSelect($event)">
 
                                <input type="file" class="form-control-file" id="exampleFormControlFile1" style="margin-top: 0px !important;padding-top: 0px !important;">
                                          
-                              </div>
+                              </div> -->
                            
                           </form>
                     </div>
@@ -166,7 +167,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" (click)="discountDays()" data-dismiss="modal">Guardar</button>
                 </div>
               </div>
             </div>

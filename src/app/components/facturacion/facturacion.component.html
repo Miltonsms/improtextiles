@@ -36,8 +36,8 @@
                       <div class="form-group col-md-3">
                           <label for="uname">Termino:</label>
                           <select class="form-control" id="termino"  [(ngModel)]="nuevoFactura.tipoPago" name="termino">
-                              <option value="Contado">Contado</option>
-                              <option value="Credito">Credito</option>
+                              <option value="contado">Contado</option>
+                              <option value="credito">Credito</option>
                           </select>  
                       </div>       
                       <div class="form-group col-md-3">
@@ -99,7 +99,7 @@
                       </div>
                       <div class="form-group col-md-3">
                           <button type="button" class="btn btn-primary" style=" margin-top: 31px;margin-right: 15px;" (click)="agregaroProducto(nombreA,Cantidad,Precio)">Agregar Producto</button>
-                          <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button>
+                          <!-- <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button> -->
                       </div>
                       <!-- <div class="col-md-3">
                           <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button>
@@ -136,6 +136,9 @@
                       <div class="col-md-9"></div>
                       <div class="col-md-2">
                          <b> Total {{ total | currency:'Q ' }} </b>
+                         <div class="row">
+                          <button type="button" class="btn btn-primary" (click)="addFacturaValidaciones(nuevoFactura)" style="margin-top: 30px;">Guardar Factura</button>
+                         </div>
                       </div>
                   </div>
                  </div>
@@ -344,7 +347,7 @@
                     <div class="container" style="margin-bottom: 25px;">
                       <div class="row">
                           <div class="col-md-6">
-                              <button type="button" class="btn btn-primary " style="margin-right: 20px;" data-toggle="modal" data-target="#vactionsModal" data-dismiss="modal">Registrar pago</button>
+                              <!-- <button type="button" class="btn btn-primary " style="margin-right: 20px;" data-toggle="modal" data-target="#vactionsModal" data-dismiss="modal">Registrar pago</button> -->
                           </div>
                               <!-- popup Pagos de factura -->
                           <div class="row">

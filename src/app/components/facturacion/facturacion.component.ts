@@ -20,6 +20,8 @@ export interface Factura {
   Productos:any,
   Pagofinalizado: boolean,
   tipoPago:string,
+  historialPagos:any,
+  totalParcial:number,
   total:number,
   Vendedor:string
 }
@@ -60,6 +62,8 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
     Productos: null,
     Pagofinalizado: null,
     tipoPago: "",
+    historialPagos:null,
+    totalParcial:0,
     total:0,
     Vendedor: ""
   };
@@ -166,6 +170,8 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
       Productos: null,
       Pagofinalizado: null,
       tipoPago: "",
+      historialPagos:null,
+      totalParcial:0,
       total:0,
       Vendedor: ""
     };
