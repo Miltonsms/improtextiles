@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 import { map } from 'rxjs/operators';
 // clientes
 export interface ClienteIndividual { nombres: string;}
@@ -62,7 +62,7 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
     Productos: null,
     Pagofinalizado: null,
     tipoPago: "",
-    historialPagos:null,
+    historialPagos: [],
     totalParcial:0,
     total:0,
     Vendedor: ""
@@ -75,6 +75,10 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
 
 // cliente
   nombreC: string;
+  // historialPagos
+  fechaPago: Date;
+  montoPago: number;
+  pendiente:number;
   constructor(private readonly afs: AngularFirestore) {
     // cliente
     this.clienteCollection = afs.collection<ClienteIndividual>('cliente');
@@ -170,7 +174,7 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
       Productos: null,
       Pagofinalizado: null,
       tipoPago: "",
-      historialPagos:null,
+      historialPagos:[],
       totalParcial:0,
       total:0,
       Vendedor: ""
@@ -196,10 +200,29 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
     
     this.editFactura=this.docFactura.valueChanges()
     console.log("edit cliente",this.editFactura);
+
     this.editar = true;
+    this.pendiente = factura.total - factura.totalParcial;
   }
   DeleteProduct(id){
     this.Productos.splice(id, 1);
     this.totalFactura();
+  }
+  registrarPagos(fechaPago,montoPago,AutorizadoPago,editFactura){
+    var historialPagos={
+      Fecha: fechaPago,
+      Monto: montoPago,
+      Autorizado: AutorizadoPago,
+    }
+    editFactura.historialPagos.push(historialPagos)
+    editFactura.totalParcial = editFactura.totalParcial + montoPago;
+
+    if(editFactura.totalParcial >= editFactura.total){
+      editFactura.Pagofinalizado = true;
+    }
+    this.docFactura.update(editFactura);
+    this.montoPago = null;
+    console.log(editFactura.historialPagos,editFactura.totalParcial,"calidacion cliente");
+    this.pendiente = editFactura.total - editFactura.totalParcial;
   }
 }

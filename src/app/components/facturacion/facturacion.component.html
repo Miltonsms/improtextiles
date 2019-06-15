@@ -164,7 +164,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive" style="height: 650px;">
                     <table class="table table-striped">
                         <thead>
                           <tr>
@@ -311,9 +311,9 @@
                    <div class="tab-pane container fade" id="menu2">
                       <br>
                      <div class="row">
-                      <div class="col-md-4"> <b>Total a Pagar:</b></div>
-                      <div class="col-md-4"><b>Pago al Dia:</b></div>
-                      <div class="col-md-4"><b>Pago Pendiente:</b></div>
+                      <div class="col-md-4"> <b>Total a Pagar: {{editFactura.total | currency:'Q '}}</b></div>
+                      <div class="col-md-4"><b>Pago al Dia: {{editFactura.totalParcial | currency:'Q '}}</b></div>
+                      <div class="col-md-4"><b>Pago Pendiente:</b> <b [(ngModel)]="pendiente">{{editFactura.total - editFactura.totalParcial | currency:'Q '}}</b></div>
                     </div>
                     <br>
                     <br>
@@ -329,16 +329,13 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr *ngFor="let facturas of facturas | async | filter: query" (click)="verFactura(facturas)" style="cursor:pointer; cursor: hand" >
-                                    <th>{{facturas.numeroF}}</th>
-                                    <td>{{facturas.nombreC}}</td>
+                                  <tr *ngFor="let facturas of editFactura.historialPagos, index as id" style="cursor:pointer; cursor: hand" >
+                                    <td>{{id+1}}</td>
+                                    <th>{{facturas.Fecha}}</th>
+                                    <td>{{facturas.Monto | currency:'Q '}}</td>
                                     <td>
-                                        {{facturas.TelenfoC}}
+                                        {{facturas.Autorizado}}
                                     </td>
-                                    <td>
-                                        {{facturas.total | currency:'Q '}}
-                                    </td>
-                                    <td > <div class="circulo" [ngStyle]="{'background-color':facturas.Pagofinalizado === true ? '#a8d8a8' : '#ffa6a6' }"></div></td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -346,8 +343,8 @@
                     </div>
                     <div class="container" style="margin-bottom: 25px;">
                       <div class="row">
-                          <div class="col-md-6">
-                              <!-- <button type="button" class="btn btn-primary " style="margin-right: 20px;" data-toggle="modal" data-target="#vactionsModal" data-dismiss="modal">Registrar pago</button> -->
+                          <div class="col-md-6" *ngIf="!editFactura.Pagofinalizado">
+                              <button type="button" class="btn btn-primary " style="margin-right: 20px;" data-toggle="modal" data-target="#vactionsModal" data-dismiss="modal">Registrar pago</button>
                           </div>
                               <!-- popup Pagos de factura -->
                           <div class="row">
@@ -369,36 +366,30 @@
                                                   <hr style="margin-top: 21px !important;">
                                                   <div class="form-row">
                                                     <div class="form-group col-md-4">
-                                                      <label for="inputEmail4">Días a descontar:</label>
-                                                      <input type="number" class="form-control" min="1" pattern="^[0-9]+" [(ngModel)]="numberDiscountDays" name="days">
-                                                      <div class="container" *ngIf="numberDiscountDays > totalDays" style="color:red;">
-                                                        *Los dias a descontar no puede ser mayor a los dias disponibles o no pueden ser menores a 0
-                                                      </div>
-                                                      <div class="container" *ngIf="numberDiscountDays == null || numberDiscountDays == 0 || reasonDiscountDays == null ||  reasonDiscountDays == '' || Autorizado ==''" style="color:red;">
-                                                          *Los campos no pueden estar vacios
-                                                      </div>
+                                                      <label for="inputEmail4">Fecha:</label>
+                                                      <input type="date" class="form-control" [(ngModel)]="fechaPago" name="days">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputEmail4">Motivo:</label>
-                                                        <input type="text" class="form-control"  [(ngModel)]="reasonDiscountDays" name="reason">
-                                                      <!-- <label for="inputPassword4">Cargo</label>
-                                                      <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoEmpleado.cargo" name="cargoUser"> -->
+                                                        <label for="inputEmail4">Monto:</label>
+                                                        <input type="number" class="form-control"  [(ngModel)]="montoPago" name="reason">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                       <label for="inputEmail4">Autorizado Por:</label>
-                                                      <input type="text" class="form-control"  [(ngModel)]="Autorizado" name="Autorizado">
-                                                    <!-- <label for="inputPassword4">Cargo</label>
-                                                    <input type="text" class="form-control" id="inputPassword4" placeholder="Cargo" [(ngModel)]="nuevoEmpleado.cargo" name="cargoUser"> -->
+                                                      <input type="text" class="form-control"  [(ngModel)]="NombreUsuario" name="Autorizado">
                                                   </div>
                                                   </div>
-                                                
                                                 </form>
+                                                <div class="row" style="color: red" [ngStyle]="{'display':montoPago > pendiente  ? 'inherit' : 'none' }">
+                                                  El monto a registrar debe de ser menor o igual al monto total. {{pendiente}}
+                                                </div>
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" (click)="discountDays()" data-dismiss="modal">Guardar</button>
+                                      <div  [ngStyle]="{'display':montoPago < 0  ? 'none' : 'inherit' }">
+                                        <div class="modal-footer" [ngStyle]="{'display':montoPago > pendiente  ? 'none' : 'inherit' }">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                          <button type="button" class="btn btn-primary" (click)="registrarPagos(fechaPago,montoPago,NombreUsuario,editFactura)" data-dismiss="modal">Guardar</button>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
