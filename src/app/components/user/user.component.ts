@@ -87,10 +87,10 @@ export class UserComponent implements OnInit {
   nombraCorreo: string;
   editar = true;
   editarUsuario = true;
-
   docUsuario: AngularFirestoreDocument<usuario>;
   editUsuario: Observable<usuario>;
   query: string;
+
   constructor(private readonly afs: AngularFirestore) {
 
     this.empleadoCollection = afs.collection<Empleado>('empleados');

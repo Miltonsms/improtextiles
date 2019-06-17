@@ -20,6 +20,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchPipe } from './search.pipe';
 import { ClienteIndustrialComponent } from './components/cliente-industrial/cliente-industrial.component';
 import { FacturacionComponent } from './components/facturacion/facturacion.component';
+import { InventarioComponent } from './components/inventario/inventario.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { FacturacionComponent } from './components/facturacion/facturacion.compo
     LoginComponent,
     SearchPipe,
     ClienteIndustrialComponent,
-    FacturacionComponent
+    FacturacionComponent,
+    InventarioComponent
   ],
   imports: [
     BrowserModule,

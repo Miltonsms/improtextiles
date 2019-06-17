@@ -379,7 +379,10 @@
                                                   </div>
                                                   </div>
                                                 </form>
-                                                <div class="row" style="color: red" [ngStyle]="{'display':montoPago > pendiente  ? 'inherit' : 'none' }">
+                                                <!-- <div class="row text-center" style="color: red" [ngStyle]="{'display':montoPago < 0  ? 'none' : 'inherit' }">
+                                                  El monto a registrar no debe de ser menor a 0
+                                                </div> -->
+                                                <div class="row text-center" style="color: red" [ngStyle]="{'display':montoPago > pendiente  ? 'inherit' : 'none' }">
                                                   El monto a registrar debe de ser menor o igual al monto total. {{pendiente}}
                                                 </div>
                                           </div>
