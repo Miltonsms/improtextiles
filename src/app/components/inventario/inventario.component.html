@@ -61,7 +61,7 @@
                       <div class="card-header  container">
                         <div class="row">
                           <div class="col-md-4">
-                              <h3 class="h4">Listado de usuarios</h3>
+                              <h3 class="h4">Listado de Grupos</h3>
                           </div>
                           <div class="col-md-8">
                               <form class="form-group">
@@ -125,7 +125,7 @@
                       <div class="card-header  container">
                         <div class="row">
                           <div class="col-md-12">
-                              <h3 class="h4">Información del Usuario</h3>
+                              <h3 class="h4">Información del Grupo</h3>
                           </div>
                         </div>
                       </div>
@@ -353,52 +353,9 @@
                         <div class="tab-pane container fade" id="tap2">
                             <div class="card-body">
                               <div class="row float-right">
-                                <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#registro">Nuevo registro</button>
+                                <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#insumos">Nuevo insumos</button>
                               </div>
-                              <!-- popup creacion de grupo -->
-                              <div class="row">
-                                <div class="modal fade bd-example-modal-lg" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="registroLabel">Registro de insumo</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <div class=" ">
-                                              <form style="width: 100%;">
-                                                  <hr style="margin-top: 21px !important;">
-                                                  <div class="form-row">
-                                                    <div class="form-group col-md-6" >
-                                                      <label for="inputEmail4">Seleccione Proveedor</label>
-                                                      <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="proveedor" name="proveedor2">
-                                                          <option  *ngFor="let proveedor of proveedores2 | async" value="{{proveedor.Entidad}}">{{proveedor.Entidad}}</option>
-                                                      </select>
-                                                    </div>
-                                                    <div class="form-group col-md-6" >
-                                                      <label for="inputEmail4">Fecha de compra:</label>
-                                                      <input type="date" name="fechacompra2" class="form-control" id="inputEmail4" placeholder="Nombre de Grupo" [(ngModel)]="datecompra" >
-                                                    </div>
-                                                  </div>
-                                                  <div class="form-row">
-                                                    <div class="form-group col-md-6" >
-                                                      <label for="inputEmail4">Cantidad:</label>
-                                                      <input type="number" name="cantidad2" class="form-control" id="inputEmail4" placeholder="Nombre de Grupo" [(ngModel)]="cantidad" >
-                                                    </div>
-                                                  </div>               
-                                              </form>
-                                          </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                          <button type="button" class="btn btn-primary" (click)="addProducto(nuevoProducto,editGrupo,proveedor,datecompra,cantidad)" data-dismiss="modal">Guardar Producto</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                              </div>
+
                               <div class="container" style="margin-top: 58px;">
                                 <table class="table table-striped">
                                   <thead>
@@ -426,3 +383,47 @@
       </div>
   </div>
 </div>
+
+<!-- <div class="row">
+    <div class="modal fade bd-example-modal-lg" id="insumos" tabindex="-1" role="dialog" aria-labelledby="insumosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="insumosLabel">insumos de insumo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class=" ">
+                  <form style="width: 100%;">
+                      <hr style="margin-top: 21px !important;">
+                      <div class="form-row">
+                        <div class="form-group col-md-6" >
+                            <label for="inputEmail4">Seleccione Proveedor</label>
+                            <select class="form-control" id="dd" [(ngModel)]="proveedor" name="provee">
+                                <option  *ngFor="let proveedor2 of proveedores | async" value="{{proveedor2.Entidad}}">{{proveedor2.Entidad}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6" >
+                          <label for="inputEmail4">Fecha de compra:</label>
+                          <input type="date" name="fechacompra2" class="form-control" id="inputEmail4" placeholder="Nombre de Grupo" [(ngModel)]="datecompra2" >
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-6" >
+                          <label for="inputEmail4">Cantidad:</label>
+                          <input type="number" name="cantidad2" class="form-control" id="inputEmail4" placeholder="Nombre de Grupo" [(ngModel)]="cantidad2" >
+                        </div>
+                      </div>               
+                  </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" (click)="addProducto(nuevoProducto,editGrupo,proveedor,datecompra,cantidad)" data-dismiss="modal">Guardar Producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div> -->

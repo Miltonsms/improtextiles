@@ -69,6 +69,7 @@ proveedores: Observable<proveedoresId[]>;
   gurpo = [];
   query2: string;
   proveedores2: any;
+  total:number;
   constructor(private readonly afs: AngularFirestore) {
     //grupos
     this.grupoCollection = afs.collection<GrupoInventario>('grupos');
@@ -163,4 +164,13 @@ proveedores: Observable<proveedoresId[]>;
   ButtonEditarCancelar(){
     this.editar = true;
   }
+//   totalFactura(){
+//     //Calculamos el TOTAL 
+//     this.total = this.proveedores.reduce((
+//       acc,
+//       obj,
+//     ) => acc + (obj.total),
+//     0);
+//     console.log("Total: ", this.total)
+// }
 }
