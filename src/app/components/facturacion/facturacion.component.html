@@ -54,7 +54,7 @@
                                 <b> Industrial </b><input type="radio" name="optradio" checked [value]="true" [(ngModel)]="tipoCliente">
                               </label>
                               <label class="radio-inline">
-                                <b>Individual </b><input type="radio" name="optradio"  [(ngModel)]="tipoCliente">
+                                <b>Individual </b><input type="radio" name="optradio2"  [(ngModel)]="tipoCliente">
                               </label>
                         </form>
                       </div>
@@ -66,7 +66,7 @@
                       </div>
                       <div class="form-group col-md-3" *ngIf="tipoCliente">
                           <label for="inputEmail4">Seleccione cliente</label>
-                          <select class="form-control" id="exampleFormControlSelect1"  [(ngModel)]="nombreC" (ngModelChange)="DatosClientes($event)"name="sexoEmpleado">
+                          <select class="form-control" id="exampleFormControlSelect1"  [(ngModel)]="nombreC" (ngModelChange)="DatosClientes($event)"name="sexoEmpleado2">
                               <option  *ngFor="let empleado of clientesindustrial | async, index as id" value="{{empleado.Entidad}},{{empleado.nit}},{{empleado.Direccion}},{{empleado.movil}}">{{empleado.Entidad}}</option>
                             </select>
                       </div>

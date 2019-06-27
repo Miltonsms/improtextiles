@@ -33,8 +33,8 @@
                      <li routerLinkActive="active"><a [routerLink]="['cleinteindustrial']" > <i class="icon-grid"></i>Cliente Institucional</a></li>
                   </ul>
                </li>
-               <!-- *ngIf="ModuloUserProveedoresVer" -->
-               <li routerLinkActive="active" ><a [routerLink]="['facturacion']" > <i class="icon-grid"></i>FACTURACIÒN</a></li>
+               <!-- *ngIf="ModuloUserFacturacionVer" -->
+               <li routerLinkActive="active" *ngIf="ModuloUserFacturacionVer"><a [routerLink]="['facturacion']" > <i class="icon-grid"></i>FACTURACIÒN</a></li>
                <li routerLinkActive="active" ><a [routerLink]="['inventario']" > <i class="icon-grid"></i>INVENTARIO</a></li>
               </ul>
               <!-- <span class="heading">Extras</span> -->

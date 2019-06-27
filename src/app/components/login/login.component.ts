@@ -28,7 +28,12 @@ ModuloUserProveedores:{
   ver:string,
   eliminar:string,
   editar:string
-}
+},
+ModuloUserFacturacion:{
+  ver:string,
+  eliminar:string,
+  editar:string
+  }
 }
 
 export interface usuarioId extends usuario { id: string; }
@@ -64,7 +69,12 @@ export class LoginComponent implements OnInit {
       ver: "true",
       eliminar:"true",
       editar:"true"
-  }
+  },
+    ModuloUserFacturacion:{
+      ver: "true",
+      eliminar:"true",
+      editar:"true"
+      }
     };
 
 
@@ -76,13 +86,13 @@ export class LoginComponent implements OnInit {
   editUsuario: Observable<usuario>;
   
   constructor(private readonly afs: AngularFirestore,public router: Router) {
-
     // usurios
     this.usuarioCollection = afs.collection<usuario>('usuarios');
     this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as usuario;
         const id = a.payload.doc.id;
+        console.log(data,"permisos");
         return { id, ...data };
       }))
     );
@@ -119,10 +129,14 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('ModuloUserClienteVer', data.ModuloUserCliente.ver);
         localStorage.setItem('ModuloUserClienteEliminar', data.ModuloUserCliente.eliminar);
         localStorage.setItem('ModuloUserClienteEditar', data.ModuloUserCliente.editar);
-        // Cliente
+        // Proveedores
         localStorage.setItem('ModuloUserProveedoresVer', data.ModuloUserProveedores.ver);
         localStorage.setItem('ModuloUserProveedoresEliminar', data.ModuloUserProveedores.eliminar);
         localStorage.setItem('ModuloUserProveedoresEditar', data.ModuloUserProveedores.editar);
+        // Proveedores
+        localStorage.setItem('ModuloUserFacturacionVer', data.ModuloUserFacturacion.ver);
+        localStorage.setItem('ModuloUserFacturacionEliminar', data.ModuloUserFacturacion.eliminar);
+        localStorage.setItem('ModuloUserFacturacionEditar', data.ModuloUserFacturacion.editar);
         // nombre de usuario
         localStorage.setItem('NombreUsuario', data.nombre);
         // console.log(localStorage.getItem('ModuloUserRRHHVer'),"loging false");

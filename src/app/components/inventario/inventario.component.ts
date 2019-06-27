@@ -3,7 +3,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TestBed } from '@angular/core/testing';
-
 // inventario
 export interface GrupoInventario { 
   nombre: string,
@@ -66,10 +65,14 @@ proveedores: Observable<proveedoresId[]>;
   vistaproducto = false;
   grupoProductos: string;
   editar = true;
-  gurpo = [];
+  gurpo =[];
+  tatalsuma = 0;
   query2: string;
-  proveedores2: any;
+  proveedores2 =[];
   total:number;
+  sumaTotal:number=0;
+  nuevoInsumoOcultar= false;
+  grupoActual= [];
   constructor(private readonly afs: AngularFirestore) {
     //grupos
     this.grupoCollection = afs.collection<GrupoInventario>('grupos');
@@ -77,8 +80,13 @@ proveedores: Observable<proveedoresId[]>;
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as GrupoInventario;
         const id = a.payload.doc.id;
+        this.gurpo.push(data)
+        this.inventariotatal();
+        console.log(this.gurpo);
         return { id, ...data };
+        
       }))
+      
     );
     //Producctos
     this.productoCollection = afs.collection<Producto>('productos');
@@ -95,12 +103,22 @@ proveedores: Observable<proveedoresId[]>;
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as proveedores;
         const id = a.payload.doc.id;
+        this.proveedores2.push(data)
+        console.log(this.proveedores2,"proveedores");
         return { id, ...data };
       }))
     );
+    
   }
-
   ngOnInit() {
+    
+  }
+  inventariotatal(){
+    this.tatalsuma =0;
+    for (var i = 0; i< this.gurpo.length; i++){
+      this.tatalsuma = this.tatalsuma + this.gurpo[i].total;
+    }
+    console.log(this.tatalsuma ,"tatal");
   }
 //grupo
   addUGrupo(grupo: GrupoInventario) {
@@ -112,16 +130,17 @@ proveedores: Observable<proveedoresId[]>;
     };
   }
   verGrupo(grupo) {
+    this.grupoActual = grupo;
     this.docGrupo = this.afs.doc(`grupos/${grupo.id}`);
     this.editGrupo=this.docGrupo.valueChanges();
     this.grupoProductos = grupo.nombre;
-    this.gurpo = grupo;
     this.query2 = grupo.nombre;
-    this.proveedores2 = this.proveedores;
+
+    console.log(this.tatalsuma, "suma total");
   }
   //producto
   addProducto(producto: Producto ,grupos,proveedor,datecompra,cantidad) {
-    console.log(grupos,"HOLA");
+    this.gurpo = [];
     producto.grupo = this.grupoProductos;
     
     var total = cantidad * producto.preciounit;
@@ -129,6 +148,7 @@ proveedores: Observable<proveedoresId[]>;
     producto.total = total;
     grupos.total = grupos.total + total;
     grupos.totalProductos = grupos.totalProductos + 1;
+
     var hostorial = {
       Fechacompra: datecompra,
       proveedor: proveedor,
@@ -152,11 +172,7 @@ proveedores: Observable<proveedoresId[]>;
     this.docproducto = this.afs.doc(`productos/${producto.id}`);
     this.editProducto=producto;
     this.vistaproducto = true;
-    this.proveedores2 = this.proveedores;
     console.log(this.editProducto,producto);
-  }
-  regresar(){
-    this.vistaproducto = false;
   }
   ButtonEditar(){
     this.editar = false
@@ -164,13 +180,33 @@ proveedores: Observable<proveedoresId[]>;
   ButtonEditarCancelar(){
     this.editar = true;
   }
-//   totalFactura(){
-//     //Calculamos el TOTAL 
-//     this.total = this.proveedores.reduce((
-//       acc,
-//       obj,
-//     ) => acc + (obj.total),
-//     0);
-//     console.log("Total: ", this.total)
-// }
+  nuevosInsumos(){
+    this.nuevoInsumoOcultar = true;
+    console.log(this.proveedores2[0].Entidad,"proveedores2");
+  }
+  guardarInsumos(grupo,editProducto,proveedor2,datecompra22,cantidad22){
+    this.nuevoInsumoOcultar = false;
+    editProducto.Cantidad = editProducto.Cantidad + cantidad22;
+    var total = editProducto.Cantidad * editProducto.preciounit;
+    editProducto.total = total;
+    var total2 = cantidad22 * editProducto.preciounit;
+    grupo.total = grupo.total + total2;
+
+    var hostorial = {
+      Fechacompra: datecompra22,
+      proveedor: proveedor2,
+      cantidad: cantidad22
+    }
+    editProducto.hostorial.push(hostorial)
+    // console.log(grupo.total,"milton");
+    // console.log(grupo);
+    // console.log(editProducto);
+    this.docGrupo.update(grupo);
+    this.docproducto.update(editProducto);
+
+  }
+ cancelarInsumos(){
+    this.nuevoInsumoOcultar = false;
+  }
+
 }

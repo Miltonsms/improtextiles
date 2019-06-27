@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
   ModuloUserVer = JSON.parse(localStorage.getItem('ModuloUserVer'));
   ModuloUserClienteVer = JSON.parse(localStorage.getItem('ModuloUserClienteVer'));
   ModuloUserProveedoresVer = JSON.parse(localStorage.getItem('ModuloUserProveedoresVer'));
+  ModuloUserFacturacionVer = JSON.parse(localStorage.getItem('ModuloUserFacturacionVer'));
   NombreUsuario = localStorage.getItem('NombreUsuario');
   constructor(public router: Router) {
 
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit{
     }else{
       this.router.navigate(['/home']);
     }
+    console.log(this.ModuloUserProveedoresVer,this.ModuloUserFacturacionVer, "permisos");
   }
 
   SignOut() {

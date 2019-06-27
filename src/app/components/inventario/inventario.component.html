@@ -2,20 +2,13 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4"><h2 class="no-margin-bottom">Inventario</h2></div>
-      <div class="col-md-8 text-right"><h2 class="no-margin-bottom">Total costo de inventario</h2></div>
+      <div class="col-md-8 text-right"><h2 class="no-margin-bottom">Total costo de inventario {{tatalsuma | currency:'Q '}}</h2></div>
     </div>
   </div>
 </header>
 
 <div class="row">
-  <div class="container-fluid">
-      <div class="row" style="color: blue; margin-left: 17px;" *ngIf="vistaproducto">
-          <div (click)="regresar()" style="cursor:pointer; cursor: hand;">
-              <p>Regresar</p>
-          </div>
-        </div>
-  </div>
-  <div class="col-md-6 borderight" *ngIf="!vistaproducto">
+  <div class="col-md-6 borderight" >
       <div class="row float-right">
           <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">Nuevo Gruop</button>
       </div>
@@ -47,7 +40,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" (click)="addUGrupo(nuevoGrupo)" data-dismiss="modal">Guardar gurpo</button>
+                    <button type="button" class="btn btn-primary" (click)="addUGrupo(nuevoGrupo)" data-dismiss="modal">Guardar grupo</button>
                   </div>
                 </div>
               </div>
@@ -80,10 +73,10 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let grupos of grupos | async|filter:query" (click)="verGrupo(grupos)" style="cursor:pointer; cursor: hand;">
-                                  <td>{{grupos.nombre}}</td>
-                                  <td>{{grupos.total}}</td>
-                                  <td>{{grupos.totalProductos}}</td>
+                              <tr *ngFor="let grupo of grupos | async|filter:query; let last = last" (click)="verGrupo(grupo)" style="cursor:pointer; cursor: hand;">
+                                  <td>{{grupo.nombre}}</td>
+                                  <td>{{grupo.total | currency:'Q '}}</td>
+                                  <td>{{grupo.totalProductos}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -248,7 +241,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr *ngFor="let producto of productos | async" (click)="verProducto(producto)" style="cursor:pointer; cursor: hand;" >
+                                    <tr *ngFor="let producto of productos | async" (click)="verProducto(producto)" style="cursor:pointer; cursor: hand;" data-toggle="modal" data-target="#editarProducto">
                                         <td *ngIf="producto.grupo == query2" >{{producto.codigo}}</td>
                                         <td *ngIf="producto.grupo == query2">{{producto.descripcion}}</td>
                                         <td *ngIf="producto.grupo == query2">{{producto.Cantidad}}</td>
@@ -265,165 +258,148 @@
           </div>
       </div>
   </div>
-    <!-- informacion de clientes  individual -->
-  <div class="col-md-6" *ngIf="vistaproducto">
-      <!-- <div class="row float-right">
-          <button type="button" class="btn btn-danger" style="margin-right: 20px;"   data-toggle="modal" data-target="#eliminar" >Eliminar Producto</button>
-          <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Producto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                      Esta seguro que desea eliminar este Usuario.
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" (click)="daleteEmpleado(editEmpleado)" data-dismiss="modal">Eliminar</button>
-                  </div>
-                </div>
-              </div>
-          </div>
-      </div> -->
-      <hr style="margin-top: 50px !important;"/>
-      <div class="row">
-          <div class="container">
-              <div class="col-md-12">
-                  <div class="card">
-                      <div class="card-header  container">
-                        <div class="row">
-                          <div class="col-md-12">
-                              <h3 class="h4">Información del Producto</h3>
-                          </div>
-                        </div>
-                      </div>
-                    <!-- tab de navegacion -->
-                    <div class="container" style="margin-top: 29px;">
-                      <ul class="nav nav-tabs">
-                          <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#homeproducto" >Datos del Producto</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tap2" >Listado de ingreso de producto</a>
-                          </li>
-                        </ul>
-                    </div>
-                      <!-- estructura del tab -->
-                      <div class="tab-content">
-                      <!-- informacion personarl empleado -->
-                        <div class="tab-pane container active" id="homeproducto">
-                            <div class="card-body">
-                            <form style="width: 100%;">
-                              <h4>Datos del Producto</h4>
-                              <hr style="margin-top: 21px !important;">
-                              <div class="form-row">
-                                  <div class="form-group col-md-4">
-                                  <label >codigo</label>
-                                  <input type="number" class="form-control" id="inputPassword4"  [(ngModel)]="editProducto.codigo" name="codigo" [disabled]="editar">
-                                  </div>
-                                  <div class="form-group col-md-4">
-                                    <label >Descripción</label>
-                                    <input type="text" class="form-control" id="inputPassword5"  [(ngModel)]="editProducto.descripcion" name="descrip" [disabled]="editar">
-                                  </div>
-                                  <div class="form-group col-md-4">
-                                      <label >Precio Unitario</label>
-                                      <input type="number" class="form-control" id="inputPassword5"  [(ngModel)]="editProducto.preciounit" name="prec" [disabled]="editar">
-                                  </div>
-                                  <div class="form-group col-md-4">
-                                    <label >Cantidad</label>
-                                    <input type="number" class="form-control" id="inputPassword4"  [(ngModel)]="editProducto.Cantidad" name="cantidad" [disabled]="editar">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                      <label >Total</label>
-                                      <input type="number" class="form-control" id="inputPassword5"  [(ngModel)]="editProducto.total" name="total" [disabled]="editar">
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- <div class="row">
-                              <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" >Editar Grupo</button>
-                              <button type="button" class="btn btn-danger" style="margin-right: 20px;"   (click)="setGrupo()" >Cancelar</button>
-                            </div> -->
-                            </div>
-                        </div>
-                        <!-- informacion laboral -->
-                        <div class="tab-pane container fade" id="tap2">
-                            <div class="card-body">
-                              <div class="row float-right">
-                                <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#insumos">Nuevo insumos</button>
-                              </div>
-
-                              <div class="container" style="margin-top: 58px;">
-                                <table class="table table-striped">
-                                  <thead>
-                                    <tr>
-                                      <th>Fecha</th>
-                                      <th>Proveedor:</th>
-                                      <th>Cantidad</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let producto of editProducto.hostorial"  style="cursor:pointer; cursor: hand;">
-                                        <td>{{producto.Fechacompra}}</td>
-                                        <td>{{producto.proveedor}}</td>
-                                        <td>{{producto.cantidad}}</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-          </div>
-      </div>
-  </div>
 </div>
 
-<!-- <div class="row">
-    <div class="modal fade bd-example-modal-lg" id="insumos" tabindex="-1" role="dialog" aria-labelledby="insumosLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="insumosLabel">insumos de insumo</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class=" ">
-                  <form style="width: 100%;">
-                      <hr style="margin-top: 21px !important;">
-                      <div class="form-row">
-                        <div class="form-group col-md-6" >
-                            <label for="inputEmail4">Seleccione Proveedor</label>
-                            <select class="form-control" id="dd" [(ngModel)]="proveedor" name="provee">
-                                <option  *ngFor="let proveedor2 of proveedores | async" value="{{proveedor2.Entidad}}">{{proveedor2.Entidad}}</option>
-                            </select>
+
+
+
+  <!-- The Modal -->
+  <div class="modal fullscreen-modal fade"  id="editarProducto" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">  </h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="col-md-12" *ngIf="vistaproducto">
+              <div class="row">
+                  <div class="container">
+                      <div class="col-md-12">
+                          <div class="card">
+                              <div class="card-header  container">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                      <h3 class="h4">Información del Producto</h3>
+                                  </div>
+                                </div>
+                              </div>
+                            <!-- tab de navegacion -->
+                            <div class="container" style="margin-top: 29px;">
+                              <ul class="nav nav-tabs">
+                                  <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#homeproducto" >Datos del Producto</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tap2" >Listado de ingreso de producto</a>
+                                  </li>
+                                </ul>
+                            </div>
+                              <!-- estructura del tab -->
+                              <div class="tab-content">
+                              <!-- informacion personarl empleado -->
+                                <div class="tab-pane container active" id="homeproducto">
+                                    <div class="card-body">
+                                    <form style="width: 100%;">
+                                      <h4>Datos del Producto</h4>
+                                      <hr style="margin-top: 21px !important;">
+                                      <div class="form-row">
+                                          <div class="form-group col-md-4">
+                                          <label >codigo</label>
+                                          <input type="number" class="form-control" id="inputPassword4"  [(ngModel)]="editProducto.codigo" name="codigo" [disabled]="editar">
+                                          </div>
+                                          <div class="form-group col-md-4">
+                                            <label >Descripción</label>
+                                            <input type="text" class="form-control" id="inputPassword5"  [(ngModel)]="editProducto.descripcion" name="descrip" [disabled]="editar">
+                                          </div>
+                                          <div class="form-group col-md-4">
+                                              <label >Precio Unitario</label>
+                                              <input type="number" class="form-control" id="inputPassword5"  [(ngModel)]="editProducto.preciounit" name="prec" [disabled]="editar">
+                                          </div>
+                                          <div class="form-group col-md-4">
+                                            <label >Cantidad</label>
+                                            <input type="number" class="form-control" id="inputPassword4"  [(ngModel)]="editProducto.Cantidad" name="cantidad" [disabled]="editar">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                              <label >Total</label>
+                                              <input type="number" class="form-control" id="inputPassword5"  [(ngModel)]="editProducto.total" name="total" [disabled]="editar">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- <div class="row">
+                                      <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()" >Editar Grupo</button>
+                                      <button type="button" class="btn btn-danger" style="margin-right: 20px;"   (click)="setGrupo()" >Cancelar</button>
+                                    </div> -->
+                                    </div>
+                                </div>
+                                <!-- informacion laboral -->
+                                <div class="tab-pane container fade" id="tap2">
+                                    <div class="card-body">
+                                      <div class="container" *ngIf="nuevoInsumoOcultar">
+                                          <div class="row">
+                                              <form style="width: 100%;">
+                                                  <div class="form-row">
+                                                    <div class="form-group col-md-4" >
+                                                        <label >Seleccione Proveedor</label>
+                                                        <select class="form-control" id="exemple2" [(ngModel)]="proveedor2" name="proveedor2">
+                                                            <option  *ngFor="let proveedor of proveedores2" value="{{proveedor.Entidad}}">{{proveedor.Entidad}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4" >
+                                                      <label >Fecha de compra:</label>
+                                                      <input type="date" name="gg" class="form-control" id="inputEmai16l43" placeholder="Nombre de Grupo" [(ngModel)]="datecompra22" >
+                                                    </div>
+                                                    <div class="form-group col-md-4" >
+                                                        <label >Cantidad:</label>
+                                                        <input type="number" name="dd" class="form-control" id="inputEmail914" placeholder="Nombre de Grupo" [(ngModel)]="cantidad22" >
+                                                      </div>
+                                                  </div>             
+                                              </form>
+                                          </div>
+                                      </div>
+                                      <div class="row float-right">
+                                        <button type="button" class="btn btn-primary " (click)="nuevosInsumos()" *ngIf="!nuevoInsumoOcultar">Nuevos insumos</button>
+                                        <button type="button" class="btn btn-primary " (click)="guardarInsumos(grupoActual,editProducto,proveedor2,datecompra22,cantidad22)" *ngIf="nuevoInsumoOcultar" style="margin-right: 20px;">Guardar insumos</button>
+                                        <button type="button" class="btn btn-primary " (click)="cancelarInsumos()" *ngIf="nuevoInsumoOcultar">Cancelar</button>
+                                      </div>
+        
+                                      <div class="container" style="margin-top: 58px;">
+                                        <table class="table table-striped">
+                                          <thead>
+                                            <tr>
+                                              <th>Fecha</th>
+                                              <th>Proveedor:</th>
+                                              <th>Cantidad</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr *ngFor="let producto of editProducto.hostorial"  style="cursor:pointer; cursor: hand;">
+                                                <td>{{producto.Fechacompra}}</td>
+                                                <td>{{producto.proveedor}}</td>
+                                                <td>{{producto.cantidad}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
                         </div>
-                        <div class="form-group col-md-6" >
-                          <label for="inputEmail4">Fecha de compra:</label>
-                          <input type="date" name="fechacompra2" class="form-control" id="inputEmail4" placeholder="Nombre de Grupo" [(ngModel)]="datecompra2" >
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-6" >
-                          <label for="inputEmail4">Cantidad:</label>
-                          <input type="number" name="cantidad2" class="form-control" id="inputEmail4" placeholder="Nombre de Grupo" [(ngModel)]="cantidad2" >
-                        </div>
-                      </div>               
-                  </form>
+                  </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" (click)="addProducto(nuevoProducto,editGrupo,proveedor,datecompra,cantidad)" data-dismiss="modal">Guardar Producto</button>
-            </div>
           </div>
         </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
       </div>
-  </div> -->
+    </div>
+  </div>

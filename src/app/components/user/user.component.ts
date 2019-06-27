@@ -34,7 +34,12 @@ export interface usuario {
       ver:string,
       eliminar:string,
       editar:string
-  }
+  },
+  ModuloUserFacturacion:{
+    ver:string,
+    eliminar:string,
+    editar:string
+    }
     }
 
 export interface usuarioId extends usuario { id: string; }
@@ -57,29 +62,34 @@ export class UserComponent implements OnInit {
     private usuarioCollection: AngularFirestoreCollection<usuario>;
     usuarios: Observable<usuarioId[]>;
     nuevoUsuario: usuario = {
-        nombre: ' ',
-        correo:' ',
-        password:' ',
+        nombre:"",
+        correo:"",
+        password: "",
         ModuloUserRRHH:{
-            ver: "true",
-            eliminar:"true",
-            editar:"true"
+            ver: " ",
+            eliminar:" ",
+            editar:" "
         },
         ModuloUser:{
-          ver: "true",
-          eliminar:"true",
-          editar:"true"
+          ver: " ",
+          eliminar:" ",
+          editar:" "
       },
       ModuloUserCliente:{
-        ver: "true",
-        eliminar:"true",
-        editar:"true"
+        ver: " ",
+        eliminar:" ",
+        editar:" "
     },
     ModuloUserProveedores:{
-      ver: "true",
-      eliminar:"true",
-      editar:"true"
-  }
+      ver: " ",
+      eliminar:" ",
+      editar:" "
+  },
+  ModuloUserFacturacion:{
+        ver: " ",
+        eliminar:" ",
+        editar:" "
+    }
     };
 
 
@@ -108,6 +118,7 @@ export class UserComponent implements OnInit {
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as usuario;
         const id = a.payload.doc.id;
+        console.log(data,this.ModuloUserEditar,"milton")
         return { id, ...data };
       }))
     );
@@ -115,14 +126,6 @@ export class UserComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as usuario;
-        const id = a.payload.doc.id;
-        console.log(data)
-        return { id, ...data };
-      }))
-    );
   }
 
   verUsuario(usuario) {
@@ -139,25 +142,30 @@ export class UserComponent implements OnInit {
         correo:' ',
         password:' ',
         ModuloUserRRHH:{
-            ver: "true",
-            eliminar:"true",
-            editar:"true"
+            ver: "false",
+            eliminar:"false",
+            editar:"false"
         },
         ModuloUser:{
-          ver: "true",
-          eliminar:"true",
-          editar:"true"
+          ver: "false",
+          eliminar:"false",
+          editar:"false"
       },
       ModuloUserCliente:{
-        ver: "true",
-        eliminar:"true",
-        editar:"true"
+        ver: "false",
+        eliminar:"false",
+        editar:"false"
     },
       ModuloUserProveedores:{
-        ver: "true",
-        eliminar:"true",
-        editar:"true"
-    }
+        ver: "false",
+        eliminar:"false",
+        editar:"false"
+    },
+    ModuloUserFacturacion:{
+      ver: "false",
+      eliminar:"false",
+      editar:"false"
+  }
     };
   }
 
