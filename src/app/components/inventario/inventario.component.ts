@@ -80,9 +80,11 @@ proveedores: Observable<proveedoresId[]>;
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as GrupoInventario;
         const id = a.payload.doc.id;
+
         this.gurpo.push(data)
         this.inventariotatal();
         console.log(this.gurpo);
+
         return { id, ...data };
         
       }))
@@ -114,10 +116,14 @@ proveedores: Observable<proveedoresId[]>;
     
   }
   inventariotatal(){
+        //grupos
+    // this.gurpo =[];
     this.tatalsuma =0;
     for (var i = 0; i< this.gurpo.length; i++){
       this.tatalsuma = this.tatalsuma + this.gurpo[i].total;
+      // this.gurpo =[];
     }
+    
     // console.log(this.tatalsuma ,"tatal");
   }
 //grupo
@@ -168,14 +174,15 @@ proveedores: Observable<proveedoresId[]>;
       total:0,
       hostorial:[]
     };
-    this.inventariotatal();
     this.grupoActual = grupos;
+    this.inventariotatal();
   }
   verProducto(producto) {
     this.docproducto = this.afs.doc(`productos/${producto.id}`);
     this.editProducto=producto;
     this.vistaproducto = true;
     console.log(this.editProducto,producto);
+    this.inventariotatal();
   }
   ButtonEditar(){
     this.editar = false
@@ -188,6 +195,7 @@ proveedores: Observable<proveedoresId[]>;
     this.inventariotatal();
   }
   guardarInsumos(grupo,editProducto,proveedor2,datecompra22,cantidad22){
+    this.gurpo =[];
     this.nuevoInsumoOcultar = false;
     editProducto.Cantidad = editProducto.Cantidad + cantidad22;
     var total = editProducto.Cantidad * editProducto.preciounit;
@@ -213,5 +221,4 @@ proveedores: Observable<proveedoresId[]>;
  cancelarInsumos(){
     this.nuevoInsumoOcultar = false;
   }
-
 }
