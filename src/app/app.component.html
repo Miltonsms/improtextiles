@@ -10,7 +10,7 @@
 </nav>
 <div class="container-fluid" style="margin-top: 50px" *ngIf="login !=true">
   <div class="row">
-      <nav class="col-md-2 nenu side-navbar" style="height: -webkit-fill-available;">
+      <nav class="col-md-1 nenu side-navbar" style="height: -webkit-fill-available; min-height: 95vh;">
           <!-- < class="side-navbar "> -->
               <!-- Sidebar Header-->
               <div class="sidebar-header d-flex align-items-center">
@@ -34,7 +34,7 @@
                   </ul>
                </li>
                <!-- *ngIf="ModuloUserFacturacionVer" -->
-               <li routerLinkActive="active" *ngIf="ModuloUserFacturacionVer"><a [routerLink]="['facturacion']" > <i class="icon-grid"></i>FACTURACIÒN</a></li>
+               <li routerLinkActive="active" ><a [routerLink]="['facturacion']" > <i class="icon-grid"></i>FACTURACIÒN</a></li>
                <li routerLinkActive="active" ><a [routerLink]="['inventario']" > <i class="icon-grid"></i>INVENTARIO</a></li>
               </ul>
               <!-- <span class="heading">Extras</span> -->
