@@ -23,7 +23,9 @@ export interface Factura {
   historialPagos:any,
   totalParcial:number,
   total:number,
-  Vendedor:string
+  Vendedor:string,
+  departamento:any
+  TipoEmpresa:string,
 }
 export interface  FacturaId extends Factura { id: string; }
 @Component({
@@ -65,7 +67,9 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
     historialPagos: [],
     totalParcial:0,
     total:0,
-    Vendedor: ""
+    Vendedor: "",
+    departamento:null,
+    TipoEmpresa:""
   };
 
   editar = true;
@@ -79,6 +83,8 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
   fechaPago: Date;
   montoPago: number;
   pendiente:number;
+  departametos=[]
+  SeleccionDepartameto=false
   constructor(private readonly afs: AngularFirestore) {
     // cliente
     this.clienteCollection = afs.collection<ClienteIndividual>('cliente');
@@ -135,13 +141,22 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
   DatosClientes(even){
     // this.nombreC =even.split(",", 1);;
     var campos = even.split(",");
-    var ultima = campos[campos.length - 1];
     this.nuevoFactura.nombreC = campos[campos.length - 4];
     this.nuevoFactura.NitC = campos[campos.length - 3];
     this.nuevoFactura.DireccionC =campos[campos.length - 2];
     this.nuevoFactura.TelenfoC =campos[campos.length - 1];
-    console.log(even,"milton",ultima);
-
+  }
+  DatosClientesIndustrial(even){
+    this.nuevoFactura.nombreC = even.Entidad;
+    this.nuevoFactura.NitC = even.nit;
+    this.nuevoFactura.DireccionC =even.Direccion;
+    this.nuevoFactura.TelenfoC =even.pbx;
+    this.departametos=even.Departamentos
+    this.SeleccionDepartameto=true
+    console.log(this.departametos)
+  }
+  addDepartamento(even){
+    this.nuevoFactura.departamento=even
   }
   totalFactura(){
         //Calculamos el TOTAL 
@@ -177,7 +192,9 @@ clientesindustrial: Observable<ClienteIndustrialId[]>;
       historialPagos:[],
       totalParcial:0,
       total:0,
-      Vendedor: ""
+      Vendedor: "",
+      departamento:null,
+      TipoEmpresa:""
     };
     this.Productos=[];
     this.total = 0;

@@ -26,16 +26,16 @@
                 <li routerLinkActive="active"  *ngIf="ModuloUserRRHHVer" ><a [routerLink]="['rrhh']" > <i class="icon-grid"></i>RRHH </a></li>
                 <!-- <li routerLinkActive="active"  *ngIf="ModuloUserClienteVer" ><a [routerLink]="['clients']" > <i class="icon-grid"></i>CLIENTES </a></li> -->
                 <li routerLinkActive="active"  *ngIf="ModuloUserProveedoresVer" ><a [routerLink]="['providers']" > <i class="icon-grid"></i>PROVEEDORES </a></li>
-                <li routerLinkActive="active">
-                <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" *ngIf="ModuloUserClienteVer" > <i class="icon-interface-windows"></i>CLIENTES</a>
-                  <ul id="exampledropdownDropdown" class="list-unstyled collapse show" *ngIf="ModuloUserClienteVer">
+                <li routerLinkActive="active" *ngIf="ModuloUserClienteVer">
+                <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>CLIENTES</a>
+                  <ul id="exampledropdownDropdown" class="list-unstyled collapse show">
                      <li routerLinkActive="active"><a [routerLink]="['clients']" > <i class="icon-grid"></i>Cliente Individual</a></li>
                      <li routerLinkActive="active"><a [routerLink]="['cleinteindustrial']" > <i class="icon-grid"></i>Cliente Institucional</a></li>
                   </ul>
                </li>
                <!-- *ngIf="ModuloUserFacturacionVer" -->
-               <li routerLinkActive="active" ><a [routerLink]="['facturacion']" > <i class="icon-grid"></i>FACTURACIÒN</a></li>
-               <li routerLinkActive="active" ><a [routerLink]="['inventario']" > <i class="icon-grid"></i>INVENTARIO</a></li>
+               <li routerLinkActive="active" *ngIf="ModuloUserFacturacionVer"><a [routerLink]="['facturacion']" > <i class="icon-grid"></i>FACTURACIÒN</a></li>
+               <!-- <li routerLinkActive="active" ><a [routerLink]="['inventario']" > <i class="icon-grid"></i>INVENTARIO</a></li> -->
               </ul>
               <!-- <span class="heading">Extras</span> -->
               <!-- <ul class="list-unstyled">

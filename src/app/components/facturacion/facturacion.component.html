@@ -27,7 +27,7 @@
               <div class="row">
                 <div class="form-group col-md-3">
                   <label for="uname">Numero de factura:</label>
-                  <input type="number" class="form-control" id="numero" name="nuevoFactura.numeroF"
+                  <input type="text" class="form-control" id="numero" name="nuevoFactura.numeroF"
                     [(ngModel)]="nuevoFactura.numeroF" required>
                 </div>
                 <div class="form-group col-md-3">
@@ -74,10 +74,20 @@
                 <div class="form-group col-md-3" *ngIf="tipoCliente">
                   <label for="inputEmail4">Seleccione cliente</label>
                   <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="nombreC"
-                    (ngModelChange)="DatosClientes($event)" name="sexoEmpleado2">
-                    <option *ngFor="let empleado of clientesindustrial | async, index as id"
-                      value="{{empleado.Entidad}},{{empleado.nit}},{{empleado.Direccion}},{{empleado.movil}}">
+                    (ngModelChange)="DatosClientesIndustrial($event)" name="clientesindustrial">
+                    <option *ngFor="let empleado of clientesindustrial | async, index as id" [ngValue]="empleado">
                       {{empleado.Entidad}}</option>
+                    <!-- [ngValue]="empleado" -->
+                    <!-- value="{{empleado.Entidad}},{{empleado.nit}},{{empleado.Direccion}},{{empleado.movil}}" -->
+                  </select>
+                </div>
+                <div class="form-group col-md-3" *ngIf="tipoCliente">
+                  <label for="inputEmail6">Seleccione Departameto</label>
+                  <select class="form-control" id="Departamento1" [(ngModel)]="DepartamentoC"
+                    (ngModelChange)="addDepartamento($event)" name="Departamento">
+                    <option>...</option>
+                    <option *ngFor="let item of departametos" [ngValue]="item">
+                      {{item.NombreDepartamento}}</option>
                   </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -93,6 +103,17 @@
                   <label for="uname">Telefono:</label>
                   <input type="text" class="form-control" [(ngModel)]="nuevoFactura.TelenfoC" id="telefono"
                     name="uname">
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="inputEmail4">Tipo de empresa :</label>
+                  <select class="form-control" id="exampleFormControlSelect1"
+                    [(ngModel)]="nuevoFactura.TipoEmpresa" name="sexoEmpleado">
+                    <option value="IMPRO">IMPRO</option>
+                    <option value="FERRETERIA BELLAR">FERRETERIA BELLAR</option>
+                    <option value="IMPRO-SERVICIOS">IMPRO-SERVICIOS</option>
+                    <option value="DISTRIBUIDORA RODA">DISTRIBUIDORA RODA</option>
+                    <option value="IMPROTEXTILESSA">IMPROTEXTILESSA</option>
+                  </select>
                 </div>
               </div>
               <hr style="margin-top: 0px !important;" />
@@ -278,6 +299,9 @@
                 <a class="nav-link active" data-toggle="tab" href="#home">Datos de la factura</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#DatosContacto">Datos de Contacto</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#menu1">productos de la factura</a>
               </li>
               <li class="nav-item">
@@ -299,6 +323,9 @@
                     <div class="col-md-4">
                       <b>Vendedor: </b> <b>{{editFactura.Vendedor}}</b>
                     </div>
+                    <div class="col-md-4">
+                      <b>Fecha de registro: </b> <b>{{editFactura.dateRegistro}}</b>
+                    </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
@@ -307,8 +334,8 @@
                         name="numerof" [disabled]="editar">
                     </div>
                     <div class="form-group col-md-6">
-                      <label>Fecha de registro:</label>
-                      <input type="text" class="form-control" id="inputEma2" [(ngModel)]="editFactura.dateRegistro"
+                      <label>Tipo Empresa:</label>
+                      <input type="text" class="form-control" id="inputEma2" [(ngModel)]="editFactura.TipoEmpresa"
                         name="fechaF" [disabled]="editar">
                     </div>
                   </div>
@@ -351,6 +378,62 @@
                 </form>
               </div>
             </div>
+            <!-- informacion de contacto -->
+            <div class="tab-pane container" id="DatosContacto">
+              <div class="card-body">
+                <form style="width: 100%;">
+                  <div class="row">
+                    <div class="col">
+                      <h5>Información de contacto</h5>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Nombre de Departamento:</label>
+                      <input type="text" name="newClientObservations" class="form-control" id="inputEmail4"
+                        placeholder="Nombre de departamento" disabled
+                        [(ngModel)]="editFactura.departamento.NombreDepartamento">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Nombre de Contacto:</label>
+                      <input type="text" name="newClientObservations" class="form-control" id="inputEmail4"
+                        placeholder="Nombre de Contacto" disabled [(ngModel)]="editFactura.departamento.Contacto">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Correo electrónico:</label>
+                      <input type="text" name="newClientAddress" class="form-control" id="inputEmail5"
+                        placeholder="Correo electronico" disabled [(ngModel)]="editFactura.departamento.email">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Numero Móvil:</label>
+                      <input type="text" name="newClientCivilStatus" class="form-control" id="inputPassword5"
+                        placeholder="Numero Movil" disabled [(ngModel)]="editFactura.departamento.movil">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Extensión:</label>
+                      <input type="text" name="newClientCellphone" class="form-control" id="inputEmail4"
+                        placeholder="Extension:" disabled [(ngModel)]="editFactura.departamento.Extension">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Dirección:</label>
+                      <input type="text" name="newClientBirthdate" class="form-control" id="inputEmail4"
+                        placeholder="Direccion" disabled [(ngModel)]="editFactura.departamento.DireccionDepartemeto">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Observaciones:</label>
+                      <input type="text" name="newClientObservations" class="form-control" id="inputEmail4"
+                        placeholder="Observaciones" disabled [(ngModel)]="editFactura.departamento.Observaciones">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
             <!-- informacion laboral -->
             <div class="tab-pane container fade" id="menu1">
               <div class="card-body">
@@ -386,6 +469,7 @@
                 </div>
               </div>
             </div>
+            <!-- registro de lugar -->
             <div class="tab-pane container fade" id="menu2">
               <br>
               <div class="row">

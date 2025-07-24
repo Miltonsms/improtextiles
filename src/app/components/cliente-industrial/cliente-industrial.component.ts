@@ -31,7 +31,7 @@ export class ClienteIndustrialComponent implements OnInit {
   //variables para permisos 
   ModuloUserClienteEliminar = JSON.parse(localStorage.getItem('ModuloUserClienteEliminar'));
   ModuloUserClienteEditar = JSON.parse(localStorage.getItem('ModuloUserClienteEditar',));
-  
+  ButtonNuevoDepartamento=false
   private clienteindustrialCollection: AngularFirestoreCollection<ClienteIndustrial>;
   clientes: Observable<ClienteIndustrialId[]>;
   
@@ -159,5 +159,12 @@ export class ClienteIndustrialComponent implements OnInit {
     this.edit_cliente.Departamentos[this.idDepartamento].Observaciones=this.departamentoItem.Observaciones
 
     this.docCliente.update(this.edit_cliente);
+  }
+  CambioDepartamento(item){
+    if(item===1){
+      this.ButtonNuevoDepartamento=true
+    }else{
+      this.ButtonNuevoDepartamento=false
+    }
   }
 }

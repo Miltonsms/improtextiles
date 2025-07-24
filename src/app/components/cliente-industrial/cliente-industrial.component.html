@@ -116,7 +116,7 @@
                     <!-- <button type="button" class="btn btn-primary " style="margin-right: 20px;" (click)="ButtonEditar()"
                       *ngIf="ModuloUserClienteEditar">Editar Cliente</button> -->
                     <button type="button" class="btn btn-primary" style="margin-right: 20px;" data-toggle="modal"
-                      data-target="#CreacionDepartamento">Agregar Departamento</button>
+                      data-target="#CreacionDepartamento" *ngIf="ButtonNuevoDepartamento">Agregar Departamento</button>
                     <button type="button" class="btn btn-danger" style="margin-right: 20px;" data-toggle="modal"
                       data-target="#eliminar" *ngIf="ModuloUserClienteEliminar">Eliminar Cliente</button>
                   </div>
@@ -127,9 +127,9 @@
               <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                    aria-controls="nav-home" aria-selected="true">Datos Entidad</a>
+                    aria-controls="nav-home" aria-selected="true" (click)="CambioDepartamento(0)">Datos Entidad</a>
                   <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                    aria-controls="nav-profile" aria-selected="false">Departamentos</a>
+                    aria-controls="nav-profile" aria-selected="false" (click)="CambioDepartamento(1)">Departamentos</a>
                 </div>
               </nav>
               <div class="tab-content" id="nav-tabContent">
